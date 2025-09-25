@@ -1,0 +1,400 @@
+/*!
+Theme Name: DavisDisputes
+Theme URI: https://adaconsulting.ca/
+Author: Anna Sarah of ADA Consulting
+Author URI: https://adaconsulting.ca/
+Description: Custom WordPress theme inspired by the Pheromone layout, developed for Davis Dispute Advisory.
+Version: 1.0.0
+License: Proprietary
+Text Domain: davisdisputes
+*/
+
+/* ============================================================ */
+/* =============== GLOBAL RESETS & BASE STYLES =============== */
+/* ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  background: #fff;
+}
+/* Added padding-top to push content below the fixed header */
+body {
+  padding-top: 100px; /* Adjust this value to match your header's height */
+}
+
+main {
+  flex-grow: 1;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  font-family: "avenir-lt-pro", sans-serif;
+  color: #0a0466;
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
+
+p {
+  margin: 0 0 1.5rem;
+}
+
+/* Links */
+a {
+  color: #0050a0;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #003377;
+}
+
+/* ============================================================ */
+/* ====================== HEADER STYLES ======================= */
+/* ============================================================ */
+
+/* --- Default Header State (Always Blue) --- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: #0a0466; 
+  padding: 1.5rem 5%;
+  transition: background-color 0.4s ease, padding 0.4s ease;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.branding {
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+}
+
+/* MODIFIED: Slogan and Menu links are now correctly white by default */
+.site-slogan,
+.main-navigation a {
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.site-slogan {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* --- Header state change on MOUSE HOVER --- */
+.site-header:hover {
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* MODIFIED: Menu links turn blue on hover */
+.site-header:hover .main-navigation a {
+    color: #0a0466;
+}
+
+/* --- Slogan/Logo swapping logic now uses :hover --- */
+.text-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  line-height: 1.1;
+}
+
+.text-logo-main {
+  font-family: "didot-lt-pro-headline", serif;
+  font-size: 2.5rem;
+  font-weight: normal;
+  color: #0a0466;
+}
+
+.text-logo-sub {
+  font-family: "avenir-lt-pro", sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  color: #0a0466;
+  margin-top: 4px;
+}
+
+/* By default, show the slogan and hide the text logo */
+.site-header .site-slogan {
+  display: block;
+}
+.site-header .text-logo {
+  display: none;
+}
+
+/* On hover, hide the slogan and show the text logo */
+.site-header:hover .site-slogan {
+  display: none;
+}
+.site-header:hover .text-logo {
+  display: flex;
+}
+
+/* Hide the old site-title element completely */
+.site-title,
+.site-header .custom-logo {
+    display: none !important;
+}
+
+
+/* ============================================================ */
+/* ===================== NAVIGATION MENU ====================== */
+/* ============================================================ */
+
+.main-navigation {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.main-navigation a:hover {
+  text-decoration: underline;
+}
+
+/* MODIFIED: Desktop menu is visible by default */
+.main-navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 2rem;
+}
+
+.main-navigation li {
+  position: relative;
+}
+
+.main-navigation ul ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 0;
+  min-width: 200px;
+}
+
+.main-navigation li:hover > ul {
+  display: block;
+}
+
+.main-navigation ul ul li {
+    width: 100%;
+}
+
+.main-navigation ul ul li a {
+  color: #0a0466 !important;
+  display: block;
+  padding: 10px 15px;
+}
+
+/* MODIFIED: Hamburger button is hidden on desktop by default */
+.mobile-nav-toggle {
+  display: none;
+}
+/* ============================================================ */
+/* ======================= HERO SECTION ======================= */
+/* ============================================================ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  margin-top: 3vh
+}
+
+.hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+   /* Add a min-height to ensure it's not too small if the image is short */
+  min-height: 50vh; 
+  object-fit: cover; /* Ensures the image covers the area, similar to background-size */
+
+}
+
+ .hero-content {
+  position: absolute;
+  bottom: 4vh;
+  left: 3vw;
+  z-index: 2;
+  color: #0a0466;
+  max-width: 90%;
+  text-align: left;
+  line-height: 1.2;
+} 
+
+
+.hero-content h1 {
+  font-family: "didot-lt-pro-headline", serif;
+  font-size: 9vw;
+  font-weight: normal;
+  margin: 0;
+  line-height: 1;
+}
+
+.hero-content p {
+  font-family: "avenir-lt-pro", sans-serif;
+  font-size: 2.5vw;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+  color: #0a0466;
+}
+
+
+.btn-primary {
+  display: inline-block;
+  background: #00aaff;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 4px;
+}
+
+/* ============================================================ */
+/* ========================== FOOTER ========================== */
+/* ============================================================ */
+
+.site-footer {
+  padding: 2rem;
+  text-align: center;
+  background: #0a0466;
+  font-size: 0.875rem;
+  color: #fff;
+}
+
+/* ============================================================ */
+/* ======================== RESPONSIVE ======================== */
+/* ============================================================ */
+
+/* MODIFIED: Consolidated all mobile styles into a single media query */
+@media (max-width: 768px) {
+  body {
+    padding-top: 80px;
+  }
+
+  /* MODIFIED: This entire block is updated for the final mobile fix */
+  .hero {
+    /* The container no longer needs a height, it will wrap the image */
+  }
+  
+  .hero-img {
+    margin-top: 4vh;
+    min-height: auto; /* Let the image's own height be used */
+    object-fit: contain; /* This prevents cropping and removes the white space */
+  }
+
+  .hero-content {
+    top: 1vh;
+    bottom: 0.5vh;
+    left: 5vw;
+    right: 5vw;
+    width: auto; /* Let the text content determine its own width */
+  }
+
+  .hero-content h1 {
+    font-size: 16vw;
+  }
+
+  .hero-content p {
+    font-size: 4.5vw;
+    letter-spacing: 0.5px;
+  }
+  
+  .site-header .container {
+    flex-wrap: nowrap;
+  }
+
+  /* Show hamburger button on mobile */
+  .mobile-nav-toggle {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+  }
+
+  .mobile-nav-toggle .line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .site-header:hover .mobile-nav-toggle .line {
+    background-color: #0a0466;
+  }
+
+  .mobile-nav-toggle[aria-expanded="true"] .line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .mobile-nav-toggle[aria-expanded="true"] .line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-nav-toggle[aria-expanded="true"] .line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* Hide desktop menu and show mobile menu when toggled */
+  .main-navigation ul {
+    display: none;
+  }
+
+  .main-navigation.toggled ul {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    width: 100%;
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .main-navigation.toggled ul a {
+    display: block;
+    padding: 15px 20px;
+    color: #0a0466 !important;
+  }
+}
+
+/* Custom styles for the styled horizontal line */
+.wp-block-separator.styled-hr,
+.styled-hr hr {
+  margin-top: -2vh;
+  margin-bottom: 4rem;
+  border: none;
+  border-top: 6px solid #0a0466;
+  width: 90%;
+  max-width: 1300px;
+  background-color: transparent;
+  box-shadow: 0 5px 10px -3px rgba(10, 4, 102, 0.25);
+  margin-left: auto;
+  margin-right: auto;
+}
