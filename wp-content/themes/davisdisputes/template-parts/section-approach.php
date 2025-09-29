@@ -4,7 +4,7 @@
  * Uses existing theme variables and typography.
  */
 ?>
-<section class="experience-section" id="our-approach" style="padding: 60px 0; background: var(--white);">
+<section class="experience-section" id="our-approach" style="padding: 40px 0 80px 0; background: var(--white);">
   <div class="section-container">
     <div class="section-header" style="text-align: center;">
       <h2 class="section-title" style="color: var(--primary-navy);">Our approach</h2>

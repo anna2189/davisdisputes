@@ -4,7 +4,7 @@
  * Reuses existing theme styles and color system.
  */
 ?>
-<section class="services-section" id="what-we-offer" style="padding: 32px 0; background: var(--light-bg);">
+<section class="services-section" id="what-we-offer" style="padding: 60px 0; background: var(--light-bg);">
   <div class="section-container">
     <div class="section-header">
       <h2 class="section-title" style="color: var(--primary-navy);">What we offer</h2>
