@@ -10,8 +10,8 @@
       <h2 class="section-title" style="color: var(--primary-navy);">Our approach</h2>
     </div>
 
-    <div style="max-width: 900px; margin: 0 auto; text-align:left;">
-      <p class="section-subtitle" style="font-weight:700; margin-bottom:1rem;">
+    <div style="max-width: 900px; margin: 0 auto; text-align:center;">
+      <p class="section-subtitle" style="font-weight:700; color: var(--primary-navy); margin: 0.25rem 0 0.25rem;">
         Bespoke. Cost-conscious. Independent.
       </p>
       <p class="hero-description" style="color: var(--secondary-navy); margin: 0 auto;">

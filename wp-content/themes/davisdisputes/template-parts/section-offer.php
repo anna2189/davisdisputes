@@ -10,7 +10,7 @@
       <h2 class="section-title" style="color: var(--primary-navy);">What we offer</h2>
     </div>
 
-    <p class="section-subtitle" style="font-weight:700; text-align:center; color: var(--primary-navy); margin: 0.5rem 0 0.5rem;">
+    <p class="section-subtitle" style="font-weight:700; text-align:center; color: var(--primary-navy); margin: 0.25rem 0 0.25rem;">
       Clarity. Strategy. Recovery.
     </p>
 
