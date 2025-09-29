@@ -693,10 +693,12 @@ p {
         padding: 0 1rem;
     }
     
-    .main-navigation,
     .tagline,
     .header-cta {
         display: none;
+    }
+    .main-navigation {
+        display: block;
     }
     
     .mobile-menu-toggle {
@@ -738,5 +740,22 @@ p {
         width: 100%;
         text-align: left;
         border-bottom: 1px solid var(--border-light);
+    }
+
+    /* Ensure solid white background when nav is open on mobile */
+    body.nav-open .site-header {
+        background: #ffffff !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    body.nav-open .main-navigation {
+        background: #ffffff !important;
+    }
+    body.nav-open .main-navigation.toggled ul {
+        background: #ffffff !important;
+    }
+    body.nav-open .main-navigation a {
+        color: var(--secondary-navy) !important;
     }
 }

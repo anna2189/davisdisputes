@@ -7,7 +7,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '2.0.1' ); // Increment version to force cache bust
+	define( '_S_VERSION', '2.0.0' );
 }
 
 /**
@@ -180,7 +180,8 @@ function davisdisputes_footer_menu_script() {
     </script>
     <?php
 }
-add_action('wp_footer', 'davisdisputes_footer_menu_script', 99);
+/* Disabled inline footer toggle script; now handled in js/custom.js */
+// add_action('wp_footer', 'davisdisputes_footer_menu_script', 99);
 
 /**
  * Custom Post Types for Services and Case Studies

@@ -326,6 +326,11 @@ a:hover {
     flex-wrap: nowrap;
   }
 
+  /* Ensure nav anchors absolute submenu positioning */
+  .main-navigation {
+    position: relative;
+  }
+
   /* Show hamburger button on mobile */
   .mobile-nav-toggle {
     display: block;
@@ -363,19 +368,29 @@ a:hover {
 
   /* Hide desktop menu and show mobile menu when toggled */
   .main-navigation ul {
-    display: none;
+    display: none !important;
+  }
+
+  /* Fixed full-width panel for open mobile menu */
+  .main-navigation.toggled {
+    position: fixed;
+    top: 80px; /* matches mobile header spacing */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1002;
+    background-color: #ffffff !important; /* solid white, non-transparent */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
   }
 
   .main-navigation.toggled ul {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
+    position: static; /* inherit from fixed parent */
     width: 100%;
     padding: 1rem 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: transparent !important; /* container supplies white background */
     text-align: center;
   }
 
@@ -384,12 +399,32 @@ a:hover {
     padding: 15px 20px;
     color: #0a0466 !important;
   }
+
+  /* Force solid white background when mobile nav is open */
+  body.nav-open .site-header {
+    background-color: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  body.nav-open .site-header .main-navigation {
+    background-color: #ffffff !important;
+  }
+  body.nav-open .site-header .main-navigation.toggled ul {
+    background-color: #ffffff !important;
+  }
+  body.nav-open .site-header .main-navigation a {
+    color: #0a0466 !important;
+  }
+  body.nav-open .site-header .mobile-nav-toggle .line {
+    background-color: #0a0466 !important;
+  }
 }
 
 /* Custom styles for the styled horizontal line */
 .wp-block-separator.styled-hr,
 .styled-hr hr {
-  margin-top: -2vh;
+  margin-top: 4vh;
   margin-bottom: 4rem;
   border: none;
   border-top: 6px solid #0a0466;

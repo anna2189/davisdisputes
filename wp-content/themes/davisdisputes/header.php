@@ -18,7 +18,7 @@
       </a>
     </div>
 
-    <button class="mobile-nav-toggle" aria-controls="primary-menu" aria-expanded="false">
+    <button class="mobile-nav-toggle" type="button" aria-controls="primary-menu" aria-expanded="false">
       <span class="line"></span>
       <span class="line"></span>
       <span class="line"></span>
@@ -27,9 +27,11 @@
     <nav class="main-navigation" id="primary-menu">
       <?php
         wp_nav_menu( array(
-          'theme_location' => 'menu-1',
+          'theme_location' => 'primary',
           'menu_class'     => '',
-          'container'      => false
+          'container'      => false,
+          'fallback_cb'    => 'wp_page_menu',
+          'depth'          => 2
         ) );
       ?>
     </nav>
