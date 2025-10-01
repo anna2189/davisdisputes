@@ -14,7 +14,7 @@ if ( ! $hero_image_url ) {
 
 <section class="hero hero-section">
   <?php if ( $hero_image_url ) : ?>
-    <img class="hero-img" src="<?php echo esc_url( $hero_image_url ); ?>" alt="">
+    <img class="hero-img" src="<?php echo esc_url( $hero_image_url ); ?>" alt="Davis Dispute Advisory">
   <?php endif; ?>
   
   <div class="overlay"></div>

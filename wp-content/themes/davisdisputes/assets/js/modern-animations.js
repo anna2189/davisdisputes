@@ -82,13 +82,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Gentle fade-out of the hero as the user scrolls, to make it disappear more slowly
     if (document.querySelector('.hero')) {
         gsap.to('.hero', {
-            opacity: 0.2,
+            opacity: 0, // Changed to 0 to make it disappear completely
             ease: 'none',
             scrollTrigger: {
                 trigger: '.hero',
                 start: 'top top',
                 end: 'bottom top',
-                scrub: 1
+                scrub: 5 // Increased scrub value further for a much slower, complete parallax fade-out
             }
         });
     }

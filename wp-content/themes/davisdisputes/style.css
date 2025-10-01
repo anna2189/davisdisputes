@@ -226,7 +226,7 @@ a:hover {
   height: auto;
   display: block;
    /* Add a min-height to ensure it's not too small if the image is short */
-  min-height: 50vh; 
+  min-height: 20vh; 
   object-fit: cover; /* Ensures the image covers the area, similar to background-size */
 
 }

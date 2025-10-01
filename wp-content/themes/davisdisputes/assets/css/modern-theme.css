@@ -5,7 +5,7 @@
 
 :root {
     --primary-navy: #0a0466;
-    --secondary-navy: #1e293b;
+    --secondary-navy: #080357;
     --accent-red: #DC143C;
     --text-gray: #64748b;
     --light-bg: #f8fafc;
@@ -366,6 +366,10 @@ p {
 .section-subtitle {
     font-size: 1.25rem;
     color: var(--text-gray);
+}
+
+.approach-content {
+    text-align: left;
 }
 
 /* Services Grid */
