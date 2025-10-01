@@ -341,7 +341,7 @@ p {
 .services-section,
 .experience-section,
 .team-section {
-    padding: 100px 0;
+    padding: 0;
 }
 
 .experience-section {
@@ -710,7 +710,7 @@ p {
     
     .hero-section {
         min-height: auto;
-        padding: 4rem 0;
+        padding: 0;
     }
     
     .hero-visual {
