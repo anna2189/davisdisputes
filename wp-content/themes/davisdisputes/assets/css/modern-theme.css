@@ -221,18 +221,18 @@ p {
 
 /* Hero Section Styles */
 .hero-section {
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
+    /* Removed min-height and flex properties to allow content to define height */
+    height: auto; /* Let content define height */
+    display: block; /* Remove flexbox behavior */
     position: relative;
-    background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
+    background: none; /* Removed background to reveal underlying content */
     overflow: hidden;
 }
 
 .hero-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 0; /* Removed padding to prevent extra space */
     position: relative;
     z-index: 2;
 }
@@ -287,13 +287,13 @@ p {
 
 /* Hero Visual Animation */
 .hero-visual {
-    position: absolute;
-    right: -100px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 600px;
-    height: 600px;
-    opacity: 0.1;
+    position: relative; /* Make it part of the document flow */
+    width: 100%; /* Make it responsive */
+    height: auto; /* Let content define height */
+    top: auto; /* Remove absolute positioning */
+    left: auto; /* Remove absolute positioning */
+    transform: none; /* Remove transform */
+    opacity: 1; /* Set opacity to 1 to make it fully visible */
 }
 
 .globe-animation {
