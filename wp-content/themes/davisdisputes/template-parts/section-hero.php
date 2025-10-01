@@ -16,7 +16,9 @@ if ( ! $hero_image_url ) {
   <?php if ( $hero_image_url ) : ?>
     <img class="hero-img" src="<?php echo esc_url( $hero_image_url ); ?>" alt="Davis Dispute Advisory">
   <?php endif; ?>
-  
+  <p class="section-subtitle" style="font-weight:700; text-align:center; color: var(--primary-navy); margin: 3rem 0 0.5rem;">
+    Davis Dispute Advisory helps companies, sovereigns, law firms, and litigation funders unlock value from high-stakes disputes.
+    </p>
   <div class="overlay"></div>
   <div class="hero-content">
 
