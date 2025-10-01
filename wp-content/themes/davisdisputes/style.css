@@ -25,10 +25,6 @@ html, body {
   color: #333;
   background: #fff;
 }
-/* Added padding-top to push content below the fixed header */
-body {
-  padding-top: 100px; /* Adjust this value to match your header's height */
-}
 
 main {
   flex-grow: 1;
@@ -290,10 +286,6 @@ a:hover {
 
 /* MODIFIED: Consolidated all mobile styles into a single media query */
 @media (max-width: 768px) {
-  body {
-    padding-top: 80px;
-  }
-
   /* MODIFIED: This entire block is updated for the final mobile fix */
   .hero {
     /* The container no longer needs a height, it will wrap the image */

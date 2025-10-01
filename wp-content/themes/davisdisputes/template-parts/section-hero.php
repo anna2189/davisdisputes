@@ -12,28 +12,13 @@ if ( ! $hero_image_url ) {
 }
 ?>
 
-<section class="hero">
+<section class="hero hero-section">
   <?php if ( $hero_image_url ) : ?>
     <img class="hero-img" src="<?php echo esc_url( $hero_image_url ); ?>" alt="">
   <?php endif; ?>
   
   <div class="overlay"></div>
   <div class="hero-content">
-
-    <?php
-    // MODIFIED: Only display the H1 and P tags if we are on the homepage.
-    if ( is_front_page() ) : 
-    ?>
-      <h1 data-aos="fade-up">
-        <?php echo esc_html( get_theme_mod( 'hero_heading', 'DAVIS' ) ); ?>
-      </h1>
-
-      <p data-aos="fade-up" data-aos-delay="200">
-        <?php echo esc_html( get_theme_mod( 'hero_subheading', 'DISPUTE RESOLUTION' ) ); ?>
-      </p>
-    <?php 
-    endif; // End of the homepage-only check.
-    ?>
 
     <?php
     // The "Call to Action" button will still appear on all pages that use this template.
