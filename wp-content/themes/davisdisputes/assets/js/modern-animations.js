@@ -350,89 +350,105 @@ document.addEventListener('DOMContentLoaded', function() {
     // ====================================
     // Mobile Menu Toggle
     // ====================================
-    const mobileToggle = document.querySelector('.mobile-menu-toggle');
-    const navigation = document.querySelector('.main-navigation');
-    let menuOpen = false;
-    
-    if (mobileToggle && navigation) {
-        mobileToggle.addEventListener('click', function() {
-            menuOpen = !menuOpen;
-            
-            if (menuOpen) {
-                // Create mobile menu if it doesn't exist
-                if (!document.querySelector('.mobile-menu')) {
-                    const mobileMenu = document.createElement('div');
-                    mobileMenu.className = 'mobile-menu';
-                    mobileMenu.innerHTML = navigation.innerHTML;
-                    document.body.appendChild(mobileMenu);
+    const mainMobileToggle = document.querySelector('.mobile-menu-toggle:not(.footer-mobile-toggle)');
+    const mainNavigation = document.querySelector('.main-navigation:not(.footer-navigation)');
+    const footerMobileToggle = document.querySelector('.footer-mobile-toggle');
+    const footerNavigation = document.querySelector('.footer-navigation');
+
+    let mainMenuOpen = false;
+    let footerMenuOpen = false;
+
+    function setupMenuToggle(toggleButton, navigationElement, menuOpenState, isFooter = false) {
+        if (toggleButton && navigationElement) {
+            toggleButton.addEventListener('click', function() {
+                if (isFooter) {
+                    footerMenuOpen = !footerMenuOpen;
+                    menuOpenState = footerMenuOpen;
+                } else {
+                    mainMenuOpen = !mainMenuOpen;
+                    menuOpenState = mainMenuOpen;
                 }
-                
-                // Animate menu appearance
-                gsap.fromTo('.mobile-menu',
-                    {
-                        x: '100%',
-                        opacity: 0
-                    },
-                    {
-                        x: 0,
-                        opacity: 1,
-                        duration: 0.3,
-                        ease: 'power2.out'
+
+                if (menuOpenState) {
+                    // Create mobile menu if it doesn't exist
+                    let mobileMenu = document.querySelector(isFooter ? '.mobile-footer-menu' : '.mobile-main-menu');
+                    if (!mobileMenu) {
+                        mobileMenu = document.createElement('div');
+                        mobileMenu.className = isFooter ? 'mobile-menu mobile-footer-menu' : 'mobile-menu mobile-main-menu';
+                        mobileMenu.innerHTML = navigationElement.innerHTML;
+                        document.body.appendChild(mobileMenu);
                     }
-                );
-                
-                // Animate hamburger to X
-                const toggleChildren = mobileToggle.children;
-                if (toggleChildren.length >= 3) {
-                    gsap.to(toggleChildren[0], {
-                        rotation: 45,
-                        y: 7,
-                        duration: 0.3
-                    });
-                    gsap.to(toggleChildren[1], {
-                        opacity: 0,
-                        duration: 0.3
-                    });
-                    gsap.to(toggleChildren[2], {
-                        rotation: -45,
-                        y: -7,
-                        duration: 0.3
-                    });
-                }
-            } else {
-                // Animate menu disappearance
-                gsap.to('.mobile-menu', {
-                    x: '100%',
-                    opacity: 0,
-                    duration: 0.3,
-                    ease: 'power2.in',
-                    onComplete: () => {
-                        const menu = document.querySelector('.mobile-menu');
-                        if (menu) menu.remove();
+                    
+                    // Animate menu appearance
+                    gsap.fromTo(mobileMenu,
+                        {
+                            x: '100%',
+                            opacity: 0
+                        },
+                        {
+                            x: 0,
+                            opacity: 1,
+                            duration: 0.3,
+                            ease: 'power2.out'
+                        }
+                    );
+                    
+                    // Animate hamburger to X
+                    const toggleChildren = toggleButton.children;
+                    if (toggleChildren.length >= 3) {
+                        gsap.to(toggleChildren[0], {
+                            rotation: 45,
+                            y: 7,
+                            duration: 0.3
+                        });
+                        gsap.to(toggleChildren[1], {
+                            opacity: 0,
+                            duration: 0.3
+                        });
+                        gsap.to(toggleChildren[2], {
+                            rotation: -45,
+                            y: -7,
+                            duration: 0.3
+                        });
                     }
-                });
-                
-                // Animate X back to hamburger
-                const toggleChildren = mobileToggle.children;
-                if (toggleChildren.length >= 3) {
-                    gsap.to(toggleChildren[0], {
-                        rotation: 0,
-                        y: 0,
-                        duration: 0.3
-                    });
-                    gsap.to(toggleChildren[1], {
-                        opacity: 1,
-                        duration: 0.3
-                    });
-                    gsap.to(toggleChildren[2], {
-                        rotation: 0,
-                        y: 0,
-                        duration: 0.3
-                    });
+                } else {
+                    // Animate menu disappearance
+                    const mobileMenu = document.querySelector(isFooter ? '.mobile-footer-menu' : '.mobile-main-menu');
+                    if (mobileMenu) {
+                        gsap.to(mobileMenu, {
+                            x: '100%',
+                            opacity: 0,
+                            duration: 0.3,
+                            ease: 'power2.in',
+                            onComplete: () => mobileMenu.remove()
+                        });
+                    }
+                    
+                    // Animate X back to hamburger
+                    const toggleChildren = toggleButton.children;
+                    if (toggleChildren.length >= 3) {
+                        gsap.to(toggleChildren[0], {
+                            rotation: 0,
+                            y: 0,
+                            duration: 0.3
+                        });
+                        gsap.to(toggleChildren[1], {
+                            opacity: 1,
+                            duration: 0.3
+                        });
+                        gsap.to(toggleChildren[2], {
+                            rotation: 0,
+                            y: 0,
+                            duration: 0.3
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     }
+
+    setupMenuToggle(mainMobileToggle, mainNavigation, mainMenuOpen);
+    setupMenuToggle(footerMobileToggle, footerNavigation, footerMenuOpen, true);
     
     // ====================================
     // Smooth Scroll for Anchor Links
@@ -453,9 +469,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         behavior: 'smooth'
                     });
                     
-                    // Close mobile menu if open
-                    if (menuOpen && window.innerWidth <= 768) {
-                        mobileToggle.click();
+                    // Close mobile menus if open
+                    if (mainMenuOpen && window.innerWidth <= 768) {
+                        mainMobileToggle.click();
+                    }
+                    if (footerMenuOpen && window.innerWidth <= 768) {
+                        footerMobileToggle.click();
                     }
                 }
             }
