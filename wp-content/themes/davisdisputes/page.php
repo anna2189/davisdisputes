@@ -15,24 +15,33 @@
 get_header();
 ?>
 
+	<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+		<section class="page-hero">
+			<div class="container">
+				<h1 class="page-title"><?php the_title(); ?></h1>
+			</div>
+			<?php if ( has_post_thumbnail() ) : ?>
+				<div class="page-hero-media">
+					<?php the_post_thumbnail( 'full', array( 'class' => 'page-hero-image' ) ); ?>
+				</div>
+			<?php endif; ?>
+		</section>
+		<?php break; endwhile; endif; // Prime loop for hero and rewind ?>
+
+	<?php rewind_posts(); ?>
+
 	<main id="primary" class="site-main">
+		<div class="container">
+			<?php
+			while ( have_posts() ) :
+				the_post();
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
+				get_template_part( 'template-parts/content', 'page' );
 
-			get_template_part( 'template-parts/content', 'page' );
-
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
-
-		endwhile; // End of the loop.
-		?>
-
+			endwhile; // End of the loop.
+			?>
+		</div>
 	</main><!-- #main -->
 
 <?php
-get_sidebar();
 get_footer();
