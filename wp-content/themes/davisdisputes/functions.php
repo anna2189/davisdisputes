@@ -54,6 +54,15 @@ function davisdisputes_setup() {
 		'header-text' => true,
 		'wp-head-callback' => 'davisdisputes_header_style'
 	]);
+
+	// Add block editor support
+	add_theme_support( 'wp-block-styles' );
+	add_theme_support( 'editor-styles' );
+	add_theme_support( 'align-wide' );
+	add_theme_support( 'responsive-embeds' );
+	
+	// Add support for custom units in block editor
+	add_theme_support( 'custom-units', array( 'rem', 'em', 'px', '%', 'vh', 'vw' ) );
 }
 add_action( 'after_setup_theme', 'davisdisputes_setup' );
 
@@ -382,3 +391,26 @@ function davisdisputes_clean_cookie_warnings() {
     }
 }
 add_action('init', 'davisdisputes_clean_cookie_warnings');
+
+/**
+ * Add custom separator width controls
+ */
+function davisdisputes_separator_width_support() {
+    // Add support for custom separator width
+    add_theme_support( 'custom-separator-width' );
+}
+add_action( 'after_setup_theme', 'davisdisputes_separator_width_support' );
+
+/**
+ * Enqueue block editor assets for separator width controls
+ */
+function davisdisputes_block_editor_assets() {
+    wp_enqueue_script(
+        'davisdisputes-separator-controls',
+        get_template_directory_uri() . '/js/separator-controls.js',
+        array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post' ),
+        filemtime( get_template_directory() . '/js/separator-controls.js' ),
+        true
+    );
+}
+add_action( 'enqueue_block_editor_assets', 'davisdisputes_block_editor_assets' );

@@ -809,3 +809,30 @@ p {
         display: none;
     }
 }
+
+/* Separator Block Width Controls */
+.wp-block-separator {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wp-block-separator.has-custom-width {
+    width: var(--wp--custom--separator--width, 100%);
+}
+
+/* Support for width controls in rem and percentage */
+.wp-block-separator[style*="width"] {
+    width: var(--wp--custom--separator--width, 100%) !important;
+}
+
+/* Frontend separator width support */
+.wp-block-separator[data-width] {
+    width: attr(data-width) !important;
+}
+
+/* Ensure separators with custom width are centered */
+.wp-block-separator:not(.alignwide):not(.alignfull) {
+    margin-left: auto;
+    margin-right: auto;
+}
