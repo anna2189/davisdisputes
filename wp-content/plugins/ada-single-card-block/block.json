@@ -1,0 +1,62 @@
+{
+  "apiVersion": 3,
+  "name": "ada/single-card",
+  "title": "Single Card",
+  "category": "design",
+  "icon": "index-card",
+  "description": "A modern card with title, paragraph, and optional button. Adjustable width so you can place 2\u20133 cards in a row.",
+  "supports": {
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "color": {
+      "text": true,
+      "background": true,
+      "link": true
+    },
+    "align": [
+      "wide",
+      "full"
+    ],
+    "layout": {
+      "allowSwitching": true
+    }
+  },
+  "attributes": {
+    "badge": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Card title"
+    },
+    "body": {
+      "type": "string",
+      "source": "html",
+      "selector": "p",
+      "default": "Replace this with your paragraph."
+    },
+    "ctaText": {
+      "type": "string",
+      "default": ""
+    },
+    "ctaUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "cardWidth": {
+      "type": "string",
+      "default": "auto"
+    },
+    "customWidth": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./style.css",
+  "editorStyle": "file:./editor.css"
+}
