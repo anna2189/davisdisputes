@@ -262,10 +262,16 @@ a:hover {
 
 .btn-primary {
   display: inline-block;
-  background: #00aaff;
+  background: #0a0466;
   color: #fff;
   padding: 12px 24px;
   border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #00aaff;
+  color: #fff;
 }
 
 /* ============================================================ */

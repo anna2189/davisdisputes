@@ -4,7 +4,7 @@
   "title": "Single Card",
   "category": "design",
   "icon": "index-card",
-  "description": "A modern card with title, paragraph, and optional button. Adjustable width so you can place 2\u20133 cards in a row.",
+  "description": "A modern card container that can hold any WordPress blocks. Adjustable width so you can place 2–3 cards in a row.",
   "supports": {
     "html": false,
     "spacing": {
@@ -26,24 +26,6 @@
   },
   "attributes": {
     "badge": {
-      "type": "string",
-      "default": ""
-    },
-    "title": {
-      "type": "string",
-      "default": "Card title"
-    },
-    "body": {
-      "type": "string",
-      "source": "html",
-      "selector": "p",
-      "default": "Replace this with your paragraph."
-    },
-    "ctaText": {
-      "type": "string",
-      "default": ""
-    },
-    "ctaUrl": {
       "type": "string",
       "default": ""
     },

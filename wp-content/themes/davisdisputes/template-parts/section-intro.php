@@ -18,6 +18,9 @@ We deliver independent, bespoke strategies that transform legal rights into reco
 Through this trusted global network, we assemble tailored teams for each case, ensuring that clients receive exactly the expertise that they need, all guided by a single strategic vision.
 
       </p>
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="/about" class="btn-primary">Learn More About Us</a>
+      </div>
     </div>
   </div>
 </section>
