@@ -26,7 +26,7 @@ if ($news_posts->have_posts()) :
 ?>
 <section class="news-section">
     <div class="section-container">
-        <h2 class="news-title">News</h2>
+        <h2 class="news-title">Our News</h2>
         <div class="news-grid">
             <?php while ($news_posts->have_posts()) : $news_posts->the_post(); ?>
                 <article class="news-item">

@@ -18,6 +18,11 @@
         <h3 class="service-title" style="color: var(--primary-navy);">Enforcement Strategy</h3>
        
       </article>
+      <article class="service-card">
+        <div class="service-icon">◆</div>
+        <h3 class="service-title" style="color: var(--primary-navy);">Litigation Finance Consulting</h3>
+        
+      </article>
 
       <article class="service-card">
         <div class="service-icon">◆</div>
@@ -25,11 +30,7 @@
        
       </article>
 
-      <article class="service-card">
-        <div class="service-icon">◆</div>
-        <h3 class="service-title" style="color: var(--primary-navy);">Litigation & Arbitration Funding Consulting</h3>
-        
-      </article>
+     
     </div>
 
     
