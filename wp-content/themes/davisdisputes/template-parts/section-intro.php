@@ -19,7 +19,7 @@ Through this trusted global network, we assemble tailored teams for each case, e
 
       </p>
       <div style="text-align: center; margin-top: 2rem;">
-        <a href="/about" class="btn-primary">Learn More About Us</a>
+        <a href="/about" class="btn-primary">About Us</a>
       </div>
     </div>
   </div>
