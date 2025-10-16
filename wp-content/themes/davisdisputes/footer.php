@@ -13,7 +13,7 @@
           'container'      => false,
           'menu_id'        => 'footer-menu',
           'menu_class'     => 'footer-links',
-          'depth'          => 1,
+          'depth'          => 0,
         ] );
         ?>
       </nav>
