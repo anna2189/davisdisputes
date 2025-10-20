@@ -517,8 +517,11 @@ body.single-post blockquote {
 }
 
 .footer-menu > li {
-  position: relative;
+  position: static !important;
   color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
 .footer-menu > li > a {
@@ -531,45 +534,48 @@ body.single-post blockquote {
   text-decoration: underline; 
 }
 
-/* Services parent with submenu displayed inline */
-.footer-menu .menu-item-has-children {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-/* Hide the default dropdown behavior */
-.footer-menu .sub-menu {
+/* Force submenu to display inline */
+.footer-menu .sub-menu,
+.footer-menu ul.sub-menu {
   position: static !important;
   display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
   gap: 30px;
   min-width: auto;
-  padding: 0;
-  background: none;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   list-style: none;
-  margin: 0;
+  transform: none !important;
+  top: auto !important;
+  left: auto !important;
+  bottom: auto !important;
 }
 
 .footer-menu .sub-menu li {
   position: relative;
   margin: 0;
   padding: 0;
+  display: block;
 }
 
 .footer-menu .sub-menu a {
   color: #ffffff !important;
   text-decoration: none;
   font-size: 14px;
-  padding: 0;
+  padding: 0 !important;
   display: inline;
   white-space: nowrap;
+  background: none !important;
 }
 
 .footer-menu .sub-menu a:hover {
   text-decoration: underline;
+  background: none !important;
 }
 
 /* Separators between submenu items */
