@@ -505,7 +505,11 @@ body.single-post blockquote {
   padding: 2rem;
 }
 
-.footer-menu {
+.footer-navigation {
+  text-align: center;
+}
+
+.footer-links {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -516,7 +520,7 @@ body.single-post blockquote {
   flex-wrap: wrap;
 }
 
-.footer-menu > li {
+.footer-links > li {
   position: static !important;
   color: #ffffff;
   display: flex;
@@ -524,19 +528,19 @@ body.single-post blockquote {
   gap: 30px;
 }
 
-.footer-menu > li > a {
+.footer-links > li > a {
   color: #ffffff;
   text-decoration: none;
   font-size: 14px;
 }
 
-.footer-menu > li > a:hover { 
+.footer-links > li > a:hover { 
   text-decoration: underline; 
 }
 
 /* Force submenu to display inline */
-.footer-menu .sub-menu,
-.footer-menu ul.sub-menu {
+.footer-links .sub-menu,
+.footer-links ul.sub-menu {
   position: static !important;
   display: flex !important;
   visibility: visible !important;
@@ -556,14 +560,14 @@ body.single-post blockquote {
   bottom: auto !important;
 }
 
-.footer-menu .sub-menu li {
+.footer-links .sub-menu li {
   position: relative;
   margin: 0;
   padding: 0;
   display: block;
 }
 
-.footer-menu .sub-menu a {
+.footer-links .sub-menu a {
   color: #ffffff !important;
   text-decoration: none;
   font-size: 14px;
@@ -573,13 +577,13 @@ body.single-post blockquote {
   background: none !important;
 }
 
-.footer-menu .sub-menu a:hover {
+.footer-links .sub-menu a:hover {
   text-decoration: underline;
   background: none !important;
 }
 
 /* Separators between submenu items */
-.footer-menu .sub-menu li:not(:last-child)::after {
+.footer-links .sub-menu li:not(:last-child)::after {
   content: "";
   position: absolute;
   right: -15px;
@@ -588,4 +592,24 @@ body.single-post blockquote {
   width: 1px;
   height: 16px;
   background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Hide mobile toggle on desktop */
+.footer-mobile-toggle {
+  display: none;
+}
+
+.footer-bottom {
+  margin-top: 2rem;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 0.875rem;
+}
+
+.footer-bottom a {
+  color: #ffffff;
+  text-decoration: underline;
 }
