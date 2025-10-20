@@ -493,56 +493,93 @@ body.single-post blockquote {
   outline: 2px solid #4f46e5;
   outline-offset: 3px;
 }
-/* Footer dropdown menu — same look as header */
-.site-footer { position: relative; overflow: visible; }
+
+/* ============================================================ */
+/* ===================== FOOTER MENU ========================== */
+/* ============================================================ */
+
+.site-footer { 
+  position: relative; 
+  overflow: visible;
+  background: #0a0466;
+  padding: 2rem;
+}
 
 .footer-menu {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;                  /* horizontal like header */
-  gap: 2rem;
-  justify-content: center;        /* center it in footer */
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .footer-menu > li {
   position: relative;
+  color: #ffffff;
 }
 
 .footer-menu > li > a {
-  color: #0a0466;
+  color: #ffffff;
   text-decoration: none;
+  font-size: 14px;
 }
-.footer-menu > li > a:hover { text-decoration: underline; }
 
-/* Submenu panel */
+.footer-menu > li > a:hover { 
+  text-decoration: underline; 
+}
+
+/* Services parent with submenu displayed inline */
+.footer-menu .menu-item-has-children {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Hide the default dropdown behavior */
 .footer-menu .sub-menu {
-  position: absolute;
-  left: 0;
-  bottom: 100%;                   /* drop UP in the footer */
-  display: none;
-  min-width: 260px;               /* match header panel width/feel */
-  padding: 12px 0;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,.08);
-  border-radius: 8px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.12);
-  z-index: 10;
+  position: static !important;
+  display: flex !important;
+  gap: 30px;
+  min-width: auto;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  list-style: none;
+  margin: 0;
 }
 
-/* Show submenu on hover or keyboard focus */
-.footer-menu li:hover > .sub-menu,
-.footer-menu li:focus-within > .sub-menu {
-  display: block;
+.footer-menu .sub-menu li {
+  position: relative;
+  margin: 0;
+  padding: 0;
 }
 
-/* Submenu links */
 .footer-menu .sub-menu a {
-  display: block;
-  padding: 10px 16px;
-  color: #0a0466;
+  color: #ffffff !important;
   text-decoration: none;
-  line-height: 1.4;
-  white-space: normal;            /* allow wrapping like header */
+  font-size: 14px;
+  padding: 0;
+  display: inline;
+  white-space: nowrap;
 }
-.footer-menu .sub-menu a:hover { text-decoration: underline; }
+
+.footer-menu .sub-menu a:hover {
+  text-decoration: underline;
+}
+
+/* Separators between submenu items */
+.footer-menu .sub-menu li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 16px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
