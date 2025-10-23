@@ -26,7 +26,9 @@ html, body {
   background: #fff;
 }
 
-main { flex-grow: 1; }
+main { 
+  flex-grow: 1; 
+}
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
@@ -39,17 +41,24 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 2px;
 }
 
-p { margin: 0 0 1.5rem; }
+p { 
+  margin: 0 0 1.5rem; 
+}
 
 /* Links */
-a { color: #0050a0; text-decoration: none; }
-a:hover { color: #003377; }
+a { 
+  color: #0050a0; 
+  text-decoration: none; 
+}
+
+a:hover { 
+  color: #003377; 
+}
 
 /* ============================================================ */
 /* ====================== HEADER STYLES ======================= */
 /* ============================================================ */
 
-/* --- Default Header State (Always Blue) --- */
 .site-header {
   position: fixed;
   top: 0;
@@ -75,24 +84,28 @@ a:hover { color: #003377; }
   min-height: 60px;
 }
 
-/* Slogan and Menu links: white by default */
 .site-slogan,
 .main-navigation a {
   color: #ffffff;
   transition: color 0.3s ease;
 }
 
-.site-slogan { margin: 0; font-size: 1rem; }
+.site-slogan { 
+  margin: 0; 
+  font-size: 1rem; 
+}
 
-/* --- Header state change on hover --- */
+/* Header hover state */
 .site-header:hover {
   background-color: #ffffff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.site-header:hover .main-navigation a { color: #0a0466; }
+.site-header:hover .main-navigation a { 
+  color: #0a0466; 
+}
 
-/* Slogan/Logo swap on :hover */
+/* Text logo */
 .text-logo {
   display: flex;
   flex-direction: column;
@@ -100,12 +113,14 @@ a:hover { color: #003377; }
   text-decoration: none;
   line-height: 1.1;
 }
+
 .text-logo-main {
   font-family: "didot-lt-pro-headline", serif;
   font-size: 2.5rem;
   font-weight: normal;
   color: #0a0466;
 }
+
 .text-logo-sub {
   font-family: "avenir-lt-pro", sans-serif;
   font-size: 0.6rem;
@@ -114,16 +129,27 @@ a:hover { color: #003377; }
   margin-top: 4px;
 }
 
-/* By default, show the slogan and hide the text logo */
-.site-header .site-slogan { display: block; }
-.site-header .text-logo { display: none; }
+/* Logo/Slogan swap on hover */
+.site-header .site-slogan { 
+  display: block; 
+}
 
-/* On hover, hide the slogan and show the text logo */
-.site-header:hover .site-slogan { display: none; }
-.site-header:hover .text-logo { display: flex; }
+.site-header .text-logo { 
+  display: none; 
+}
 
-/* Hide the old site-title element completely */
-.site-title, .site-header .custom-logo { display: none !important; }
+.site-header:hover .site-slogan { 
+  display: none; 
+}
+
+.site-header:hover .text-logo { 
+  display: flex; 
+}
+
+.site-title, 
+.site-header .custom-logo { 
+  display: none !important; 
+}
 
 /* ============================================================ */
 /* ===================== NAVIGATION MENU ====================== */
@@ -135,9 +161,10 @@ a:hover { color: #003377; }
   gap: 2rem;
 }
 
-.main-navigation a:hover { text-decoration: underline; }
+.main-navigation a:hover { 
+  text-decoration: underline; 
+}
 
-/* Desktop menu visible by default */
 .main-navigation ul {
   list-style: none;
   margin: 0;
@@ -146,8 +173,11 @@ a:hover { color: #003377; }
   gap: 2rem;
 }
 
-.main-navigation li { position: relative; }
+.main-navigation li { 
+  position: relative; 
+}
 
+/* Dropdown submenu */
 .main-navigation ul ul {
   position: absolute;
   top: 100%;
@@ -159,9 +189,13 @@ a:hover { color: #003377; }
   min-width: 200px;
 }
 
-.main-navigation li:hover > ul { display: block; }
+.main-navigation li:hover > ul { 
+  display: block; 
+}
 
-.main-navigation ul ul li { width: 100%; }
+.main-navigation ul ul li { 
+  width: 100%; 
+}
 
 .main-navigation ul ul li a {
   color: #0a0466 !important;
@@ -170,7 +204,9 @@ a:hover { color: #003377; }
 }
 
 /* Hamburger hidden on desktop */
-.mobile-nav-toggle { display: none; }
+.mobile-nav-toggle { 
+  display: none; 
+}
 
 /* ============================================================ */
 /* ======================= HERO SECTION ======================= */
@@ -225,125 +261,17 @@ a:hover { color: #003377; }
   border-radius: 4px;
   transition: background-color 0.3s ease;
 }
-.btn-primary:hover { background: #00aaff; color: #fff; }
 
-/* ============================================================ */
-/* ========================== FOOTER ========================== */
-/* ============================================================ */
-
-.site-footer {
-  padding: 2rem;
-  text-align: center;
-  background: #0a0466;
-  font-size: 0.875rem;
-  color: #fff;
-}
-
-/* ============================================================ */
-/* ======================== RESPONSIVE ======================== */
-/* ============================================================ */
-
-@media (max-width: 768px) {
-  .hero { /* container wraps the image naturally */ }
-
-  .hero-img {
-    margin-top: 4vh;
-    min-height: auto;
-    object-fit: contain;
-  }
-
-  .hero-content {
-    top: 1vh;
-    bottom: 0.5vh;
-    left: 5vw;
-    right: 5vw;
-    width: auto;
-  }
-
-  .hero-content h1 { font-size: 16vw; }
-  .hero-content p { font-size: 4.5vw; letter-spacing: 0.5px; }
-
-  .site-header .container { flex-wrap: nowrap; }
-
-  .single .site-main {
-    margin: 60px auto;
-    max-width: 800px;
-    padding: 0 20px;
-  }
-
-  /* Ensure nav anchors absolute submenu positioning */
-  .main-navigation { position: relative; }
-
-  /* Show hamburger button on mobile */
-  .mobile-nav-toggle {
-    display: block;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1001;
-  }
-  .mobile-nav-toggle .line {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: #fff;
-    margin: 5px 0;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-  }
-  .site-header:hover .mobile-nav-toggle .line { background-color: #0a0466; }
-  .mobile-nav-toggle[aria-expanded="true"] .line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-  .mobile-nav-toggle[aria-expanded="true"] .line:nth-child(2) { opacity: 0; }
-  .mobile-nav-toggle[aria-expanded="true"] .line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-  /* Hide desktop menu and show mobile menu when toggled */
-  .main-navigation ul { display: none !important; }
-
-  /* Fixed full-width panel for open mobile menu */
-  .main-navigation.toggled {
-    position: fixed;
-    top: 80px; /* matches mobile header spacing */
-    left: 0; right: 0; bottom: 0;
-    z-index: 1002;
-    background-color: #ffffff !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-  }
-
-  .main-navigation.toggled ul {
-    display: flex !important;
-    flex-direction: column;
-    position: static;
-    width: 100%;
-    padding: 1rem 0;
-    background: transparent !important;
-    text-align: center;
-  }
-
-  .main-navigation.toggled ul a {
-    display: block;
-    padding: 15px 20px;
-    color: #0a0466 !important;
-  }
-
-  /* Force solid white background when mobile nav is open */
-  body.nav-open .site-header {
-    background-color: #ffffff !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-  body.nav-open .site-header .main-navigation { background-color: #ffffff !important; }
-  body.nav-open .site-header .main-navigation.toggled ul { background-color: #ffffff !important; }
-  body.nav-open .site-header .main-navigation a { color: #0a0466 !important; }
-  body.nav-open .site-header .mobile-nav-toggle .line { background-color: #0a0466 !important; }
+.btn-primary:hover { 
+  background: #00aaff; 
+  color: #fff; 
 }
 
 /* ============================================================ */
 /* ============== POSTS / CONTENT TYPOGRAPHY ================== */
 /* ============================================================ */
 
-/* Custom styles for the styled horizontal line */
+/* Styled horizontal line */
 .wp-block-separator.styled-hr,
 .styled-hr hr {
   margin-top: 4vh;
@@ -365,14 +293,12 @@ body.single-post #primary.site-main {
   padding: 0 24px;
 }
 
-/* Titles */
 body.single-post .entry-title {
   margin: 0 0 20px;
   line-height: 1.2;
   font-size: clamp(28px, 4vw, 42px);
 }
 
-/* Paragraphs & lists */
 body.single-post .entry-content p,
 body.single-post .entry-content li {
   font-size: 18px;
@@ -380,19 +306,22 @@ body.single-post .entry-content li {
   margin: 0 0 16px;
 }
 
-/* Headings inside content */
 body.single-post .entry-content h2 {
   font-size: clamp(22px, 2.6vw, 30px);
   line-height: 1.3;
   margin: 28px 0 12px;
 }
+
 body.single-post .entry-content h3 {
   font-size: clamp(19px, 2.2vw, 24px);
   margin: 22px 0 10px;
 }
 
-/* Figures / images */
-body.single-post figure { margin: 24px 0; text-align: center; }
+body.single-post figure { 
+  margin: 24px 0; 
+  text-align: center; 
+}
+
 body.single-post figure img {
   display: block;
   width: 100%;
@@ -400,7 +329,6 @@ body.single-post figure img {
   max-width: 100%;
 }
 
-/* WordPress align classes */
 body.single-post .alignwide,
 body.single-post .alignfull {
   width: auto !important;
@@ -408,12 +336,12 @@ body.single-post .alignfull {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+
 body.single-post .aligncenter {
   margin-left: auto !important;
   margin-right: auto !important;
 }
 
-/* Blockquotes */
 body.single-post blockquote {
   margin: 16px 0;
   padding: 12px 16px;
@@ -424,9 +352,10 @@ body.single-post blockquote {
 /* ============================================================ */
 /* ===================== OFFER SECTION ======================== */
 /* ============================================================ */
-/* Grid of cards with stretched-link overlay (entire card clickable) */
 
-.section-offer .section-container { padding: 2rem 1rem; }
+.section-offer .section-container { 
+  padding: 2rem 1rem; 
+}
 
 .offer-grid {
   display: grid;
@@ -434,16 +363,15 @@ body.single-post blockquote {
   gap: 1.25rem;
 }
 
-/* Card */
 .service-card {
-  position: relative;                /* anchor for overlay link */
+  position: relative;
   padding: 1.5rem;
   border: 1px solid rgba(0,0,0,.08);
   border-radius: 12px;
   background: #fff;
   text-align: center;
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-  color: inherit;                    /* keep theme color */
+  color: inherit;
 }
 
 .service-card:hover {
@@ -452,21 +380,19 @@ body.single-post blockquote {
   border-color: rgba(0,0,0,.12);
 }
 
-/* Invisible overlay link that makes the whole card clickable */
 .service-card__link {
   position: absolute;
-  inset: 0;                          /* top/right/bottom/left: 0 */
+  inset: 0;
   z-index: 1;
-  text-indent: -9999px;              /* hide link text if any */
+  text-indent: -9999px;
 }
 
-/* Keep inner text looking like normal content */
-.service-card, .service-card * {
+.service-card, 
+.service-card * {
   text-decoration: none;
   color: inherit;
 }
 
-/* Content inside card */
 .service-icon {
   font-size: 1.75rem;
   line-height: 1;
@@ -483,32 +409,49 @@ body.single-post blockquote {
 
 .service-desc {
   margin: 0;
-  color: #475569;                    /* slate-600 */
+  color: #475569;
   font-size: .975rem;
   line-height: 1.5;
 }
 
-/* Focus ring for accessibility */
 .service-card__link:focus {
   outline: 2px solid #4f46e5;
   outline-offset: 3px;
 }
+
 /* ============================================================ */
-/* ===================== FOOTER MENU ========================== */
+/* ===================== FOOTER STYLES ======================== */
 /* ============================================================ */
 
-.site-footer { 
-  position: relative; 
-  overflow: visible;
-  background: #0a0466;
+.site-footer {
   padding: 2rem;
+  text-align: center;
+  background: #0a0466;
+  font-size: 0.875rem;
+  color: #fff;
+  position: relative;
+  overflow: visible;
 }
 
+.footer-top {
+  margin-bottom: 1.5rem;
+}
+
+.footer-top .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Footer Navigation */
 .footer-navigation {
+  display: block;
   text-align: center;
 }
 
-.footer-links {
+/* Footer Menu List */
+#footer-menu,
+ul.footer-links {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -519,23 +462,31 @@ body.single-post blockquote {
   flex-wrap: wrap;
 }
 
-.footer-links > li {
+/* Footer Menu Items */
+#footer-menu li,
+ul.footer-links li {
   position: relative;
-  color: #ffffff;
+  margin: 0;
+  padding: 0;
 }
 
-.footer-links > li > a {
+/* Footer Menu Links */
+#footer-menu a,
+ul.footer-links a {
   color: #ffffff;
   text-decoration: none;
   font-size: 14px;
+  display: inline-block;
 }
 
-.footer-links > li > a:hover { 
-  text-decoration: underline; 
+#footer-menu a:hover,
+ul.footer-links a:hover {
+  text-decoration: underline;
 }
 
-/* Submenu - hidden by default */
-.footer-links .sub-menu {
+/* Footer submenu (for Services dropdown) */
+#footer-menu .sub-menu,
+ul.footer-links .sub-menu {
   position: absolute;
   bottom: 100%;
   left: 50%;
@@ -551,47 +502,436 @@ body.single-post blockquote {
   z-index: 100;
 }
 
-/* Show submenu on hover */
-.footer-links .menu-item-has-children:hover > .sub-menu,
-.footer-links .menu-item-has-children:focus-within > .sub-menu {
+#footer-menu .menu-item-has-children:hover > .sub-menu,
+ul.footer-links .menu-item-has-children:hover > .sub-menu,
+#footer-menu .menu-item-has-children:focus-within > .sub-menu,
+ul.footer-links .menu-item-has-children:focus-within > .sub-menu {
   display: block;
 }
 
-.footer-links .sub-menu li {
+#footer-menu .sub-menu li,
+ul.footer-links .sub-menu li {
   margin: 0;
   padding: 0;
 }
 
-.footer-links .sub-menu a {
+#footer-menu .sub-menu a,
+ul.footer-links .sub-menu a {
   display: block;
   padding: 10px 20px;
-  color: #0a0466 !important;
+  color: #0a0466;
   text-decoration: none;
   font-size: 14px;
   white-space: nowrap;
 }
 
-.footer-links .sub-menu a:hover {
+#footer-menu .sub-menu a:hover,
+ul.footer-links .sub-menu a:hover {
   background-color: #f3f4f6;
-  text-decoration: none;
 }
 
-/* Hide mobile toggle on desktop */
+/* Hide footer mobile toggle on desktop */
 .footer-mobile-toggle {
   display: none;
 }
 
+/* Footer Bottom - Copyright */
 .footer-bottom {
   margin-top: 2rem;
 }
 
+.footer-bottom .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 4px;
+}
+
 .footer-bottom p {
   margin: 0;
-  color: #ffffff;
+  color: #0a0466;
   font-size: 0.875rem;
 }
 
 .footer-bottom a {
-  color: #ffffff;
+  color: #0a0466;
   text-decoration: underline;
+}
+
+.footer-bottom a:hover {
+  color: #003377;
+}
+
+/* ============================================================ */
+/* =================== RESPONSIVE / MOBILE ==================== */
+/* ============================================================ */
+
+/* Desktop - Ensure menu visibility */
+@media (min-width: 769px) {
+  .main-navigation {
+    display: flex !important;
+  }
+  
+  .main-navigation ul {
+    display: flex !important;
+  }
+  
+  .mobile-nav-toggle,
+  .footer-mobile-toggle {
+    display: none !important;
+  }
+  
+  #footer-menu,
+  ul.footer-links {
+    display: flex !important;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  /* ========================================== */
+  /* General Mobile Adjustments */
+  /* ========================================== */
+  
+  .hero-img {
+    margin-top: 4vh;
+    min-height: auto;
+    object-fit: contain;
+  }
+
+  .hero-content {
+    top: 1vh;
+    bottom: 0.5vh;
+    left: 5vw;
+    right: 5vw;
+    width: auto;
+  }
+
+  .hero-content h1 { 
+    font-size: 16vw; 
+  }
+
+  .hero-content p { 
+    font-size: 4.5vw; 
+    letter-spacing: 0.5px; 
+  }
+
+  .site-header .container { 
+    flex-wrap: nowrap; 
+  }
+
+  .single .site-main {
+    margin: 60px auto;
+    max-width: 800px;
+    padding: 0 20px;
+  }
+
+  /* ========================================== */
+  /* Header Mobile Menu */
+  /* ========================================== */
+  
+  /* Show hamburger button */
+  .mobile-nav-toggle {
+    display: block !important;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+    position: relative;
+  }
+
+  .mobile-nav-toggle .line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .site-header:hover .mobile-nav-toggle .line { 
+    background-color: #0a0466; 
+  }
+
+  .mobile-nav-toggle[aria-expanded="true"] .line:nth-child(1) { 
+    transform: translateY(8px) rotate(45deg); 
+  }
+
+  .mobile-nav-toggle[aria-expanded="true"] .line:nth-child(2) { 
+    opacity: 0; 
+  }
+
+  .mobile-nav-toggle[aria-expanded="true"] .line:nth-child(3) { 
+    transform: translateY(-8px) rotate(-45deg); 
+  }
+
+  /* Hide desktop header menu */
+  .main-navigation {
+    position: relative;
+  }
+  
+  .main-navigation ul {
+    display: none !important;
+  }
+
+  /* Show mobile menu panel when toggled */
+  .main-navigation.toggled {
+    display: block !important;
+    position: fixed !important;
+    top: 80px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: #ffffff !important;
+    z-index: 1000 !important;
+    overflow-y: auto !important;
+  }
+
+  .main-navigation.toggled ul {
+    display: flex !important;
+    flex-direction: column !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 20px 0 !important;
+    background: #ffffff !important;
+    width: 100% !important;
+  }
+
+  .main-navigation.toggled li {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .main-navigation.toggled a {
+    display: block !important;
+    padding: 15px 30px !important;
+    color: #0a0466 !important;
+    text-decoration: none !important;
+    font-size: 16px !important;
+    text-align: left !important;
+  }
+
+  .main-navigation.toggled a:hover {
+    background-color: #f3f4f6 !important;
+  }
+
+  /* Header submenu */
+  .main-navigation.toggled ul ul {
+    padding-left: 30px !important;
+  }
+
+  .main-navigation.toggled ul ul a {
+    padding: 12px 30px !important;
+    font-size: 14px !important;
+  }
+
+  /* Header styling when nav is open */
+  body.nav-open .site-header {
+    background-color: #ffffff !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  body.nav-open .site-header .mobile-nav-toggle .line {
+    background-color: #0a0466 !important;
+  }
+
+  /* ========================================== */
+  /* Footer Mobile Menu - SIMPLIFIED */
+  /* ========================================== */
+  
+  /* Show footer hamburger button */
+  .footer-mobile-toggle {
+    display: block !important;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0 auto 1rem auto;
+    position: relative;
+    z-index: 10;
+  }
+
+  .footer-mobile-toggle .line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px auto;
+    transition: transform 0.3s ease;
+  }
+
+  .footer-mobile-toggle[aria-expanded="true"] .line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .footer-mobile-toggle[aria-expanded="true"] .line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .footer-mobile-toggle[aria-expanded="true"] .line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* By default, make footer menu vertical on mobile */
+  #footer-menu,
+  ul.footer-links {
+    display: none !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  /* When toggled, show the menu */
+  .footer-navigation.toggled #footer-menu,
+  .footer-navigation.toggled ul.footer-links {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 1rem 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+  }
+
+  /* Style the menu items */
+  .footer-navigation.toggled #footer-menu li,
+  .footer-navigation.toggled ul.footer-links li {
+    display: block !important;
+    width: 100% !important;
+    margin: 3px 0 !important;
+  }
+
+  /* Style the links - make them very visible */
+  .footer-navigation.toggled #footer-menu a,
+  .footer-navigation.toggled ul.footer-links a {
+    display: block !important;
+    padding: 18px 20px !important;
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 4px !important;
+    font-size: 18px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    margin: 0 15px !important;
+  }
+
+  .footer-navigation.toggled #footer-menu a:hover,
+  .footer-navigation.toggled ul.footer-links a:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  /* Submenu items */
+  .footer-navigation.toggled .sub-menu {
+    display: block !important;
+    padding: 10px 0 !important;
+  }
+
+  .footer-navigation.toggled .sub-menu a {
+    font-size: 16px !important;
+    margin: 0 25px !important;
+  }
+
+  /* Footer bottom adjustments */
+  .footer-bottom .container {
+    padding: 0.75rem;
+  }
+}
+
+/* ============================================================ */
+/* ========= NUCLEAR FOOTER MOBILE FIX - FINAL =============== */
+/* ============================================================ */
+
+@media (max-width: 768px) {
+  /* Completely hide all footer menu elements by default */
+  .site-footer #footer-menu,
+  .site-footer ul.footer-links,
+  .site-footer .footer-links {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* FORCE show when parent has .toggled class */
+  .site-footer .footer-navigation.toggled #footer-menu,
+  .site-footer .footer-navigation.toggled ul.footer-links,
+  .site-footer .footer-navigation.toggled .footer-links {
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 20px 10px !important;
+    margin: 0 !important;
+    list-style: none !important;
+    gap: 10px !important;
+  }
+
+  /* FORCE show list items */
+  .site-footer .footer-navigation.toggled #footer-menu li,
+  .site-footer .footer-navigation.toggled ul.footer-links li,
+  .site-footer .footer-navigation.toggled .footer-links li {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: auto !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  /* FORCE show links with maximum visibility */
+  .site-footer .footer-navigation.toggled #footer-menu li a,
+  .site-footer .footer-navigation.toggled ul.footer-links li a,
+  .site-footer .footer-navigation.toggled .footer-links li a {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: auto !important;
+    width: calc(100% - 30px) !important;
+    margin: 0 15px !important;
+    padding: 20px !important;
+    color: #000000 !important; /* Black text for maximum contrast */
+    background: #ffffff !important; /* White background */
+    border: 2px solid #0a0466 !important; /* Blue border */
+    border-radius: 6px !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    line-height: 1.4 !important;
+  }
+
+  .site-footer .footer-navigation.toggled #footer-menu li a:hover,
+  .site-footer .footer-navigation.toggled ul.footer-links li a:hover,
+  .site-footer .footer-navigation.toggled .footer-links li a:hover {
+    background: #f0f0f0 !important;
+    color: #0a0466 !important;
+  }
+}
+
+/* --- FIX: Footer over header flyout + blue links on mobile (2025-10-23) --- */
+@media (max-width: 768px) {
+  .site-footer { position: relative; z-index: 1100; } /* higher than header flyout */
+  .site-footer .footer-navigation.toggled { position: relative; z-index: 1101; }
+
+  /* Solid blue buttons inside the white flyout */
+  .site-footer .footer-navigation.toggled #footer-menu li a,
+  .site-footer .footer-navigation.toggled ul.footer-links li a,
+  .site-footer .footer-navigation.toggled .footer-links li a {
+    background: #0a0466 !important;
+    color: #ffffff !important;
+    border-color: #0a0466 !important;
+  }
+
+  .site-footer .footer-navigation.toggled #footer-menu li a:hover,
+  .site-footer .footer-navigation.toggled ul.footer-links li a:hover,
+  .site-footer .footer-navigation.toggled .footer-links li a:hover {
+    filter: brightness(1.1);
+  }
 }

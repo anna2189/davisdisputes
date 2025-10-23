@@ -38,23 +38,43 @@ document.addEventListener('DOMContentLoaded', function () {
   // Add any additional custom functionality here
   // The modern animations (cards, buttons, etc.) are handled by modern-animations.js
 
-  // Mobile Navigation Toggle
+  // ============================================================
+  // Header Mobile Navigation Toggle
+  // ============================================================
   const navToggleBtn = document.querySelector('.mobile-nav-toggle');
   const primaryNav = document.querySelector('.main-navigation');
+
+  console.log('Nav toggle button found:', !!navToggleBtn);
+  console.log('Primary nav found:', !!primaryNav);
 
   if (navToggleBtn && primaryNav) {
     const toggleNav = (force) => {
       const shouldOpen = typeof force === 'boolean' ? force : !primaryNav.classList.contains('toggled');
+      
+      console.log('Toggling nav, shouldOpen:', shouldOpen);
+      
       primaryNav.classList.toggle('toggled', shouldOpen);
       navToggleBtn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
       document.body.classList.toggle('nav-open', shouldOpen);
+      
       var headerEl = document.getElementById('site-header');
-      if (headerEl) headerEl.classList.toggle('nav-open', shouldOpen);
+      if (headerEl) {
+        headerEl.classList.toggle('nav-open', shouldOpen);
+      }
+      
+      // Debug: Check if menu ul exists
+      const menuUl = primaryNav.querySelector('ul');
+      console.log('Menu UL found:', !!menuUl);
+      if (menuUl) {
+        console.log('Menu UL display:', window.getComputedStyle(menuUl).display);
+        console.log('Menu items count:', menuUl.querySelectorAll('li').length);
+      }
     };
 
     // Click to open/close
     navToggleBtn.addEventListener('click', (e) => {
       e.preventDefault();
+      console.log('Toggle button clicked');
       toggleNav();
     });
 
@@ -94,6 +114,62 @@ document.addEventListener('DOMContentLoaded', function () {
       mq.addEventListener('change', handleMQ);
     } else if (mq.addListener) {
       mq.addListener(handleMQ);
+    }
+  }
+
+  // ============================================================
+  // Footer Mobile Navigation Toggle
+  // ============================================================
+  const footerNavToggleBtn = document.querySelector('.footer-mobile-toggle');
+  const footerNav = document.querySelector('.footer-navigation');
+
+  console.log('Footer nav toggle button found:', !!footerNavToggleBtn);
+  console.log('Footer nav found:', !!footerNav);
+
+  if (footerNavToggleBtn && footerNav) {
+    const toggleFooterNav = (force) => {
+      const shouldOpen = typeof force === 'boolean' ? force : !footerNav.classList.contains('toggled');
+      
+      console.log('Toggling footer nav, shouldOpen:', shouldOpen);
+      
+      footerNav.classList.toggle('toggled', shouldOpen);
+      footerNavToggleBtn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+    };
+
+    // Click to open/close
+    footerNavToggleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Footer toggle button clicked');
+      toggleFooterNav();
+    });
+
+    // Keyboard support (Enter/Space)
+    footerNavToggleBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleFooterNav();
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && footerNav.classList.contains('toggled')) {
+        toggleFooterNav(false);
+        footerNavToggleBtn.focus();
+      }
+    });
+
+    // Reset when viewport grows beyond mobile breakpoint
+    const footerMq = window.matchMedia('(min-width: 769px)');
+    const handleFooterMQ = () => {
+      if (footerMq.matches) {
+        toggleFooterNav(false);
+      }
+    };
+    if (footerMq.addEventListener) {
+      footerMq.addEventListener('change', handleFooterMQ);
+    } else if (footerMq.addListener) {
+      footerMq.addListener(handleFooterMQ);
     }
   }
 });
