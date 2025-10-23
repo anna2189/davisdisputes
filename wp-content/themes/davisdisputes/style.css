@@ -224,13 +224,22 @@ a:hover {
 /* ======================= HERO SECTION ======================= */
 /* ============================================================ */
 
-.hero {
+/* Unified hero styling for all templates */
+.hero,
+.hero--page,
+.page-hero,
+.entry-header {
   position: relative;
   width: 100%;
   margin-top: 3vh;
+  min-height: 20vh;
 }
 
-.hero-img {
+.hero-img,
+.hero--page .hero-img,
+.page-hero-image,
+.entry-header img,
+.wp-post-image {
   width: 100%;
   height: auto;
   display: block;
@@ -238,7 +247,10 @@ a:hover {
   object-fit: contain;
 }
 
-.hero-content {
+.hero-content,
+.hero--page .hero-content,
+.page-hero .hero-content,
+.entry-header .hero-content {
   position: absolute;
   bottom: 4vh;
   left: 3vw;
@@ -249,15 +261,20 @@ a:hover {
   line-height: 1.2;
 }
 
-.hero-content h1 {
+.hero-content h1,
+.hero--page .hero-content h1,
+.page-title,
+.entry-title {
   font-family: "didot-lt-pro-headline", serif;
   font-size: 9vw;
   font-weight: normal;
   margin: 0;
   line-height: 1;
+  color: #0a0466;
 }
 
-.hero-content p {
+.hero-content p,
+.hero--page .hero-content p {
   font-family: "avenir-lt-pro", sans-serif;
   font-size: 2.5vw;
   letter-spacing: 1px;
@@ -606,13 +623,20 @@ ul.footer-links .sub-menu a:hover {
   /* General Mobile Adjustments */
   /* ========================================== */
   
-  .hero-img {
+  .hero-img,
+  .hero--page .hero-img,
+  .page-hero-image,
+  .entry-header img,
+  .wp-post-image {
     margin-top: 4vh;
     min-height: auto;
     object-fit: contain;
   }
 
-  .hero-content {
+  .hero-content,
+  .hero--page .hero-content,
+  .page-hero .hero-content,
+  .entry-header .hero-content {
     top: 1vh;
     bottom: 0.5vh;
     left: 5vw;
@@ -620,11 +644,15 @@ ul.footer-links .sub-menu a:hover {
     width: auto;
   }
 
-  .hero-content h1 { 
+  .hero-content h1,
+  .hero--page .hero-content h1,
+  .page-title,
+  .entry-title { 
     font-size: 16vw; 
   }
 
-  .hero-content p { 
+  .hero-content p,
+  .hero--page .hero-content p { 
     font-size: 4.5vw; 
     letter-spacing: 0.5px; 
   }
@@ -997,3 +1025,85 @@ ul.footer-links .sub-menu a:hover {
     transform: rotate(90deg);
   }
 }
+
+
+/* =====================================================================
+   HERO IMAGE: Full width and mobile responsive on all templates EXCEPT Home
+   ===================================================================== */
+
+:root { --ada-blue: #0a0466; }
+
+/* Ensure hero image containers allow full image display */
+body:not(.home) .hero,
+body:not(.home) .hero--page,
+body:not(.home) .page-hero,
+body:not(.home) .entry-header,
+body:not(.home) figure.wp-block-post-featured-image,
+body:not(.home) .wp-block-cover {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  margin-top: 80px; /* Adjust to clear fixed header on non-home pages */
+}
+
+/* For IMG-based heroes: scale to full width, maintain aspect ratio, no crop */
+body:not(.home) .hero img,
+body:not(.home) .hero--page img,
+body:not(.home) .hero--page .hero-img,
+body:not(.home) .page-hero img,
+body:not(.home) .page-hero-image,
+body:not(.home) img.hero-img,
+body:not(.home) .entry-header img,
+body:not(.home) .wp-post-image,
+body:not(.home) figure.wp-block-post-featured-image img,
+body:not(.home) .wp-block-cover img,
+body:not(.home) .wp-block-cover__image-background {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+/* For background-image heroes: ensure full image is visible, no cover/crop */
+body:not(.home) .hero,
+body:not(.home) .hero--page,
+body:not(.home) .page-hero,
+body:not(.home) .entry-header.has-post-thumbnail,
+body:not(.home) .wp-block-cover,
+body:not(.home) [class*="wp-block-cover"],
+body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: top center !important;
+  background-attachment: scroll !important; /* Ensure it scrolls with content */
+}
+
+/* On mobile, unstick absolutely positioned hero text to prevent cropping */
+@media (max-width: 900px) {
+  body:not(.home) .hero-content,
+  body:not(.home) .hero--page .hero-content,
+  body:not(.home) .page-hero .hero-content,
+  body:not(.home) .entry-header .hero-content,
+  body:not(.home) .wp-block-cover__inner-container {
+    position: static !important;
+    transform: none !important;
+    margin: 10px auto 0 !important;
+    padding: 0 4vw !important;
+    max-width: 92vw !important;
+    text-align: left !important;
+  }
+}
+
+/* Mobile submenu links: force blue like Home (unrelated to hero, but keeping for context) */
+.main-navigation.toggled .sub-menu a,
+.main-navigation.toggled ul ul a {
+  color: var(--ada-blue) !important;
+  background: transparent !important;
+}
+.main-navigation.toggled a { color: var(--ada-blue) !important; }
