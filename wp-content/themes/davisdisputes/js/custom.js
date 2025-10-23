@@ -47,8 +47,34 @@ document.addEventListener('DOMContentLoaded', function () {
   console.log('Nav toggle button found:', !!navToggleBtn);
   console.log('Primary nav found:', !!primaryNav);
 
+    // Setup accordion-style submenus on mobile
+    const setupMobileSubmenus = () => {
+      const isMobile = window.matchMedia('(max-width: 768px)').matches && primaryNav.classList.contains('toggled');
+      const parents = primaryNav.querySelectorAll('.menu-item-has-children > a');
+      parents.forEach(a => {
+        a.setAttribute('aria-expanded', 'false');
+        // avoid multiple handlers
+        a._submenuBound && a.removeEventListener('click', a._submenuBound);
+        const handler = (e) => {
+          if (!window.matchMedia('(max-width: 768px)').matches || !primaryNav.classList.contains('toggled')) return;
+          const li = a.parentElement;
+          const isOpen = li.classList.contains('open');
+          e.preventDefault(); // first tap toggles, second tap on same link will navigate after open state
+          // close others
+          primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => { if (el !== li) el.classList.remove('open'); });
+          li.classList.toggle('open', !isOpen);
+          a.setAttribute('aria-expanded', (!isOpen).toString());
+        };
+        a._submenuBound = handler;
+        a.addEventListener('click', handler);
+      });
+    };
+
+
   if (navToggleBtn && primaryNav) {
     const toggleNav = (force) => {
+      const footerNav = document.querySelector('.footer-navigation');
+      const footerBtn = document.querySelector('.footer-mobile-toggle');
       const shouldOpen = typeof force === 'boolean' ? force : !primaryNav.classList.contains('toggled');
       
       console.log('Toggling nav, shouldOpen:', shouldOpen);
@@ -56,6 +82,13 @@ document.addEventListener('DOMContentLoaded', function () {
       primaryNav.classList.toggle('toggled', shouldOpen);
       navToggleBtn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
       document.body.classList.toggle('nav-open', shouldOpen);
+      if (shouldOpen) setupMobileSubmenus();
+      
+      // Close footer menu when opening header
+      if (shouldOpen && footerNav && footerNav.classList.contains('toggled')) {
+        footerNav.classList.remove('toggled');
+        if (footerBtn) footerBtn.setAttribute('aria-expanded', 'false');
+      }
       
       var headerEl = document.getElementById('site-header');
       if (headerEl) {
@@ -92,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const clickedNav = e.target.closest('.main-navigation');
       if (!clickedToggle && !clickedNav && primaryNav.classList.contains('toggled')) {
         toggleNav(false);
+        primaryNav && primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => el.classList.remove('open'));
       }
     });
 
@@ -99,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && primaryNav.classList.contains('toggled')) {
         toggleNav(false);
+        primaryNav && primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => el.classList.remove('open'));
         navToggleBtn.focus();
       }
     });
@@ -108,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const handleMQ = () => {
       if (mq.matches) {
         toggleNav(false);
+        primaryNav && primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => el.classList.remove('open'));
       }
     };
     if (mq.addEventListener) {
@@ -128,11 +164,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (footerNavToggleBtn && footerNav) {
     const toggleFooterNav = (force) => {
+      const primaryNav = document.querySelector('.main-navigation');
+      const navToggleBtn = document.querySelector('.mobile-nav-toggle');
       const shouldOpen = typeof force === 'boolean' ? force : !footerNav.classList.contains('toggled');
       
       console.log('Toggling footer nav, shouldOpen:', shouldOpen);
       
       footerNav.classList.toggle('toggled', shouldOpen);
+      
+      // Close header flyout when opening footer
+      if (shouldOpen && primaryNav && primaryNav.classList.contains('toggled')) {
+        primaryNav.classList.remove('toggled');
+        document.body.classList.remove('nav-open');
+        if (navToggleBtn) navToggleBtn.setAttribute('aria-expanded', 'false');
+      }
       footerNavToggleBtn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
     };
 

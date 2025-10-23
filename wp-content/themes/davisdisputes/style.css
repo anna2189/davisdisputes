@@ -935,3 +935,62 @@ ul.footer-links .sub-menu a:hover {
     filter: brightness(1.1);
   }
 }
+
+
+
+/* --- HEADER SUBMENU: hide by default, show on hover/focus (desktop) --- */
+.main-navigation li { position: relative; }
+.main-navigation .sub-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 240px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.12);
+  padding: 10px 0;
+  z-index: 1002;
+}
+.main-navigation .sub-menu li { width: 100%; }
+.main-navigation .sub-menu a {
+  display: block;
+  padding: 10px 16px;
+  color: #0a0466;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.main-navigation .sub-menu a:hover { background: #f5f7fb; text-decoration: none; }
+@media (min-width: 769px) {
+  .main-navigation li:hover > .sub-menu,
+  .main-navigation li:focus-within > .sub-menu { display: block; }
+}
+
+/* --- MOBILE: collapse submenus unless parent is .open --- */
+@media (max-width: 768px) {
+  .main-navigation.toggled .sub-menu {
+    display: none !important;
+    position: static !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  .main-navigation.toggled .menu-item-has-children.open > .sub-menu {
+    display: flex !important;
+    flex-direction: column !important;
+    padding-left: 10px !important;
+  }
+  .main-navigation.toggled .menu-item-has-children > a {
+    position: relative;
+  }
+  .main-navigation.toggled .menu-item-has-children > a::after {
+    content: '▸';
+    position: absolute;
+    right: 14px;
+    transform: rotate(0deg);
+    transition: transform .2s ease;
+  }
+  .main-navigation.toggled .menu-item-has-children.open > a::after {
+    transform: rotate(90deg);
+  }
+}
