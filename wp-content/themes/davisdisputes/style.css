@@ -223,7 +223,7 @@ a:hover {
   height: auto;
   display: block;
   min-height: 20vh;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .hero-content {
