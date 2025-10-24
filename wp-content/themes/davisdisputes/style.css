@@ -1107,3 +1107,40 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
   background: transparent !important;
 }
 .main-navigation.toggled a { color: var(--ada-blue) !important; }
+
+/* =====================================================================
+   FIX: Header Mobile Menu Visibility
+   - Ensure mobile menu and submenus are visible when toggled
+   ===================================================================== */
+@media (max-width: 768px) {
+  .main-navigation.toggled {
+    display: block !important; /* Ensure the main menu panel is visible */
+  }
+
+  .main-navigation.toggled ul {
+    display: flex !important; /* Ensure the main menu list is visible */
+  }
+
+  .main-navigation.toggled .sub-menu {
+    display: none !important; /* Hide submenus by default in mobile */
+  }
+
+  .main-navigation.toggled .menu-item-has-children.open > .sub-menu {
+    display: flex !important; /* Show submenus when parent is open */
+    flex-direction: column !important;
+    position: static !important; /* Allow submenus to flow naturally */
+    background: transparent !important; /* Ensure background is transparent */
+    box-shadow: none !important; /* Remove any box shadow */
+    padding-left: 10px !important; /* Indent submenus */
+  }
+
+  /* FORCE SHOW MOBILE SUBMENU WHEN OPEN - Added for maximum override */
+  .main-navigation.toggled .menu-item-has-children.open > .sub-menu {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    overflow: visible !important;
+    position: static !important; /* Ensure it flows with content */
+  }
+}

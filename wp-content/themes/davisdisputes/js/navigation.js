@@ -64,9 +64,9 @@
 		link.addEventListener( 'blur', toggleFocus, true );
 	}
 
-	// Toggle focus each time a menu link with children receive a touch event.
+	// Toggle focus each time a menu link with children receive a click event.
 	for ( const link of linksWithChildren ) {
-		link.addEventListener( 'touchstart', toggleFocus, false );
+		link.addEventListener( 'click', toggleFocus, false );
 	}
 
 	/**
@@ -85,15 +85,12 @@
 			}
 		}
 
-		if ( event.type === 'touchstart' ) {
+		if ( event.type === 'click' ) { // Changed from 'touchstart' to 'click'
 			const menuItem = this.parentNode;
-			event.preventDefault();
-			for ( const link of menuItem.parentNode.children ) {
-				if ( menuItem !== link ) {
-					link.classList.remove( 'focus' );
-				}
-			}
-			menuItem.classList.toggle( 'focus' );
+			event.preventDefault(); // Prevent default link navigation
+			// Simplified: just toggle 'open' on the current item.
+			// Siblings can be handled by a more comprehensive close function if needed.
+			menuItem.classList.toggle( 'open' ); // Toggle 'open' on the current item
 		}
 	}
 }() );
