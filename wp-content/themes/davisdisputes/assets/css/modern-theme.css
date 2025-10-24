@@ -758,12 +758,15 @@ p {
         border-bottom: 1px solid var(--border-light);
     }
 
-    /* Footer Mobile Menu Styles */
+    /* Footer Mobile Menu Styles - Adjusted for horizontal and left-justified display */
     .footer-navigation .footer-links {
-        display: none; /* Hide footer menu by default on mobile */
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
+        display: flex !important; /* Ensure menu is always visible and uses flexbox */
+        flex-direction: row !important; /* Force horizontal alignment */
+        justify-content: flex-start !important; /* Force left justification */
+        width: auto !important; /* Allow items to take natural width */
+        text-align: left !important; /* Force left text alignment */
+        flex-wrap: wrap !important; /* Allow items to wrap if space is limited */
+        gap: 20px !important; /* Add some gap between items */
     }
 
     .footer-navigation .footer-mobile-toggle {

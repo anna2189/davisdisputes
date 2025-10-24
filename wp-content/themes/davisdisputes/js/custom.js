@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // ============================================================
   // Header Mobile Navigation Toggle
   // ============================================================
-  const navToggleBtn = document.querySelector('.mobile-nav-toggle');
+  // Select only the header toggle button, NOT the footer one
+  const navToggleBtn = document.querySelector('.site-header .mobile-nav-toggle');
   const primaryNav = document.querySelector('.main-navigation');
 
   console.log('Nav toggle button found:', !!navToggleBtn);
@@ -121,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Click outside to close
     document.addEventListener('click', (e) => {
-      const clickedToggle = e.target.closest('.mobile-nav-toggle');
+      const clickedToggle = e.target.closest('.site-header .mobile-nav-toggle');
       const clickedNav = e.target.closest('.main-navigation');
       if (!clickedToggle && !clickedNav && primaryNav.classList.contains('toggled')) {
         toggleNav(false);
@@ -154,8 +155,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ============================================================
-  // Footer Mobile Navigation Toggle
+  // Footer Mobile Navigation Toggle - DISABLED
+  // Footer navigation is now handled by navigation.js
   // ============================================================
+  // Commented out to prevent conflicts with navigation.js
+  /*
   const footerNavToggleBtn = document.querySelector('.footer-mobile-toggle');
   const footerNav = document.querySelector('.footer-navigation');
 
@@ -217,4 +221,5 @@ document.addEventListener('DOMContentLoaded', function () {
       footerMq.addListener(handleFooterMQ);
     }
   }
+  */
 });

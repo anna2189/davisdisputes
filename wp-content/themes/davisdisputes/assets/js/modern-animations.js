@@ -358,7 +358,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let mainMenuOpen = false;
     let footerMenuOpen = false;
 
+    // NOTE: Footer menu toggle is now handled by navigation.js
+    // This function only handles the main/header menu
     function setupMenuToggle(toggleButton, navigationElement, menuOpenState, isFooter = false) {
+        // Skip setup for footer menu - it's handled by navigation.js
+        if (isFooter) {
+            return;
+        }
         if (toggleButton && navigationElement) {
             toggleButton.addEventListener('click', function() {
                 if (isFooter) {
@@ -448,7 +454,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     setupMenuToggle(mainMobileToggle, mainNavigation, mainMenuOpen);
-    setupMenuToggle(footerMobileToggle, footerNavigation, footerMenuOpen, true);
+    // Footer menu toggle is handled by navigation.js - do not set up here
+    // setupMenuToggle(footerMobileToggle, footerNavigation, footerMenuOpen, true);
     
     // ====================================
     // Smooth Scroll for Anchor Links

@@ -2,11 +2,6 @@
   <div class="footer-top">
     <div class="container">
       <nav class="footer-navigation">
-        <button class="mobile-nav-toggle footer-mobile-toggle" aria-controls="footer-menu" aria-expanded="false">
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-        </button>
         <?php
         wp_nav_menu( [
           'theme_location' => 'footer',
@@ -25,6 +20,7 @@
     </div>
   </div>
 </footer>
+
 <?php wp_footer(); ?>
 </body>
 </html>

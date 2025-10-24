@@ -32,7 +32,13 @@
 	}
 
 	// Toggle the .toggled class and the aria-expanded value each time the button is clicked.
-	button.addEventListener( 'click', function() {
+	button.addEventListener( 'click', function(event) { // Added event parameter
+		event.stopPropagation(); // Stop event propagation
+		console.log('Header toggle button clicked!'); // Debug log
+		
+		// Reset inline style to allow normal display
+		siteNavigation.style.display = '';
+		
 		siteNavigation.classList.toggle( 'toggled' );
 
 		if ( button.getAttribute( 'aria-expanded' ) === 'true' ) {
@@ -69,14 +75,69 @@
 		link.addEventListener( 'click', toggleFocus, false );
 	}
 
+	/* ============================================================ */
+	/* ==================== FOOTER NAVIGATION ===================== */
+	/* ============================================================ */
+
+	const footerNavigation = document.querySelector( '.footer-navigation' );
+	const footerButton = document.querySelector( '.footer-mobile-toggle' );
+	const footerMenu = document.getElementById( 'footer-menu' );
+
+	console.log('Footer elements found:', {
+		footerNavigation: !!footerNavigation,
+		footerButton: !!footerButton,
+		footerMenu: !!footerMenu
+	});
+
+	if ( footerNavigation && footerButton && footerMenu ) {
+		// Toggle the .toggled class and the aria-expanded value each time the button is clicked.
+		footerButton.addEventListener( 'click', function(event) { // Added event parameter
+			event.preventDefault(); // Prevent default behavior
+			event.stopPropagation(); // Stop event propagation
+			console.log('Footer toggle button clicked!'); // Debug log
+			
+			// FORCE hide header menu
+			siteNavigation.classList.remove( 'toggled' );
+			button.setAttribute( 'aria-expanded', 'false' );
+			siteNavigation.style.display = 'none';
+
+			footerNavigation.classList.toggle( 'toggled' );
+
+			// Add/remove body class to prevent header menu interference
+			if ( footerNavigation.classList.contains( 'toggled' ) ) {
+				document.body.classList.add( 'footer-menu-open' );
+				footerButton.setAttribute( 'aria-expanded', 'true' );
+			} else {
+				document.body.classList.remove( 'footer-menu-open' );
+				footerButton.setAttribute( 'aria-expanded', 'false' );
+			}
+		} );
+
+		// Remove the .toggled class and set aria-expanded to false when the user clicks outside the navigation.
+		document.addEventListener( 'click', function( event ) {
+			const isClickInside = footerNavigation.contains( event.target );
+
+			if ( ! isClickInside ) {
+				footerNavigation.classList.remove( 'toggled' );
+				footerButton.setAttribute( 'aria-expanded', 'false' );
+			}
+		} );
+
+		const footerLinksWithChildren = footerMenu.querySelectorAll( '.menu-item-has-children > a, .page_item_has_children > a' );
+
+		for ( const link of footerLinksWithChildren ) {
+			link.addEventListener( 'click', toggleFocus, false );
+		}
+	}
+
 	/**
 	 * Sets or removes .focus class on an element.
 	 */
 	function toggleFocus() {
 		if ( event.type === 'focus' || event.type === 'blur' ) {
 			let self = this;
-			// Move up through the ancestors of the current link until we hit .nav-menu.
-			while ( ! self.classList.contains( 'nav-menu' ) ) {
+			// Move up through the ancestors of the current link until we hit .nav-menu or .footer-links.
+			while ( ! self.classList.contains( 'nav-menu' ) && ! self.classList.contains( 'footer-links' ) ) {
 				// On li elements toggle the class .focus.
 				if ( 'li' === self.tagName.toLowerCase() ) {
 					self.classList.toggle( 'focus' );

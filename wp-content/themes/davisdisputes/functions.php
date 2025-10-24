@@ -126,6 +126,12 @@ function davisdisputes_enqueue_assets() {
 		'nonce' => wp_create_nonce( 'davis_nonce' )
 	]);
 
+	// Navigation JS
+	$navigation_js = get_template_directory() . '/js/navigation.js';
+	if ( file_exists($navigation_js) ) {
+		wp_enqueue_script( 'davisdisputes-navigation', get_template_directory_uri() . '/js/navigation.js', [], filemtime($navigation_js), true );
+	}
+
 	// Custom JS (keep existing) - check if file exists first
 	$custom_js = get_template_directory() . '/js/custom.js';
 	if ( file_exists($custom_js) ) {
