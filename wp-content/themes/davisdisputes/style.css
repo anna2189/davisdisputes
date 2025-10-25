@@ -523,28 +523,64 @@ ul.footer-links a:hover {
 
 /* Footer submenu (for Services dropdown) - DESKTOP ONLY */
 @media (min-width: 769px) {
+  /* Create a hover bridge between parent and submenu */
+  #footer-menu .menu-item-has-children,
+  ul.footer-links .menu-item-has-children {
+    position: relative;
+  }
+  
+  /* Invisible bridge area to keep hover active */
+  #footer-menu .menu-item-has-children::before,
+  ul.footer-links .menu-item-has-children::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    height: 15px; /* Bridge height to cover the gap */
+    z-index: 99;
+  }
+  
   #footer-menu .sub-menu,
   ul.footer-links .sub-menu {
     position: absolute;
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
-    display: none;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
     min-width: 250px;
     padding: 12px 0;
-    margin-bottom: 10px;
+    margin-bottom: 5px; /* Reduced gap from 10px to 5px */
     background: #ffffff !important;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     list-style: none;
     z-index: 100;
+    pointer-events: none; /* Prevent interaction when hidden */
+    /* Smooth transitions with delay */
+    transition: opacity 0.2s ease 0s, visibility 0s linear 0.3s;
   }
 
   #footer-menu .menu-item-has-children:hover > .sub-menu,
   ul.footer-links .menu-item-has-children:hover > .sub-menu,
   #footer-menu .menu-item-has-children:focus-within > .sub-menu,
   ul.footer-links .menu-item-has-children:focus-within > .sub-menu {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; /* Enable interaction when visible */
+    /* Remove delay when showing, add delay when hiding */
+    transition: opacity 0.2s ease 0s, visibility 0s linear 0s;
+    transition-delay: 0.15s; /* Short delay before appearing */
+  }
+  
+  /* Keep submenu visible when hovering over it */
+  #footer-menu .sub-menu:hover,
+  ul.footer-links .sub-menu:hover {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   #footer-menu .sub-menu li,
