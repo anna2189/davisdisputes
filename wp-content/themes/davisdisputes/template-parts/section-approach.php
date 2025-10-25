@@ -19,7 +19,7 @@
       <p class="hero-description" style="color: var(--secondary-navy); margin: 0 auto;">
         With the expertise of top-tier institutions but without their conflicts or overheads, Davis Dispute Advisory delivers strategies tailored to each matter.
       </p>
-      <p class="hero-description" style="color: var(--secondary-navy); margin: 0 auto;">
+      <p class="hero-description" style="color: var(--secondary-navy); margin: 1.5rem auto 0; padding: 3px auto;">
         Our pricing is flexible, with fixed and success-based fees providing predictability and alignment.
       </p>
     </div>
