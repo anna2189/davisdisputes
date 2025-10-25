@@ -507,62 +507,70 @@ ul.footer-links li {
 /* Footer Menu Links */
 #footer-menu a,
 ul.footer-links a {
-  color: #ffffff;
+  color: #ffffff !important;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
   display: inline-block;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
 }
 
 #footer-menu a:hover,
 ul.footer-links a:hover {
   text-decoration: underline;
+  color: #e0e0e0 !important;
 }
 
-/* Footer submenu (for Services dropdown) */
-#footer-menu .sub-menu,
-ul.footer-links .sub-menu {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  display: none;
-  min-width: 250px;
-  padding: 12px 0;
-  margin-bottom: 10px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  list-style: none;
-  z-index: 100;
+/* Footer submenu (for Services dropdown) - DESKTOP ONLY */
+@media (min-width: 769px) {
+  #footer-menu .sub-menu,
+  ul.footer-links .sub-menu {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    min-width: 250px;
+    padding: 12px 0;
+    margin-bottom: 10px;
+    background: #ffffff !important;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    list-style: none;
+    z-index: 100;
+  }
+
+  #footer-menu .menu-item-has-children:hover > .sub-menu,
+  ul.footer-links .menu-item-has-children:hover > .sub-menu,
+  #footer-menu .menu-item-has-children:focus-within > .sub-menu,
+  ul.footer-links .menu-item-has-children:focus-within > .sub-menu {
+    display: block;
+  }
+
+  #footer-menu .sub-menu li,
+  ul.footer-links .sub-menu li {
+    margin: 0;
+    padding: 0;
+  }
+
+  #footer-menu .sub-menu a,
+  ul.footer-links .sub-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: #0a0466 !important;
+    background: #ffffff !important;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  #footer-menu .sub-menu a:hover,
+  ul.footer-links .sub-menu a:hover {
+    background-color: #f3f4f6 !important;
+    color: #0a0466 !important;
+  }
 }
 
-#footer-menu .menu-item-has-children:hover > .sub-menu,
-ul.footer-links .menu-item-has-children:hover > .sub-menu,
-#footer-menu .menu-item-has-children:focus-within > .sub-menu,
-ul.footer-links .menu-item-has-children:focus-within > .sub-menu {
-  display: block;
-}
-
-#footer-menu .sub-menu li,
-ul.footer-links .sub-menu li {
-  margin: 0;
-  padding: 0;
-}
-
-#footer-menu .sub-menu a,
-ul.footer-links .sub-menu a {
-  display: block;
-  padding: 10px 20px;
-  color: #0a0466;
-  text-decoration: none;
-  font-size: 14px;
-  white-space: nowrap;
-}
-
-#footer-menu .sub-menu a:hover,
-ul.footer-links .sub-menu a:hover {
-  background-color: #f3f4f6;
-}
 
 /* Hide footer mobile toggle on desktop */
 .footer-mobile-toggle {
@@ -783,30 +791,6 @@ ul.footer-links .sub-menu a:hover {
     background-color: #0a0466 !important;
   }
 
-  /* Footer Navigation on Mobile */
-  .footer-navigation #footer-menu,
-  .footer-navigation ul.footer-links {
-    display: flex !important; /* Ensure flexbox is active */
-    flex-direction: row !important; /* Force horizontal on mobile */
-    justify-content: flex-start !important; /* Force left justification on mobile */
-    flex-wrap: wrap !important; /* Allow wrapping if needed */
-    gap: 20px !important; /* Adjust gap for mobile */
-  }
-
-  .footer-navigation #footer-menu li,
-  .footer-navigation ul.footer-links li {
-    width: auto !important; /* Allow items to take natural width */
-    display: inline-block !important; /* Ensure items behave as inline blocks */
-  }
-
-  .footer-navigation #footer-menu a,
-  .footer-navigation ul.footer-links a {
-    padding: 5px 0 !important; /* Adjust padding for mobile */
-    font-size: 14px !important; /* Adjust font size for mobile */
-    display: inline-block !important; /* Ensure links are inline-block */
-  }
-
-
   /* Footer bottom adjustments */
   .footer-bottom .container {
     padding: 0.75rem;
@@ -984,5 +968,223 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
     height: auto !important;
     overflow: visible !important;
     position: static !important; /* Ensure it flows with content */
+  }
+}
+/* ============================================================ */
+/* ========== FOOTER MOBILE MENU - HAMBURGER LEFT ============ */
+/* ============================================================ */
+
+/* Hide footer toggle on desktop */
+.footer-mobile-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* FORCE LEFT ALIGNMENT - Mobile Footer Menu */
+  /* All footer containers - LEFT */
+  .site-footer,
+  .footer-top,
+  .footer-top .container {
+    text-align: left !important;
+    display: block !important;
+  }
+  
+  .footer-top .container {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* Navigation wrapper - LEFT */
+  .footer-navigation {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+  
+  /* Hamburger - LEFT */
+  .footer-mobile-toggle {
+    margin: 0 auto 1rem 20px !important;
+    align-self: flex-start !important;
+  }
+  
+  /* Menu toggled - FORCE LEFT */
+  .footer-navigation.toggled #footer-menu,
+  .footer-navigation.toggled ul.footer-links {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    padding: 20px 0 20px 20px !important;
+    margin: 0 !important;
+  }
+  
+  /* Menu items - LEFT */
+  .footer-navigation.toggled #footer-menu li,
+  .footer-navigation.toggled ul.footer-links li {
+    text-align: left !important;
+    align-self: flex-start !important;
+    display: block !important;
+  }
+  
+  /* Links - LEFT */
+  .footer-navigation.toggled #footer-menu a,
+  .footer-navigation.toggled ul.footer-links a {
+    text-align: left !important;
+    display: block !important;
+  }
+  
+  /* Indent submenu items properly */
+  .footer-navigation.toggled .sub-menu {
+    padding-left: 100px !important;
+  }
+
+  /* Show footer hamburger button - ALIGNED TO LEFT */
+  .footer-mobile-toggle {
+    display: block !important;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0 auto 1rem 20px !important;
+    position: relative;
+    z-index: 10;
+  }
+
+  .footer-mobile-toggle .line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0; /* Changed from auto to 0 for left alignment */
+    transition: transform 0.3s ease;
+  }
+
+  .footer-mobile-toggle[aria-expanded="true"] .line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .footer-mobile-toggle[aria-expanded="true"] .line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .footer-mobile-toggle[aria-expanded="true"] .line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* Hide menu by default on mobile */
+  #footer-menu,
+  ul.footer-links {
+    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+  }
+
+  /* Show menu when toggled - Simple white text on dark background - LEFT-ALIGNED */
+  .footer-navigation.toggled #footer-menu,
+  .footer-navigation.toggled ul.footer-links {
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 20px 0 20px 20px !important;
+    margin: 0 !important;
+    list-style: none !important;
+    gap: 20px !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
+  }
+
+  /* Menu items - Simple style - LEFT-ALIGNED */
+  .footer-navigation.toggled #footer-menu li,
+  .footer-navigation.toggled ul.footer-links li {
+    display: block !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    background: transparent !important;
+    text-align: left !important;
+    align-self: flex-start !important;
+  }
+
+  /* Menu links - Simple white text on dark blue - LEFT-ALIGNED */
+  .footer-navigation.toggled #footer-menu a,
+  .footer-navigation.toggled ul.footer-links a {
+    display: block !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 5px 0 !important;
+    color: #ffffff !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    text-align: left !important;
+    text-decoration: none !important;
+    transition: opacity 0.2s ease !important;
+    box-shadow: none !important;
+  }
+
+  .footer-navigation.toggled #footer-menu a:hover,
+  .footer-navigation.toggled ul.footer-links a:hover {
+    background: transparent !important;
+    color: #ffffff !important;
+    opacity: 0.8 !important;
+    transform: none !important;
+    box-shadow: none !important;
+    text-decoration: underline !important;
+  }
+
+  /* Submenu items - Indented, white text - LEFT-ALIGNED */
+  /* CRITICAL: Override ALL desktop positioning properties */
+  .footer-navigation.toggled .sub-menu {
+    display: block !important;
+    position: static !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    padding: 10px 0 0 10px !important;
+    margin: 0 !important;
+    background: transparent !important;
+    text-align: left !important;
+    min-width: auto !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  .footer-navigation.toggled .sub-menu li {
+    margin: 10px 0 0 0 !important;
+    background: transparent !important;
+    text-align: left !important;
+  }
+
+  .footer-navigation.toggled .sub-menu a {
+    font-size: 15px !important;
+    margin: 0 !important;
+    padding: 5px 0 !important;
+    color: #ffffff !important;
+    background: transparent !important;
+    text-align: left !important;
+    display: block !important;
+    white-space: normal !important;
+  }
+
+  /* Ensure footer is above header flyout */
+  .site-footer {
+    position: relative;
+    z-index: 1100;
+  }
+
+  .footer-navigation.toggled {
+    position: relative;
+    z-index: 1101;
   }
 }

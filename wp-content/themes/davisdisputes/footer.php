@@ -2,6 +2,12 @@
   <div class="footer-top">
     <div class="container">
       <nav class="footer-navigation">
+        <button class="footer-mobile-toggle" aria-controls="footer-menu" aria-expanded="false">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="screen-reader-text">Footer Menu</span>
+        </button>
         <?php
         wp_nav_menu( [
           'theme_location' => 'footer',
