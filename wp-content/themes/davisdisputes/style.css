@@ -902,7 +902,6 @@ body:not(.home) .page-hero,
 body:not(.home) .entry-header,
 body:not(.home) figure.wp-block-post-featured-image,
 body:not(.home) .wp-block-cover {
-  height: 50vh !important; /* Increased height to reduce vertical trim further */
   min-height: 0 !important;
   max-height: none !important;
   aspect-ratio: auto !important;
@@ -959,6 +958,30 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
     padding: 0 4vw !important;
     max-width: 92vw !important;
     text-align: left !important;
+  }
+}
+
+/* Desktop styles for featured image height */
+@media (min-width: 769px) {
+  body:not(.home) .hero,
+  body:not(.home) .hero--page,
+  body:not(.home) .page-hero,
+  body:not(.home) .entry-header,
+  body:not(.home) figure.wp-block-post-featured-image,
+  body:not(.home) .wp-block-cover {
+    height: 60vh !important; /* Apply 60vh height only on desktop */
+  }
+}
+
+/* Mobile styles for featured image height */
+@media (max-width: 768px) {
+  body:not(.home) .hero,
+  body:not(.home) .hero--page,
+  body:not(.home) .page-hero,
+  body:not(.home) .entry-header,
+  body:not(.home) figure.wp-block-post-featured-image,
+  body:not(.home) .wp-block-cover {
+    height: 30vh !important; /* Apply a more suitable height for mobile */
   }
 }
 
