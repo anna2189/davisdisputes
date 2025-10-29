@@ -902,7 +902,7 @@ body:not(.home) .page-hero,
 body:not(.home) .entry-header,
 body:not(.home) figure.wp-block-post-featured-image,
 body:not(.home) .wp-block-cover {
-  height: 60vh !important; /* Increased height to reduce vertical trim further */
+  height: 50vh !important; /* Increased height to reduce vertical trim further */
   min-height: 0 !important;
   max-height: none !important;
   aspect-ratio: auto !important;
