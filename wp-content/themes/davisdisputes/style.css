@@ -1236,3 +1236,15 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
     z-index: 1101;
   }
 }
+
+/* Page templates: ensure consistent side margins/padding */
+.site-main,
+.site-main--minimal {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+/* Page template: minimal - no top margin */
+.site-main--minimal {
+  margin-top: 0 !important;
+}
