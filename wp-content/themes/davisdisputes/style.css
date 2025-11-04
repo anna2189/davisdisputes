@@ -297,6 +297,12 @@ a:hover {
   color: #fff; 
 }
 
+/* Minimal template - no hero, small margin */
+.entry-content--minimal {
+  margin-top: 2rem;
+  padding: 0;
+}
+
 /* ============================================================ */
 /* ============== POSTS / CONTENT TYPOGRAPHY ================== */
 /* ============================================================ */
