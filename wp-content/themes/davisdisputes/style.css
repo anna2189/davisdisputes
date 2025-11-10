@@ -1250,35 +1250,107 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
 }
 
 
-/* Safari iOS specific fixes for mobile menu */
+/* ============================================ */
+/* Safari iOS Mobile Menu Fixes                */
+/* ============================================ */
+
+/* Minimal iOS Safari fixes */
+.mobile-nav-toggle {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure toggled menu is visible */
+.main-navigation.toggled {
+  display: block !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 9999 !important;
+}
+
+.main-navigation.toggled ul {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Remove any iOS tap delays */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+button, a {
+  touch-action: manipulation;
+}
+
+/* Fix for iOS Safari button responsiveness */
+.mobile-nav-toggle {
+  position: relative;
+  z-index: 10000;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Ensure the menu container is visible when toggled */
+body.nav-open .main-navigation {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Additional specificity for iOS Safari */
 @supports (-webkit-touch-callout: none) {
+  /* iOS only */
   .mobile-nav-toggle {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
     cursor: pointer !important;
   }
   
   .main-navigation.toggled {
     -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
   }
   
-  /* Ensure menu is visible when toggled */
-  .main-navigation.toggled ul {
+  .main-navigation.toggled ul,
+  .main-navigation.toggled ul.nav-menu,
+  .main-navigation.toggled ul.menu {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-  }
-  
-  /* Fix for iOS touch delays */
-  .main-navigation.toggled a {
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
+    position: relative !important;
   }
 }
 
-/* Additional mobile nav active state for iOS */
-.mobile-nav-toggle.active {
-  opacity: 0.8;
+/* Make sure mobile nav toggle lines are visible */
+.mobile-nav-toggle .line {
+  pointer-events: none;
+}
+
+/* Prevent menu from being hidden by other elements */
+.main-navigation.toggled {
+  position: fixed !important;
+  top: 60px; /* Adjust based on your header height */
+  right: 0;
+  width: 100%;
+  max-width: 300px; /* Adjust as needed */
+  background: white; /* Or your menu background color */
+  box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+}
+
+/* Ensure menu items are clickable */
+.main-navigation.toggled a {
+  display: block;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .main-navigation {
+    display: none;
+  }
+  
+  .main-navigation.toggled {
+    display: block !important;
+  }
 }
