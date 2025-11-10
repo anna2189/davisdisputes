@@ -1248,3 +1248,37 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
 .site-main--minimal {
   margin-top: 0 !important;
 }
+
+
+/* Safari iOS specific fixes for mobile menu */
+@supports (-webkit-touch-callout: none) {
+  .mobile-nav-toggle {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    cursor: pointer !important;
+  }
+  
+  .main-navigation.toggled {
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+  }
+  
+  /* Ensure menu is visible when toggled */
+  .main-navigation.toggled ul {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Fix for iOS touch delays */
+  .main-navigation.toggled a {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+}
+
+/* Additional mobile nav active state for iOS */
+.mobile-nav-toggle.active {
+  opacity: 0.8;
+}

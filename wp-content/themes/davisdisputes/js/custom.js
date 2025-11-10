@@ -39,40 +39,25 @@ document.addEventListener('DOMContentLoaded', function () {
   // The modern animations (cards, buttons, etc.) are handled by modern-animations.js
 
   // ============================================================
-  // Header Mobile Navigation Toggle
+  // Header Mobile Navigation Toggle - Safari Compatible Version
   // ============================================================
-  // Select only the header toggle button, NOT the footer one
-  const navToggleBtn = document.querySelector('.site-header .mobile-nav-toggle');
+  const navToggleBtn = document.querySelector('.mobile-nav-toggle');
   const primaryNav = document.querySelector('.main-navigation');
 
   console.log('Nav toggle button found:', !!navToggleBtn);
   console.log('Primary nav found:', !!primaryNav);
 
-    // Setup accordion-style submenus on mobile
-    const setupMobileSubmenus = () => {
-      const isMobile = window.matchMedia('(max-width: 768px)').matches && primaryNav.classList.contains('toggled');
-      const parents = primaryNav.querySelectorAll('.menu-item-has-children > a');
-      parents.forEach(a => {
-        a.setAttribute('aria-expanded', 'false');
-        // avoid multiple handlers
-        a._submenuBound && a.removeEventListener('click', a._submenuBound);
-        const handler = (e) => {
-          if (!window.matchMedia('(max-width: 768px)').matches || !primaryNav.classList.contains('toggled')) return;
-          const li = a.parentElement;
-          const isOpen = li.classList.contains('open');
-          e.preventDefault(); // first tap toggles, second tap on same link will navigate after open state
-          // close others
-          primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => { if (el !== li) el.classList.remove('open'); });
-          li.classList.toggle('open', !isOpen);
-          a.setAttribute('aria-expanded', (!isOpen).toString());
-        };
-        a._submenuBound = handler;
-        a.addEventListener('click', handler);
-      });
-    };
-
-
   if (navToggleBtn && primaryNav) {
+    // Safari iOS compatibility flag
+    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+    // Ensure button is clickable in iOS Safari
+    if (isIOS) {
+      navToggleBtn.style.cursor = 'pointer';
+      // Prevent 300ms delay on iOS
+      navToggleBtn.style.touchAction = 'manipulation';
+    }
+    
     const toggleNav = (force) => {
       const footerNav = document.querySelector('.footer-navigation');
       const footerBtn = document.querySelector('.footer-mobile-toggle');
@@ -80,10 +65,25 @@ document.addEventListener('DOMContentLoaded', function () {
       
       console.log('Toggling nav, shouldOpen:', shouldOpen);
       
+      // Toggle classes
       primaryNav.classList.toggle('toggled', shouldOpen);
       navToggleBtn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
       document.body.classList.toggle('nav-open', shouldOpen);
-      if (shouldOpen) setupMobileSubmenus();
+      
+      // Add/remove active class for iOS
+      navToggleBtn.classList.toggle('active', shouldOpen);
+      
+      // For Safari, force a repaint
+      if (isIOS) {
+        primaryNav.style.display = 'none';
+        primaryNav.offsetHeight; // Force reflow
+        primaryNav.style.display = '';
+      }
+      
+      // Setup mobile submenus if opening
+      if (shouldOpen) {
+        setupMobileSubmenus();
+      }
       
       // Close footer menu when opening header
       if (shouldOpen && footerNav && footerNav.classList.contains('toggled')) {
@@ -104,52 +104,125 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Menu items count:', menuUl.querySelectorAll('li').length);
       }
     };
-
-    // Click to open/close
-    navToggleBtn.addEventListener('click', (e) => {
+    
+    // Setup accordion-style submenus on mobile
+    const setupMobileSubmenus = () => {
+      const parents = primaryNav.querySelectorAll('.menu-item-has-children > a');
+      parents.forEach(a => {
+        // Remove any existing handlers
+        const existingHandler = a._submenuHandler;
+        if (existingHandler) {
+          a.removeEventListener('click', existingHandler);
+          a.removeEventListener('touchend', existingHandler);
+        }
+        
+        const handler = (e) => {
+          // Only work on mobile
+          if (!window.matchMedia('(max-width: 768px)').matches || !primaryNav.classList.contains('toggled')) return;
+          
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const li = a.parentElement;
+          const isOpen = li.classList.contains('open');
+          
+          // Close other open submenus
+          primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => {
+            if (el !== li) el.classList.remove('open');
+          });
+          
+          // Toggle this submenu
+          li.classList.toggle('open', !isOpen);
+          a.setAttribute('aria-expanded', (!isOpen).toString());
+        };
+        
+        // Store handler reference
+        a._submenuHandler = handler;
+        
+        // Add both click and touch listeners for Safari
+        a.addEventListener('click', handler, { passive: false });
+        if (isIOS) {
+          a.addEventListener('touchend', handler, { passive: false });
+        }
+      });
+    };
+    
+    // Main toggle button handler
+    const handleToggleClick = (e) => {
       e.preventDefault();
-      console.log('Toggle button clicked');
+      e.stopPropagation();
+      console.log('Toggle button activated');
       toggleNav();
-    });
-
-    // Keyboard support (Enter/Space)
+    };
+    
+    // Add event listeners
+    navToggleBtn.addEventListener('click', handleToggleClick, { passive: false });
+    
+    // For iOS Safari, also add touch event
+    if (isIOS) {
+      navToggleBtn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleToggleClick(e);
+      }, { passive: false });
+      
+      // Prevent double-tap zoom on iOS
+      let lastTouchEnd = 0;
+      navToggleBtn.addEventListener('touchend', function(e) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          e.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+    }
+    
+    // Keyboard support
     navToggleBtn.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         toggleNav();
       }
     });
-
-    // Click outside to close
-    document.addEventListener('click', (e) => {
-      const clickedToggle = e.target.closest('.site-header .mobile-nav-toggle');
+    
+    // Click outside to close (with touch support)
+    const handleOutsideClick = (e) => {
+      const clickedToggle = e.target.closest('.mobile-nav-toggle');
       const clickedNav = e.target.closest('.main-navigation');
+      
       if (!clickedToggle && !clickedNav && primaryNav.classList.contains('toggled')) {
         toggleNav(false);
-        primaryNav && primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => el.classList.remove('open'));
+        primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => el.classList.remove('open'));
       }
-    });
-
+    };
+    
+    document.addEventListener('click', handleOutsideClick);
+    if (isIOS) {
+      document.addEventListener('touchstart', handleOutsideClick, { passive: true });
+    }
+    
     // Close on Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && primaryNav.classList.contains('toggled')) {
         toggleNav(false);
-        primaryNav && primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => el.classList.remove('open'));
+        primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => el.classList.remove('open'));
         navToggleBtn.focus();
       }
     });
-
-    // Reset when viewport grows beyond mobile breakpoint
+    
+    // Reset when viewport changes
     const mq = window.matchMedia('(min-width: 769px)');
     const handleMQ = () => {
       if (mq.matches) {
         toggleNav(false);
-        primaryNav && primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => el.classList.remove('open'));
+        primaryNav.querySelectorAll('.menu-item-has-children.open').forEach(el => el.classList.remove('open'));
       }
     };
+    
     if (mq.addEventListener) {
       mq.addEventListener('change', handleMQ);
     } else if (mq.addListener) {
+      // Fallback for older Safari
       mq.addListener(handleMQ);
     }
   }
