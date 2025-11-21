@@ -1108,3 +1108,15 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
 .site-header.scrolled .text-logo { 
   display: flex;     /* after scroll: show wordmark/logo */
 }
+/* Force the image logo to show on mobile when header is white / menu open */
+@media (max-width: 768px) {
+  body.nav-open .site-logo.scroll-visible,
+  body.header-scrolled .site-logo.scroll-visible {
+    display: inline-block !important;
+  }
+
+  body.nav-open .tagline.scroll-hidden,
+  body.header-scrolled .tagline.scroll-hidden {
+    display: none !important;
+  }
+}
