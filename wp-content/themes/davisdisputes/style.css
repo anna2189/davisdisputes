@@ -75,14 +75,17 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 2rem;
+  padding-left: 1rem;
   padding-right: 2rem;
+  flex-wrap: nowrap;
 }
 
 .branding {
   display: flex;
   align-items: center;
   min-height: 60px;
+  white-space: nowrap;
+  flex-shrink: 0; /* prevents it from stretching */
 }
 
 .site-slogan,
@@ -96,17 +99,79 @@ a:hover {
   font-size: 1rem; 
 }
 
-/* Header hover state */
-.site-header:hover {
-  background-color: #ffffff;
+/* Header hover state: DESKTOP ONLY */
+@media (min-width: 769px) {
+  .site-header:hover {
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .site-header:hover .main-navigation a { 
+    color: #0a0466; 
+  }
+
+ 
+
+
+  /* White header on HOVER – hide tagline, show logo */
+  .site-header:hover .tagline.scroll-hidden {
+    display: none;
+  }
+
+  .site-header:hover .site-logo.scroll-visible {
+    display: inline-block;
+  }
+}
+
+ /* Header SCROLLED state (works on desktop + mobile) */
+ .site-header.scrolled {
+  background-color: #ffffff !important;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.site-header:hover .main-navigation a { 
-  color: #0a0466; 
+.site-header.scrolled .main-navigation a { 
+  color: #0a0466 !important;
 }
 
-/* Text logo */
+.site-header.scrolled .mobile-nav-toggle .line {
+  background-color: #0a0466 !important;
+}
+
+/* When scrolled: hide tagline, show logo */
+.site-header.scrolled .tagline.scroll-hidden {
+  display: none;
+}
+
+.site-header.scrolled .site-logo.scroll-visible {
+  display: inline-block;
+}
+
+/* Header scroll state – works on desktop + mobile, wins over everything */
+body.header-scrolled .site-header {
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body.header-scrolled .main-navigation a {
+  color: #0a0466 !important;
+}
+
+body.header-scrolled .mobile-nav-toggle .line {
+  background-color: #0a0466 !important;
+}
+
+/* When scrolled: hide tagline, show logo */
+body.header-scrolled .tagline.scroll-hidden {
+  display: none !important;
+}
+
+body.header-scrolled .site-logo.scroll-visible {
+  display: inline-block !important;
+}
+
+
+
+/* Text logo (legacy – unused in new header, kept for safety) */
 .text-logo {
   display: flex;
   flex-direction: column;
@@ -130,23 +195,7 @@ a:hover {
   margin-top: 4px;
 }
 
-/* Logo/Slogan swap on hover */
-.site-header .site-slogan { 
-  display: block; 
-}
-
-.site-header .text-logo { 
-  display: none; 
-}
-
-.site-header:hover .site-slogan { 
-  display: none; 
-}
-
-.site-header:hover .text-logo { 
-  display: flex; 
-}
-
+/* Hide default WP site title/logo */
 .site-title, 
 .site-header .custom-logo { 
   display: none !important; 
@@ -160,6 +209,9 @@ a:hover {
   display: flex;
   justify-content: flex-end;
   gap: 2rem;
+  align-items: center;
+  flex-shrink: 0;
+  width: auto !important;
 }
 
 .main-navigation a:hover { 
@@ -172,6 +224,8 @@ a:hover {
   padding: 0;
   display: flex;
   gap: 2rem;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .main-navigation li { 
@@ -705,10 +759,7 @@ ul.footer-links a:hover {
     letter-spacing: 0.5px; 
   }
 
-  .site-header .container { 
-    flex-wrap: nowrap; 
-  }
-
+  
   .single .site-main {
     margin: 60px auto;
     max-width: 800px;
@@ -817,7 +868,7 @@ ul.footer-links a:hover {
     font-size: 14px !important;
   }
 
-  /* Header styling when nav is open */
+  /* Header styling when nav is open (mobile) */
   body.nav-open .site-header {
     background-color: #ffffff !important;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -827,11 +878,19 @@ ul.footer-links a:hover {
     background-color: #0a0466 !important;
   }
 
+  /* When mobile nav is open: hide tagline, show logo */
+  body.nav-open .tagline.scroll-hidden {
+    display: none;
+  }
+
+  body.nav-open .site-logo.scroll-visible {
+    display: inline-block;
+  }
+
   /* Footer bottom adjustments */
   .footer-bottom .container {
     padding: 0.75rem;
   }
-
 }
 
 /* --- HEADER SUBMENU: Additional styling for modern look --- */
@@ -855,6 +914,16 @@ ul.footer-links a:hover {
 
 /* --- MOBILE: collapse submenus unless parent is .open --- */
 @media (max-width: 768px) {
+  .tagline.scroll-hidden {
+    font-size: 0.8rem;        /* smaller on mobile */
+    max-width: 70%;           /* leave space for burger on the right */
+    white-space: normal;      /* allow it to wrap onto 2 lines */
+    line-height: 1.2;
+  }
+
+  .site-header .container {
+    align-items: center;
+  }
   .main-navigation.toggled .sub-menu {
     display: none !important;
     position: static !important;
@@ -986,4 +1055,56 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
 /* Page template: minimal - no top margin */
 .site-main--minimal {
   margin-top: 0 !important;
+}
+
+/* DEFAULT STATE = BLUE HEADER: tagline visible, logo hidden */
+.tagline.scroll-hidden {
+  display: inline-block;
+  font-size: clamp(0.8rem, 3vw, 1rem); /* scales down on smaller screens */
+  font-weight: 600;
+  color: white;
+  margin-right: 1em;
+  border-left: none;
+  white-space: nowrap;
+}
+
+.site-logo.scroll-visible {
+  display: none;
+}
+
+/* Logo sizing */
+.header-logo-img {
+  height: 70px;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .header-logo-img {
+    height: 55px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo-img {
+    height: 48px;
+  }
+}
+
+
+/* Logo/Slogan swap ON SCROLL (not hover) */
+.site-header .site-slogan { 
+  display: block;    /* default: show tagline */
+}
+
+.site-header .text-logo { 
+  display: none;     /* default: hide wordmark/logo */
+}
+
+.site-header.scrolled .site-slogan { 
+  display: none;     /* after scroll: hide tagline */
+}
+
+.site-header.scrolled .text-logo { 
+  display: flex;     /* after scroll: show wordmark/logo */
 }

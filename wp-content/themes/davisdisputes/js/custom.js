@@ -2,32 +2,43 @@
   function init() {
     console.log('DavisDisputes custom.js init');
 
+       // ============================================================
+    // Hero Section Fade on Scroll + Header on Scroll
     // ============================================================
-    // Hero Section Fade on Scroll
-    // ============================================================
-    const hero = document.querySelector('.hero');
+    const hero   = document.querySelector('.hero');
+    const header = document.getElementById('site-header');
 
     function fadeHeroOnScroll() {
       if (!hero) return;
 
-      const scrollY = window.scrollY;
-      const fadeUntil = 100; // Fades out over the first 100px of scrolling
-      const opacity = Math.max(1 - scrollY / fadeUntil, 0);
+      const scrollY    = window.scrollY;
+      const fadeUntil  = 100; // Fades out over the first 100px of scrolling
+      const opacity    = Math.max(1 - scrollY / fadeUntil, 0);
       const translateY = Math.min(scrollY / 5, 50);
 
-      if (typeof gsap !== 'undefined') {
-        gsap.set(hero, {
-          opacity: opacity,
-          y: -translateY,
-        });
-      } else {
-        hero.style.opacity = opacity;
-        hero.style.transform = `translateY(-${translateY}px)`;
-      }
+      hero.style.opacity         = opacity.toString();
+      hero.style.transform       = `translateY(${translateY}px)`;
+      hero.style.pointerEvents   = opacity <= 0 ? 'none' : 'auto';
     }
 
-    window.addEventListener('scroll', fadeHeroOnScroll);
-    fadeHeroOnScroll();
+    function updateHeaderOnScroll() {
+      if (!header) return;
+      const threshold = 10; // px from top before switching
+      const isScrolled = window.scrollY > threshold;
+    
+      header.classList.toggle('scrolled', isScrolled);
+      document.body.classList.toggle('header-scrolled', isScrolled);
+    }
+    
+
+    function onScroll() {
+      fadeHeroOnScroll();
+      updateHeaderOnScroll();
+    }
+
+    window.addEventListener('scroll', onScroll);
+    onScroll(); // run once on load
+
 
     // ============================================================
     // Header Mobile Navigation

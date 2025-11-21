@@ -5,16 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <?php wp_head(); ?>
 </head>
+
 <body <?php body_class(); ?>>
 
 <header id="site-header" class="site-header">
   <div class="container">
-    <div class="branding">
-      <p class="site-slogan"><?php bloginfo( 'description' ); ?></p>
 
-      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-logo">
-        <span class="text-logo-main"><?php echo esc_html( get_theme_mod( 'hero_heading', 'DAVIS' ) ); ?></span>
-        <span class="text-logo-sub"><?php echo esc_html( get_theme_mod( 'hero_subheading', 'DISPUTE RESOLUTION' ) ); ?></span>
+    <div class="branding">
+      <!-- BLUE HEADER: tagline -->
+      <div class="tagline scroll-hidden">
+        Turning cross-border disputes into assets
+      </div>
+
+      <!-- WHITE HEADER: image logo -->
+      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-logo scroll-visible">
+        <img
+          src="<?php echo get_stylesheet_directory_uri(); ?>/assets/logo/logo_70px.png"
+          srcset="<?php echo get_stylesheet_directory_uri(); ?>/assets/logo/logo_70px.png 1x,
+                  <?php echo get_stylesheet_directory_uri(); ?>/assets/logo/logo_140px.png 2x"
+          alt="<?php bloginfo( 'name' ); ?>"
+          class="header-logo-img"
+        >
       </a>
     </div>
 
@@ -35,5 +46,6 @@
         ) );
       ?>
     </nav>
+
   </div>
 </header>
