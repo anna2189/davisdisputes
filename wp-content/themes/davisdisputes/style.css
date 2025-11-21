@@ -123,28 +123,7 @@ a:hover {
   }
 }
 
- /* Header SCROLLED state (works on desktop + mobile) */
- .site-header.scrolled {
-  background-color: #ffffff !important;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.site-header.scrolled .main-navigation a { 
-  color: #0a0466 !important;
-}
-
-.site-header.scrolled .mobile-nav-toggle .line {
-  background-color: #0a0466 !important;
-}
-
-/* When scrolled: hide tagline, show logo */
-.site-header.scrolled .tagline.scroll-hidden {
-  display: none;
-}
-
-.site-header.scrolled .site-logo.scroll-visible {
-  display: inline-block;
-}
+ 
 
 /* Header scroll state – works on desktop + mobile, wins over everything */
 body.header-scrolled .site-header {
@@ -949,6 +928,14 @@ ul.footer-links a:hover {
   .main-navigation.toggled .menu-item-has-children.open > a::after {
     transform: rotate(90deg);
   }
+  
+  body.header-scrolled .site-logo.scroll-visible {
+    display: inline-block !important;
+  }
+
+  body.header-scrolled .tagline.scroll-hidden {
+    display: none !important;
+  }
 }
 
 
@@ -1101,13 +1088,7 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
   display: none;     /* default: hide wordmark/logo */
 }
 
-.site-header.scrolled .site-slogan { 
-  display: none;     /* after scroll: hide tagline */
-}
 
-.site-header.scrolled .text-logo { 
-  display: flex;     /* after scroll: show wordmark/logo */
-}
 /* Force the image logo to show on mobile when header is white / menu open */
 @media (max-width: 768px) {
   body.nav-open .site-logo.scroll-visible,
@@ -1120,3 +1101,5 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
     display: none !important;
   }
 }
+
+
