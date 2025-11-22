@@ -176,6 +176,67 @@ body.header-scrolled .site-logo.scroll-visible {
 }
 
 /* ============================================================ */
+/* =================== LOGO AND TAGLINE SWAP ================== */
+/* ============================================================ */
+
+/* DEFAULT STATE = BLUE HEADER: tagline visible, logo hidden */
+.tagline.scroll-hidden {
+  display: inline-block;
+  font-size: clamp(0.8rem, 3vw, 1rem); /* scales down on smaller screens */
+  font-weight: 600;
+  color: white;
+  margin-right: 1em;
+  border-left: none;
+  white-space: nowrap;
+}
+
+.site-logo.scroll-visible {
+  display: none;
+}
+
+/* Logo sizing */
+.header-logo-img {
+  height: 70px;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .header-logo-img {
+    height: 55px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo-img {
+    height: 48px;
+  }
+}
+
+/* When menu is open on mobile - show logo, hide tagline */
+body.nav-open .site-header {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+body.nav-open .site-header .mobile-nav-toggle .line {
+  background-color: #0a0466 !important;
+}
+
+/* CRITICAL FIX: Show logo when nav is open */
+body.nav-open .site-logo.scroll-visible {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+body.nav-open .tagline.scroll-hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* ============================================================ */
 /* ===================== NAVIGATION MENU ====================== */
 /* ============================================================ */
 
@@ -584,7 +645,7 @@ body.header-scrolled .site-logo.scroll-visible {
     height: 3px;
     background-color: #fff;
     margin: 5px 0;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
   }
 
   .site-header:hover .mobile-nav-toggle .line { 
@@ -700,26 +761,21 @@ body.header-scrolled .site-logo.scroll-visible {
     padding: 0.75rem;
   }
 
-  /* FINAL CONSOLIDATED MOBILE HEADER SWAP RULES */
-  body.nav-open .site-header,
-  body.header-scrolled .site-header {
-    background-color: #ffffff !important;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-
-  body.nav-open .site-header .mobile-nav-toggle .line,
-  body.header-scrolled .site-header .mobile-nav-toggle .line {
-    background-color: #0a0466 !important;
-  }
-
-  body.nav-open .site-logo.scroll-visible,
+  /* Mobile header state changes - Logo/Tagline swap */
   body.header-scrolled .site-logo.scroll-visible {
-    display: block !important;
+    display: inline-block !important;
   }
 
-  body.nav-open .tagline.scroll-hidden,
   body.header-scrolled .tagline.scroll-hidden {
     display: none !important;
+  }
+  
+  /* Tagline adjustments for mobile */
+  .tagline.scroll-hidden {
+    font-size: 0.8rem;        /* smaller on mobile */
+    max-width: 70%;           /* leave space for burger on the right */
+    white-space: normal;      /* allow it to wrap onto 2 lines */
+    line-height: 1.2;
   }
 }
 
@@ -743,13 +799,6 @@ body.header-scrolled .site-logo.scroll-visible {
 
 /* --- MOBILE: collapse submenus unless parent is .open --- */
 @media (max-width: 768px) {
-  .tagline.scroll-hidden {
-    font-size: 0.8rem;        /* smaller on mobile */
-    max-width: 70%;           /* leave space for burger on the right */
-    white-space: normal;      /* allow it to wrap onto 2 lines */
-    line-height: 1.2;
-  }
-
   .site-header .container {
     align-items: center;
   }
@@ -782,14 +831,6 @@ body.header-scrolled .site-logo.scroll-visible {
 
   .main-navigation.toggled .menu-item-has-children.open > a::after {
     transform: rotate(90deg);
-  }
-  
-  body.header-scrolled .site-logo.scroll-visible {
-    display: inline-block !important;
-  }
-
-  body.header-scrolled .tagline.scroll-hidden {
-    display: none !important;
   }
 }
 
@@ -895,40 +936,6 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
 /* Page template: minimal - no top margin */
 .site-main--minimal {
   margin-top: 0 !important;
-}
-
-/* DEFAULT STATE = BLUE HEADER: tagline visible, logo hidden */
-.tagline.scroll-hidden {
-  display: inline-block;
-  font-size: clamp(0.8rem, 3vw, 1rem); /* scales down on smaller screens */
-  font-weight: 600;
-  color: white;
-  margin-right: 1em;
-  border-left: none;
-  white-space: nowrap;
-}
-
-.site-logo.scroll-visible {
-  display: none;
-}
-
-/* Logo sizing */
-.header-logo-img {
-  height: 70px;
-  width: auto;
-  display: block;
-}
-
-@media (max-width: 768px) {
-  .header-logo-img {
-    height: 55px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-logo-img {
-    height: 48px;
-  }
 }
 
 /* Logo/Slogan swap ON SCROLL (not hover) */
