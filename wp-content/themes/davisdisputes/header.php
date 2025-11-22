@@ -18,12 +18,14 @@
   </p>
 
   <!-- Logo from Site Identity (Customizer) for white header -->
-  <?php if ( has_custom_logo() ) : ?>
-    <div class="site-logo scroll-visible">
-      <?php echo get_custom_logo(); ?>
+  <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-logo scroll-visible">
+        <?php
+          if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
+            the_custom_logo();   // this outputs the image from Site Identity
+          }
+        ?>
+      </a>
     </div>
-  <?php endif; ?>
-</div>
 
 
     <button class="mobile-nav-toggle" type="button" aria-controls="primary-menu" aria-expanded="false">

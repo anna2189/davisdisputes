@@ -170,10 +170,11 @@ body.header-scrolled .site-logo.scroll-visible {
 }
 
 /* Hide default WP site title/logo */
-.site-title, 
-.site-header .custom-logo { 
+.site-title { 
   display: none !important; 
 }
+
+
 
 /* ============================================================ */
 /* =================== LOGO AND TAGLINE SWAP ================== */
@@ -191,7 +192,37 @@ body.header-scrolled .site-logo.scroll-visible {
 }
 
 .site-logo.scroll-visible {
-  display: none;
+  display: none !important;
+}
+/* WHITE HEADER STATES: show logo, hide tagline */
+
+/* On scroll (desktop + mobile) */
+body.header-scrolled .site-header .site-logo.scroll-visible {
+  display: inline-block !important;
+}
+
+body.header-scrolled .site-header .tagline.scroll-hidden {
+  display: none !important;
+}
+
+/* On desktop hover */
+@media (min-width: 769px) {
+  .site-header:hover .site-logo.scroll-visible {
+    display: inline-block !important;
+  }
+
+  .site-header:hover .tagline.scroll-hidden {
+    display: none !important;
+  }
+}
+
+/* On mobile menu open */
+body.nav-open .site-header .site-logo.scroll-visible {
+  display: inline-block !important;
+}
+
+body.nav-open .site-header .tagline.scroll-hidden {
+  display: none !important;
 }
 
 /* Logo sizing */
@@ -199,6 +230,20 @@ body.header-scrolled .site-logo.scroll-visible {
   height: 70px;
   width: auto;
   display: block;
+}
+
+/* Size the Customizer logo image */
+.custom-logo {
+  height: 70px;
+  width: auto;
+  display: block;
+  opacity: 0;                 /* hidden in BLUE header */
+}
+/* Show logo only when header is white */
+body.header-scrolled .custom-logo,
+.site-header:hover .custom-logo,
+body.nav-open .custom-logo {
+  opacity: 1;
 }
 
 @media (max-width: 768px) {
@@ -221,13 +266,6 @@ body.nav-open .site-header {
 
 body.nav-open .site-header .mobile-nav-toggle .line {
   background-color: #0a0466 !important;
-}
-
-/* CRITICAL FIX: Show logo when nav is open */
-body.nav-open .site-logo.scroll-visible {
-  display: inline-block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
 }
 
 body.nav-open .tagline.scroll-hidden {
@@ -625,8 +663,18 @@ body.nav-open .tagline.scroll-hidden {
   .site-header .container {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
   }
 
+  /* Tagline block can shrink to leave room for burger */
+  .branding {
+    flex: 1 1 auto;
+    min-width: 0;
+    flex-shrink: 1;   /* override desktop flex-shrink: 0 */
+  }
   /* Mobile hamburger menu */
   .mobile-nav-toggle {
     display: block !important;
@@ -636,7 +684,13 @@ body.nav-open .tagline.scroll-hidden {
     padding: 10px;
     z-index: 1001;
     position: relative;
+
     -webkit-tap-highlight-color: transparent; /* Safari touch fix */
+  }
+   /* Make sure the hamburger itself always has room */
+   .mobile-nav-toggle {
+    flex: 0 0 auto;
+    margin-left: 0.5rem;
   }
 
   .mobile-nav-toggle .line {
@@ -666,8 +720,12 @@ body.nav-open .tagline.scroll-hidden {
 
   /* FIXED: Mobile navigation menu - Safari-compatible */
   .main-navigation {
-    position: relative;
+    position: relative;  /* your Safari fix */
     display: block !important; /* Always present in DOM */
+    flex: 0 1 auto;             /* don’t grow, allow shrink */
+    flex-shrink: 1 !important;
+    width: auto !important;
+    min-width: 0;
   }
   
   /* Hide menu by default */
@@ -761,11 +819,7 @@ body.nav-open .tagline.scroll-hidden {
     padding: 0.75rem;
   }
 
-  /* Mobile header state changes - Logo/Tagline swap */
-  body.header-scrolled .site-logo.scroll-visible {
-    display: inline-block !important;
-  }
-
+  
   body.header-scrolled .tagline.scroll-hidden {
     display: none !important;
   }
