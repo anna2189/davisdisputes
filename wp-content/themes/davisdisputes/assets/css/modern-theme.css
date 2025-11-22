@@ -45,7 +45,7 @@ body.home.wp-singular.page-template-default.page.page-id-19 {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Merriweather', serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     line-height: 1.2;
     color: var(--primary-navy);
