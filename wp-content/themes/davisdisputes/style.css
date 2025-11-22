@@ -237,7 +237,6 @@ body.nav-open .site-header .tagline.scroll-hidden {
   height: 70px;
   width: auto;
   display: block;
-  opacity: 0;                 /* hidden in BLUE header */
 }
 /* Show logo only when header is white */
 body.header-scrolled .custom-logo,
