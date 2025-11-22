@@ -233,7 +233,7 @@ body.nav-open .site-header .tagline.scroll-hidden {
 }
 /* === Customizer logo visibility + size === */
 .site-header .custom-logo-link {
-  display: block !important;   /* override WP core hiding */
+  display: none;    /* Hidden by default */
 }
 
 .custom-logo {
