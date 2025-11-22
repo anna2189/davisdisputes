@@ -847,29 +847,33 @@ ul.footer-links a:hover {
     font-size: 14px !important;
   }
 
-  /* Header styling when nav is open (mobile) */
-  body.nav-open .site-header {
-    background-color: #ffffff !important;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-
-  body.nav-open .site-header .mobile-nav-toggle .line {
-    background-color: #0a0466 !important;
-  }
-
-  /* When mobile nav is open: hide tagline, show logo */
-  body.nav-open .tagline.scroll-hidden {
-    display: none !important; 
-  }
-
-  body.nav-open .site-logo.scroll-visible {
-    display: inline-block !important;
-  }
-
+  
   /* Footer bottom adjustments */
   .footer-bottom .container {
     padding: 0.75rem;
   }
+/* FINAL CONSOLIDATED MOBILE HEADER SWAP RULES (Insert near the end of the first mobile media query) */
+
+body.nav-open .site-header,
+body.header-scrolled .site-header {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+body.nav-open .site-header .mobile-nav-toggle .line,
+body.header-scrolled .site-header .mobile-nav-toggle .line {
+  background-color: #0a0466 !important;
+}
+
+body.nav-open .site-logo.scroll-visible,
+body.header-scrolled .site-logo.scroll-visible {
+    display: block !important;
+}
+
+body.nav-open .tagline.scroll-hidden,
+body.header-scrolled .tagline.scroll-hidden {
+    display: none !important;
+}
 }
 
 /* --- HEADER SUBMENU: Additional styling for modern look --- */
