@@ -20,9 +20,9 @@
       <!-- WHITE HEADER: image logo -->
       <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-logo scroll-visible">
   <img
-    src="<?php echo get_stylesheet_directory_uri(); ?>/assets/logo/logo_70px.png"
-    srcset="<?php echo get_stylesheet_directory_uri(); ?>/assets/logo/logo_70px.png 1x,
-            <?php echo get_stylesheet_directory_uri(); ?>/assets/logo/logo_140px.png 2x"
+    src="<?php echo get_stylesheet_directory_uri(); ?>/images/logo/logo_70px.png"
+    srcset="<?php echo get_stylesheet_directory_uri(); ?>/images/logo/logo_70px.png 1x,
+            <?php echo get_stylesheet_directory_uri(); ?>/images/logo/logo_140px.png 2x"
     alt="<?php bloginfo( 'name' ); ?>"
     class="header-logo-img"
   />
