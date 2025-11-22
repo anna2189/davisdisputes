@@ -12,7 +12,7 @@ get_header(); ?>
 
 /* 1. Style the main content area (to center it and limit width) */
 #primary.site-main {
-  max-width: 800px; 
+  max-width: 80%; 
   margin: 80px auto; /* Space top/bottom, center horizontally */
   padding: 0 5%;    /* Side padding for responsiveness */
 }
