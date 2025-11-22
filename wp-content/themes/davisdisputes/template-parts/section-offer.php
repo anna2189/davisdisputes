@@ -13,21 +13,21 @@
     <div class="services-grid offer-grid">
       <!-- Enforcement Strategy -->
       <article class="service-card">
-        <a href="<?php echo esc_url( home_url( '/enforcement-strategy/' ) ); ?>" class="service-card__link" aria-label="Learn more about Enforcement Strategy">Enforcement Strategy</a>
+        <a href="<?php echo esc_url( home_url( '/enforcement-strategy/' ) ); ?>" class="service-card__link" aria-label="Learn more about Enforcement Strategy"></a>
         <div class="service-icon">◆</div>
         <h3 class="service-title" style="color: var(--primary-navy);">Enforcement Strategy</h3>
       </article>
 
       <!-- Litigation Finance Consulting -->
       <article class="service-card">
-        <a href="<?php echo esc_url( home_url( '/litigation-finance-consulting/' ) ); ?>" class="service-card__link" aria-label="Learn more about Litigation Finance Consulting">Litigation Finance Consulting</a>
+        <a href="<?php echo esc_url( home_url( '/litigation-finance-consulting/' ) ); ?>" class="service-card__link" aria-label="Learn more about Litigation Finance Consulting"></a>
         <div class="service-icon">◆</div>
         <h3 class="service-title" style="color: var(--primary-navy);">Litigation Finance Consulting</h3>
       </article>
 
       <!-- Strategic Dispute Advisory -->
       <article class="service-card">
-        <a href="<?php echo esc_url( home_url( '/strategic-dispute-advisory/' ) ); ?>" class="service-card__link" aria-label="Learn more about Strategic Dispute Advisory">Strategic Dispute Advisory</a>
+        <a href="<?php echo esc_url( home_url( '/strategic-dispute-advisory/' ) ); ?>" class="service-card__link" aria-label="Learn more about Strategic Dispute Advisory"></a>
         <div class="service-icon">◆</div>
         <h3 class="service-title" style="color: var(--primary-navy);">Strategic Dispute Advisory</h3>
       </article>

@@ -393,6 +393,26 @@ p {
     max-width: 33.333%;
     min-width: 0;
 }
+/* Make entire service card clickable */
+.service-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card__link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* clickable layer */
+    text-indent: -9999px; /* keep accessible */
+}
+
+.service-card > * {
+    position: relative;
+    z-index: 20; /* content stays visible above background */
+}
 
 .service-card:hover {
     transform: translateY(-10px);
