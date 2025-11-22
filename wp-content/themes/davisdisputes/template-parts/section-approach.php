@@ -12,15 +12,15 @@
 
     <div style="text-align: center; max-width: 900px; margin: 0 auto;">
       <p class="section-subtitle" style="font-weight:700; color: var(--primary-navy); margin: 0rem 0 1.5rem;">
-        Bespoke. Cost-conscious. Independent.
+      Independent. Bespoke. Cost-efficient.
       </p>
     </div>
     <div class="approach-content" style="max-width: 900px; margin: 0 auto;">
       <p class="hero-description" style="color: var(--secondary-navy); margin: 0 auto; padding-left: 1rem;">
-        With the expertise of top-tier institutions but without their conflicts or overheads, Davis Dispute Advisory delivers strategies tailored to each matter.
+      With the expertise of top-tier institutions but without their conflicts or overheads, Davis Dispute Advisory delivers strategies tailored to each matter. 
       </p>
       <p class="hero-description" style="color: var(--secondary-navy); margin: 1.5rem auto 0; padding: 3px auto; padding-left: 1rem;">
-        Our pricing is flexible, with fixed and success-based fees providing predictability and alignment.
+      Our pricing is flexible, with fixed and success-based fees, providing predictability and alignment.
       </p>
     </div>
   </div>

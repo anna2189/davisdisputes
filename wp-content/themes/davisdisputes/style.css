@@ -117,9 +117,11 @@ a:hover {
     display: none;
   }
 
-  .site-header:hover .site-logo.scroll-visible {
-    display: inline-block;
-  }
+  /* Default: blue header → hide logo wrapper */
+.site-logo.scroll-visible {
+  display: none;
+}
+
 }
 
 /* Header scroll state – works on desktop + mobile, wins over everything */
@@ -191,9 +193,7 @@ body.header-scrolled .site-logo.scroll-visible {
   white-space: nowrap;
 }
 
-.site-logo.scroll-visible {
-  display: none !important;
-}
+
 /* WHITE HEADER STATES: show logo, hide tagline */
 
 /* On scroll (desktop + mobile) */
@@ -231,6 +231,17 @@ body.nav-open .site-header .tagline.scroll-hidden {
   width: auto;
   display: block;
 }
+/* === Customizer logo visibility + size === */
+.site-header .custom-logo-link {
+  display: block !important;   /* override WP core hiding */
+}
+
+.custom-logo {
+  height: 70px;
+  width: auto;
+  display: block;
+}
+
 
 /* Size the Customizer logo image */
 .custom-logo {
@@ -554,20 +565,45 @@ body.nav-open .tagline.scroll-hidden {
 /* Footer bottom */
 .footer-bottom {
   background-color: #03023d;
-  padding: 1rem 5%;
+  padding: 0.75rem 1%;
 }
 
-.footer-bottom .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
+.footer-bottom-inner {
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 0.875rem;
   color: #b0b0d0;
 }
 
-/* Footer mobile toggle button */
-.footer-mobile-toggle {
-  display: none;
+/* logo block on the left */
+.footer-logo {
+  margin: 0;
+  padding: 0;
+}
+
+/* copyright text on the right */
+.footer-copy {
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+
+/* optional: small responsive tweak */
+@media (max-width: 600px) {
+  .footer-bottom-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .footer-copy {
+    text-align: center;
+  }
 }
 
 /* ============================================================ */
