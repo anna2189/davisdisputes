@@ -859,11 +859,11 @@ ul.footer-links a:hover {
 
   /* When mobile nav is open: hide tagline, show logo */
   body.nav-open .tagline.scroll-hidden {
-    display: none;
+    display: none !important; 
   }
 
   body.nav-open .site-logo.scroll-visible {
-    display: inline-block;
+    display: inline-block !important;
   }
 
   /* Footer bottom adjustments */
@@ -1088,18 +1088,5 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
   display: none;     /* default: hide wordmark/logo */
 }
 
-
-/* Force the image logo to show on mobile when header is white / menu open */
-@media (max-width: 768px) {
-  body.nav-open .site-logo.scroll-visible,
-  body.header-scrolled .site-logo.scroll-visible {
-    display: inline-block !important;
-  }
-
-  body.nav-open .tagline.scroll-hidden,
-  body.header-scrolled .tagline.scroll-hidden {
-    display: none !important;
-  }
-}
 
 
