@@ -11,24 +11,20 @@
 <header id="site-header" class="site-header">
   <div class="container">
 
-    <div class="branding">
-      <!-- BLUE HEADER: tagline -->
-      <div class="tagline scroll-hidden">
-        Turning cross-border disputes into assets
-      </div>
+  <div class="branding">
+  <!-- Tagline in blue header -->
+  <p class="tagline scroll-hidden">
+    <?php bloginfo( 'description' ); ?>
+  </p>
 
-      <!-- WHITE HEADER: image logo -->
-      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-logo scroll-visible">
-  <img
-    src="<?php echo get_stylesheet_directory_uri(); ?>/images/logo/logo_70px.png"
-    srcset="<?php echo get_stylesheet_directory_uri(); ?>/images/logo/logo_70px.png 1x,
-            <?php echo get_stylesheet_directory_uri(); ?>/images/logo/logo_140px.png 2x"
-    alt="<?php bloginfo( 'name' ); ?>"
-    class="header-logo-img"
-  />
-</a>
-
+  <!-- Logo from Site Identity (Customizer) for white header -->
+  <?php if ( has_custom_logo() ) : ?>
+    <div class="site-logo scroll-visible">
+      <?php echo get_custom_logo(); ?>
     </div>
+  <?php endif; ?>
+</div>
+
 
     <button class="mobile-nav-toggle" type="button" aria-controls="primary-menu" aria-expanded="false">
       <span class="line"></span>
