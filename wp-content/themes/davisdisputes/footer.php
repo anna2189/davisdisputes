@@ -17,13 +17,7 @@
   </div>
   <div class="footer-bottom">
     <div class="container footer-bottom-inner">
-      <div class="footer-logo">
-        <?php if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) : ?>
-          <?php the_custom_logo(); ?>
-        <?php else : ?>
-          <span class="footer-site-title"><?php bloginfo( 'name' ); ?></span>
-        <?php endif; ?>
-      </div>
+      
 
       <p class="footer-copy">
         &copy; <?php echo date( 'Y' ); ?> Davis Dispute Advisory |
