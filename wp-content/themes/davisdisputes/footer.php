@@ -35,36 +35,56 @@
 <!-- Simple Submenu Fix -->
 <!-- FORCE SUBMENU VISIBLE -->
 <!-- DIAGNOSTIC: What's actually in the menu? -->
-<!-- DIAGNOSTIC: What's actually in the menu? -->
+<!-- WORKING SUBMENU FIX -->
 <script>
 setTimeout(function() {
     var servicesItem = document.querySelector('.menu-item-has-children');
-    if (!servicesItem) {
-        alert('No parent item found');
-        return;
-    }
+    if (!servicesItem) return;
     
-    // Check what's inside Services item
-    var html = servicesItem.innerHTML;
-    alert('Services contains: ' + html.substring(0, 300));
-    
-    // Look for submenu
+    var servicesLink = servicesItem.querySelector('> a');
     var submenu = servicesItem.querySelector('.sub-menu');
-    if (submenu) {
-        alert('Submenu found with ' + submenu.children.length + ' items');
-        // Force it visible with red border
-        submenu.style.cssText = 'display: block !important; border: 3px solid red !important; background: yellow !important; padding: 20px !important; position: static !important;';
-    } else {
-        // Try alternative selectors
-        var anyUL = servicesItem.querySelector('ul');
-        if (anyUL) {
-            alert('Found UL with ' + anyUL.children.length + ' items');
-            anyUL.style.cssText = 'display: block !important; border: 3px solid red !important; background: yellow !important; padding: 20px !important;';
+    
+    if (!submenu) return;
+    
+    // Initially hide it properly
+    submenu.style.display = 'none';
+    
+    // Remove href to prevent navigation
+    servicesLink.href = 'javascript:void(0)';
+    
+    // Simple toggle
+    servicesLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (submenu.style.display === 'none' || submenu.style.display === '') {
+            // SHOW IT
+            submenu.style.display = 'block';
+            submenu.style.visibility = 'visible';
+            submenu.style.opacity = '1';
+            submenu.style.position = 'static';
+            submenu.style.paddingLeft = '20px';
+            submenu.style.background = '#f5f5f5';
+            
+            // Make sure all items inside are visible
+            var items = submenu.querySelectorAll('li, a');
+            items.forEach(function(item) {
+                item.style.display = 'block';
+                item.style.padding = '10px';
+            });
+            
+            servicesItem.classList.add('open');
         } else {
-            alert('NO SUBMENU FOUND AT ALL!');
+            // HIDE IT
+            submenu.style.display = 'none';
+            servicesItem.classList.remove('open');
         }
-    }
-}, 2000);
+        
+        return false;
+    });
+    
+    console.log('Submenu fix applied - submenu found and ready');
+}, 1500);
 </script>
 
 <!-- Force CSS -->
