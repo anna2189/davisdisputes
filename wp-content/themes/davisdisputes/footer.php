@@ -17,53 +17,38 @@
   </div>
   <div class="footer-bottom">
     <div class="container footer-bottom-inner">
-      
-
       <p class="footer-copy">
         &copy; <?php echo date( 'Y' ); ?> Davis Dispute Advisory |
         Site created by <a href="https://adaconsulting.ca" target="_blank" rel="noopener noreferrer">ADA Consulting</a>
       </p>
     </div>
   </div>
-
 </footer>
 
 <?php wp_footer(); ?>
-<script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
-<?php wp_footer(); ?>
 
-<!-- Main menu fix -->
-<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/safari-menu-fix.js"></script>
+<!-- Main menu fix (only load ONCE) -->
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
 <!-- Submenu fix -->
-<?php wp_footer(); ?>
-<script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
-
-<!-- FORCEFUL SUBMENU FIX -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Wait for everything to load
     setTimeout(function() {
-        // Find all parent menu items
         var parents = document.querySelectorAll('.menu-item-has-children');
         
         parents.forEach(function(parent) {
             var link = parent.querySelector('> a');
             if (!link) return;
             
-            // REMOVE the href to prevent navigation
             link.setAttribute('href', '#');
             
-            // Add click handler
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                // Toggle submenu
                 if (parent.classList.contains('open')) {
                     parent.classList.remove('open');
                 } else {
-                    // Close all others first
                     parents.forEach(function(p) {
                         p.classList.remove('open');
                     });
@@ -79,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- FORCE CSS directly in page -->
+<!-- Force CSS -->
 <style>
 @media (max-width: 768px) {
     .main-navigation.toggled .menu-item-has-children > ul {
@@ -92,10 +77,5 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 </style>
 
-</body>
-</html>
-
-</body>
-</html>
 </body>
 </html>
