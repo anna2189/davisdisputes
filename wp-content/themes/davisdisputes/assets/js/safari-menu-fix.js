@@ -1,226 +1,164 @@
 /**
- * SAFARI-PROOF MOBILE MENU FIX
- * Add this to your theme or as a separate script
- * Ensures mobile menu works on iOS Safari
+ * iOS SAFARI SUBMENU FIX
+ * Replace or add to your safari-menu-fix.js
  */
 
 (function() {
     'use strict';
     
-    console.log('Safari-proof menu fix initializing...');
+    console.log('iOS Submenu fix initializing...');
     
     // Detect Safari/iOS
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     
-    if (isSafari || isIOS) {
-        console.log('Safari/iOS detected - applying fixes');
-    }
-    
-    function initMenu() {
-        const navToggleBtn = document.querySelector('.mobile-nav-toggle');
+    function initSubmenus() {
+        // Wait for menu to be toggled open
         const primaryNav = document.querySelector('.main-navigation');
-        const body = document.body;
+        if (!primaryNav) return;
         
-        if (!navToggleBtn || !primaryNav) {
-            console.warn('Menu elements not found, retrying...');
-            setTimeout(initMenu, 500);
-            return;
-        }
-        
-        console.log('Menu elements found, setting up handlers');
-        
-        // Fix logo visibility based on state
-        function updateLogoVisibility() {
-            const logo = document.querySelector('.site-logo.scroll-visible');
-            const customLogo = document.querySelector('.custom-logo-link');
-            const tagline = document.querySelector('.tagline.scroll-hidden');
-            
-            const isNavOpen = body.classList.contains('nav-open');
-            const isScrolled = body.classList.contains('header-scrolled');
-            
-            // Should show logo when nav is open OR scrolled
-            const shouldShowLogo = isNavOpen || isScrolled;
-            
-            if (logo) {
-                logo.style.display = shouldShowLogo ? 'inline-block' : 'none';
-                logo.style.visibility = shouldShowLogo ? 'visible' : 'hidden';
-            }
-            
-            if (customLogo) {
-                customLogo.style.display = shouldShowLogo ? 'inline-block' : 'none';
-                customLogo.style.visibility = shouldShowLogo ? 'visible' : 'hidden';
-                
-                const img = customLogo.querySelector('img');
-                if (img) {
-                    img.style.display = 'block';
-                    img.style.height = '48px';
-                    img.style.width = 'auto';
-                }
-            }
-            
-            if (tagline) {
-                tagline.style.display = shouldShowLogo ? 'none' : 'inline-block';
-                tagline.style.visibility = shouldShowLogo ? 'hidden' : 'visible';
-            }
-        }
-        
-        // Toggle menu function
-        function toggleMenu(event) {
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            
-            const isOpening = !primaryNav.classList.contains('toggled');
-            
-            // Toggle classes
-            primaryNav.classList.toggle('toggled', isOpening);
-            body.classList.toggle('nav-open', isOpening);
-            navToggleBtn.setAttribute('aria-expanded', isOpening ? 'true' : 'false');
-            
-            // Update logo visibility
-            updateLogoVisibility();
-            
-            // Safari-specific: Force repaint
-            if (isSafari || isIOS) {
-                // Force Safari to repaint
-                primaryNav.style.display = 'none';
-                primaryNav.offsetHeight; // Trigger reflow
-                primaryNav.style.display = '';
-                
-                // Ensure menu list is visible
-                const menuList = primaryNav.querySelector('ul');
-                if (menuList && isOpening) {
-                    menuList.style.visibility = 'visible';
-                    menuList.style.opacity = '1';
-                    menuList.style.transform = 'translateX(0)';
-                    menuList.style.webkitTransform = 'translateX(0)';
-                    menuList.style.pointerEvents = 'auto';
-                }
-            }
-            
-            console.log(isOpening ? 'Menu opened' : 'Menu closed');
-        }
-        
-        // Remove existing listeners to prevent duplicates
-        navToggleBtn.replaceWith(navToggleBtn.cloneNode(true));
-        const newToggleBtn = document.querySelector('.mobile-nav-toggle');
-        
-        // Handle both click and touch events for Safari
-        if (isIOS) {
-            // iOS Safari - use touchstart for better responsiveness
-            let touchHandled = false;
-            
-            newToggleBtn.addEventListener('touchstart', function(event) {
-                if (!touchHandled) {
-                    touchHandled = true;
-                    toggleMenu(event);
-                    setTimeout(() => { touchHandled = false; }, 500);
-                }
-            }, { passive: false });
-            
-            // Fallback click handler
-            newToggleBtn.addEventListener('click', function(event) {
-                if (!touchHandled) {
-                    toggleMenu(event);
-                }
-            });
-        } else {
-            // Regular browsers
-            newToggleBtn.addEventListener('click', toggleMenu);
-        }
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!primaryNav.classList.contains('toggled')) return;
-            
-            const clickInsideNav = primaryNav.contains(event.target) || 
-                                  newToggleBtn.contains(event.target);
-            
-            if (!clickInsideNav) {
-                primaryNav.classList.remove('toggled');
-                body.classList.remove('nav-open');
-                newToggleBtn.setAttribute('aria-expanded', 'false');
-                updateLogoVisibility();
-            }
-        });
-        
-        // Handle submenu items
-        const menuItemsWithChildren = primaryNav.querySelectorAll(
-            '.menu-item-has-children > a, .page_item_has_children > a'
+        // Find all parent menu items with submenus
+        const parentItems = document.querySelectorAll(
+            '.main-navigation .menu-item-has-children, .main-navigation .page_item_has_children'
         );
         
-        menuItemsWithChildren.forEach(function(link) {
-            link.addEventListener('click', function(event) {
-                if (window.matchMedia('(max-width: 768px)').matches && 
-                    primaryNav.classList.contains('toggled')) {
-                    event.preventDefault();
-                    const menuItem = this.parentNode;
-                    menuItem.classList.toggle('open');
+        console.log(`Found ${parentItems.length} parent menu items with submenus`);
+        
+        parentItems.forEach(function(parentItem) {
+            const parentLink = parentItem.querySelector('> a');
+            if (!parentLink) return;
+            
+            // Add visual indicator (arrow) to show it's expandable
+            if (!parentLink.querySelector('.submenu-toggle')) {
+                const arrow = document.createElement('span');
+                arrow.className = 'submenu-toggle';
+                arrow.innerHTML = ' ▼';
+                arrow.style.cssText = 'font-size: 12px; margin-left: 5px; display: inline-block; transition: transform 0.3s;';
+                parentLink.appendChild(arrow);
+            }
+            
+            // Remove existing event listeners
+            const newLink = parentLink.cloneNode(true);
+            parentLink.parentNode.replaceChild(newLink, parentLink);
+            
+            // Handle clicks on parent items
+            newLink.addEventListener('click', function(e) {
+                // Only prevent default on mobile when menu is open
+                if (window.innerWidth <= 768 && primaryNav.classList.contains('toggled')) {
+                    e.preventDefault();
+                    e.stopPropagation();
                     
-                    // Safari: Force submenu repaint
-                    if (isSafari || isIOS) {
-                        const submenu = menuItem.querySelector('.sub-menu, ul');
+                    // Toggle the open class
+                    const isOpen = parentItem.classList.contains('open');
+                    
+                    // Close all other open submenus first
+                    parentItems.forEach(item => {
+                        if (item !== parentItem) {
+                            item.classList.remove('open');
+                            const arrow = item.querySelector('.submenu-toggle');
+                            if (arrow) arrow.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                    
+                    // Toggle this submenu
+                    if (isOpen) {
+                        parentItem.classList.remove('open');
+                        const arrow = newLink.querySelector('.submenu-toggle');
+                        if (arrow) arrow.style.transform = 'rotate(0deg)';
+                    } else {
+                        parentItem.classList.add('open');
+                        const arrow = newLink.querySelector('.submenu-toggle');
+                        if (arrow) arrow.style.transform = 'rotate(180deg)';
+                    }
+                    
+                    // iOS Safari: Force submenu repaint
+                    if (isIOS) {
+                        const submenu = parentItem.querySelector('.sub-menu, > ul');
                         if (submenu) {
                             submenu.style.display = 'none';
-                            submenu.offsetHeight;
+                            submenu.offsetHeight; // Trigger reflow
                             submenu.style.display = '';
                         }
+                    }
+                    
+                    console.log(`Submenu ${!isOpen ? 'opened' : 'closed'} for:`, newLink.textContent);
+                }
+            });
+            
+            // iOS specific: Also handle touchstart for better responsiveness
+            if (isIOS) {
+                let touchHandled = false;
+                
+                newLink.addEventListener('touchstart', function(e) {
+                    if (window.innerWidth <= 768 && primaryNav.classList.contains('toggled') && !touchHandled) {
+                        touchHandled = true;
+                        e.preventDefault();
+                        
+                        // Trigger click event
+                        newLink.click();
+                        
+                        setTimeout(() => { touchHandled = false; }, 500);
+                    }
+                }, { passive: false });
+            }
+        });
+    }
+    
+    // Initialize submenus when menu is toggled
+    function watchMenuToggle() {
+        const menuButton = document.querySelector('.mobile-nav-toggle');
+        const primaryNav = document.querySelector('.main-navigation');
+        
+        if (!menuButton || !primaryNav) return;
+        
+        // Watch for menu open/close
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    if (primaryNav.classList.contains('toggled')) {
+                        // Menu opened, initialize submenus
+                        setTimeout(initSubmenus, 100);
                     }
                 }
             });
         });
         
-        // Watch for scroll to update logo
-        let scrollTimer;
-        window.addEventListener('scroll', function() {
-            clearTimeout(scrollTimer);
-            scrollTimer = setTimeout(updateLogoVisibility, 50);
+        observer.observe(primaryNav, {
+            attributes: true,
+            attributeFilter: ['class']
         });
         
-        // Initial logo state
-        updateLogoVisibility();
-        
-        // iOS viewport height fix
-        if (isIOS) {
-            function setViewportHeight() {
-                const vh = window.innerHeight * 0.01;
-                document.documentElement.style.setProperty('--vh', `${vh}px`);
-            }
-            
-            setViewportHeight();
-            window.addEventListener('resize', setViewportHeight);
-            window.addEventListener('orientationchange', setViewportHeight);
-        }
-        
-        console.log('Safari-proof menu initialized successfully');
+        // Also reinitialize on menu button click
+        menuButton.addEventListener('click', function() {
+            setTimeout(initSubmenus, 100);
+        });
     }
     
-    // Initialize when DOM is ready
+    // Initialize
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMenu);
+        document.addEventListener('DOMContentLoaded', function() {
+            initSubmenus();
+            watchMenuToggle();
+        });
     } else {
-        initMenu();
+        initSubmenus();
+        watchMenuToggle();
     }
-    
-    // Reinitialize after a delay for dynamic content
-    setTimeout(initMenu, 1000);
     
     // Debug function
-    window.debugSafariMenu = function() {
-        console.log('=== Safari Menu Debug ===');
-        console.log('Is Safari:', /^((?!chrome|android).)*safari/i.test(navigator.userAgent));
-        console.log('Is iOS:', /iPad|iPhone|iPod/.test(navigator.userAgent));
-        console.log('Nav open:', document.body.classList.contains('nav-open'));
-        console.log('Menu toggled:', document.querySelector('.main-navigation.toggled') !== null);
-        
-        const logo = document.querySelector('.custom-logo-link');
-        if (logo) {
-            const styles = window.getComputedStyle(logo);
-            console.log('Logo display:', styles.display);
-            console.log('Logo visibility:', styles.visibility);
-        }
+    window.debugSubmenus = function() {
+        console.log('=== Submenu Debug ===');
+        const parentItems = document.querySelectorAll('.menu-item-has-children');
+        parentItems.forEach((item, index) => {
+            const isOpen = item.classList.contains('open');
+            const submenu = item.querySelector('.sub-menu, > ul');
+            console.log(`Parent ${index + 1}:`, {
+                text: item.querySelector('> a')?.textContent,
+                hasOpenClass: isOpen,
+                submenuExists: !!submenu,
+                submenuDisplay: submenu ? getComputedStyle(submenu).display : 'N/A'
+            });
+        });
     };
     
 })();
