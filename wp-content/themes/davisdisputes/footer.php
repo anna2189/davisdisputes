@@ -30,51 +30,50 @@
 <!-- Main menu fix -->
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
-<!-- Submenu fix -->
+<!-- Submenu Toggle Fix -->
 <script>
-setTimeout(function() {
-    var servicesItem = document.querySelector('.menu-item-has-children');
-    if (!servicesItem) return;
-    
-    var servicesLink = servicesItem.querySelector('> a');
-    var submenu = servicesItem.querySelector('.sub-menu');
-    
-    if (!submenu) return;
-    
-    // Create NEW visible element
-    var newSubmenu = document.createElement('div');
-    newSubmenu.innerHTML = submenu.innerHTML;
-    newSubmenu.style.cssText = 'display: none; background: yellow !important; border: 3px solid red !important; padding: 20px !important; margin: 10px !important; position: relative !important; z-index: 99999 !important;';
-    
-    servicesItem.appendChild(newSubmenu);
-    
-    servicesLink.onclick = function(e) {
-        e.preventDefault();
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        var parents = document.querySelectorAll('.menu-item-has-children');
         
-        if (newSubmenu.style.display === 'none') {
-            newSubmenu.style.display = 'block';
-            alert('Yellow box should be visible now!');
-        } else {
-            newSubmenu.style.display = 'none';
-        }
-        return false;
-    };
-    
-}, 2000);
+        parents.forEach(function(parent) {
+            var link = parent.querySelector('> a');
+            var submenu = parent.querySelector('.sub-menu');
+            
+            if (!link || !submenu) return;
+            
+            // Remove link navigation
+            link.href = 'javascript:void(0)';
+            link.style.cursor = 'pointer';
+            
+            // Click handler for all devices including iOS
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Toggle open class
+                if (parent.classList.contains('open')) {
+                    parent.classList.remove('open');
+                    submenu.style.removeProperty('display');
+                } else {
+                    // Close others
+                    parents.forEach(function(p) {
+                        p.classList.remove('open');
+                        var otherSub = p.querySelector('.sub-menu');
+                        if (otherSub) otherSub.style.removeProperty('display');
+                    });
+                    
+                    // Open this one
+                    parent.classList.add('open');
+                    submenu.style.setProperty('display', 'block', 'important');
+                }
+                
+                return false;
+            });
+        });
+    }, 1500);
+});
 </script>
-
-<!-- Force CSS -->
-<style>
-@media (max-width: 768px) {
-    .main-navigation.toggled .menu-item-has-children > ul {
-        display: none !important;
-    }
-    .main-navigation.toggled .menu-item-has-children.open > ul {
-        display: block !important;
-        padding-left: 20px !important;
-    }
-}
-</style>
 
 </body>
 </html>
