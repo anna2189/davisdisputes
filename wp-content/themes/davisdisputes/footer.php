@@ -30,7 +30,7 @@
 <!-- Main menu fix -->
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
-<!-- NUCLEAR FORCE SUBMENU (the one that worked) -->
+<!-- NUCLEAR FORCE SUBMENU WITH ALERT -->
 <script>
 setTimeout(function() {
     var servicesItem = document.querySelector('.menu-item-has-children');
@@ -40,6 +40,7 @@ setTimeout(function() {
     var submenu = servicesItem.querySelector('.sub-menu');
     
     if (!submenu) {
+        alert('No submenu found!');
         return;
     }
     
@@ -69,6 +70,7 @@ setTimeout(function() {
         
         if (newSubmenu.style.display === 'none') {
             newSubmenu.style.display = 'block';
+            alert('Submenu should be visible now - look for yellow box with red border');
         } else {
             newSubmenu.style.display = 'none';
         }
