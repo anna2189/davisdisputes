@@ -30,5 +30,37 @@
 
 <?php wp_footer(); ?>
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
+<?php wp_footer(); ?>
+
+<!-- Main menu fix -->
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/safari-menu-fix.js"></script>
+
+<!-- Submenu fix -->
+<script>
+(function() {
+    function fixSubmenus() {
+        document.querySelectorAll('.menu-item-has-children > a').forEach(function(link) {
+            link.onclick = function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const parent = this.parentElement;
+                    parent.classList.toggle('open');
+                    const submenu = parent.querySelector('.sub-menu, > ul');
+                    if (submenu) {
+                        submenu.style.display = parent.classList.contains('open') ? 'block' : 'none';
+                    }
+                    return false;
+                }
+            };
+        });
+    }
+    setTimeout(fixSubmenus, 100);
+    setTimeout(fixSubmenus, 500);
+    setTimeout(fixSubmenus, 1000);
+})();
+</script>
+
+</body>
+</html>
 </body>
 </html>
