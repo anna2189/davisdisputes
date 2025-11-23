@@ -36,29 +36,64 @@
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/safari-menu-fix.js"></script>
 
 <!-- Submenu fix -->
+<?php wp_footer(); ?>
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
+
+<!-- FORCEFUL SUBMENU FIX -->
 <script>
-(function() {
-    function fixSubmenus() {
-        document.querySelectorAll('.menu-item-has-children > a').forEach(function(link) {
-            link.onclick = function(e) {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    const parent = this.parentElement;
-                    parent.classList.toggle('open');
-                    const submenu = parent.querySelector('.sub-menu, > ul');
-                    if (submenu) {
-                        submenu.style.display = parent.classList.contains('open') ? 'block' : 'none';
-                    }
-                    return false;
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait for everything to load
+    setTimeout(function() {
+        // Find all parent menu items
+        var parents = document.querySelectorAll('.menu-item-has-children');
+        
+        parents.forEach(function(parent) {
+            var link = parent.querySelector('> a');
+            if (!link) return;
+            
+            // REMOVE the href to prevent navigation
+            link.setAttribute('href', '#');
+            
+            // Add click handler
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Toggle submenu
+                if (parent.classList.contains('open')) {
+                    parent.classList.remove('open');
+                } else {
+                    // Close all others first
+                    parents.forEach(function(p) {
+                        p.classList.remove('open');
+                    });
+                    parent.classList.add('open');
                 }
-            };
+                
+                return false;
+            });
         });
-    }
-    setTimeout(fixSubmenus, 100);
-    setTimeout(fixSubmenus, 500);
-    setTimeout(fixSubmenus, 1000);
-})();
+        
+        console.log('Submenu fix applied to ' + parents.length + ' items');
+    }, 1000);
+});
 </script>
+
+<!-- FORCE CSS directly in page -->
+<style>
+@media (max-width: 768px) {
+    .main-navigation.toggled .menu-item-has-children > ul {
+        display: none !important;
+    }
+    .main-navigation.toggled .menu-item-has-children.open > ul {
+        display: block !important;
+        padding-left: 20px !important;
+    }
+}
+</style>
+
+</body>
+</html>
 
 </body>
 </html>
