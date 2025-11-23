@@ -27,15 +27,10 @@
 
 <?php wp_footer(); ?>
 
-<!-- Main menu fix (only load ONCE) -->
+<!-- Main menu fix -->
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
 <!-- Submenu fix -->
-<!-- Submenu Debug -->
-<!-- Simple Submenu Fix -->
-<!-- FORCE SUBMENU VISIBLE -->
-<!-- DIAGNOSTIC: What's actually in the menu? -->
-<!-- WORKING SUBMENU FIX -->
 <script>
 setTimeout(function() {
     var servicesItem = document.querySelector('.menu-item-has-children');
@@ -46,45 +41,26 @@ setTimeout(function() {
     
     if (!submenu) return;
     
-    // Initially hide it properly
-    submenu.style.display = 'none';
+    // Create NEW visible element
+    var newSubmenu = document.createElement('div');
+    newSubmenu.innerHTML = submenu.innerHTML;
+    newSubmenu.style.cssText = 'display: none; background: yellow !important; border: 3px solid red !important; padding: 20px !important; margin: 10px !important; position: relative !important; z-index: 99999 !important;';
     
-    // Remove href to prevent navigation
-    servicesLink.href = 'javascript:void(0)';
+    servicesItem.appendChild(newSubmenu);
     
-    // Simple toggle
-    servicesLink.addEventListener('click', function(e) {
+    servicesLink.onclick = function(e) {
         e.preventDefault();
-        e.stopPropagation();
         
-        if (submenu.style.display === 'none' || submenu.style.display === '') {
-            // SHOW IT
-            submenu.style.display = 'block';
-            submenu.style.visibility = 'visible';
-            submenu.style.opacity = '1';
-            submenu.style.position = 'static';
-            submenu.style.paddingLeft = '20px';
-            submenu.style.background = '#f5f5f5';
-            
-            // Make sure all items inside are visible
-            var items = submenu.querySelectorAll('li, a');
-            items.forEach(function(item) {
-                item.style.display = 'block';
-                item.style.padding = '10px';
-            });
-            
-            servicesItem.classList.add('open');
+        if (newSubmenu.style.display === 'none') {
+            newSubmenu.style.display = 'block';
+            alert('Yellow box should be visible now!');
         } else {
-            // HIDE IT
-            submenu.style.display = 'none';
-            servicesItem.classList.remove('open');
+            newSubmenu.style.display = 'none';
         }
-        
         return false;
-    });
+    };
     
-    console.log('Submenu fix applied - submenu found and ready');
-}, 1500);
+}, 2000);
 </script>
 
 <!-- Force CSS -->
