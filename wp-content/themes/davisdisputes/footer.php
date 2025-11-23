@@ -32,51 +32,43 @@
 
 <!-- Submenu fix -->
 <!-- Submenu Debug -->
+<!-- Simple Submenu Fix -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-        // First, check if we can find the menu items
-        var parents = document.querySelectorAll('.menu-item-has-children');
-        alert('Step 1: Found ' + parents.length + ' parent items');
-        
-        if (parents.length === 0) {
-            // Try alternative selectors
-            parents = document.querySelectorAll('.page_item_has_children');
-            alert('Step 2: Trying alternative selector, found ' + parents.length);
+setTimeout(function() {
+    // Get Services menu item specifically
+    var servicesItem = document.querySelector('.menu-item-has-children');
+    if (!servicesItem) return;
+    
+    var servicesLink = servicesItem.querySelector('> a');
+    if (!servicesLink) return;
+    
+    // Get the submenu
+    var submenu = servicesItem.querySelector('ul');
+    if (!submenu) return;
+    
+    // Hide submenu initially
+    submenu.style.display = 'none';
+    
+    // Replace the link with a button
+    servicesLink.style.cursor = 'pointer';
+    servicesLink.removeAttribute('href');
+    
+    // Simple click handler
+    servicesLink.onclick = function(e) {
+        e.preventDefault();
+        if (submenu.style.display === 'none') {
+            submenu.style.display = 'block';
+            submenu.style.paddingLeft = '20px';
+            servicesItem.classList.add('open');
+        } else {
+            submenu.style.display = 'none';
+            servicesItem.classList.remove('open');
         }
-        
-        // If still nothing, check menu structure
-        if (parents.length === 0) {
-            var anyMenu = document.querySelector('.main-navigation');
-            alert('Step 3: Menu exists? ' + (anyMenu ? 'Yes' : 'No'));
-            
-            if (anyMenu) {
-                var html = anyMenu.innerHTML.substring(0, 200);
-                alert('Menu HTML preview: ' + html);
-            }
-        }
-        
-        // If we found parents, try to fix them
-        if (parents.length > 0) {
-            var firstParent = parents[0];
-            var firstLink = firstParent.querySelector('> a');
-            
-            if (firstLink) {
-                alert('Step 4: First parent link text: ' + firstLink.textContent);
-                
-                // Make it red so we can see it
-                firstLink.style.background = 'red';
-                firstLink.style.color = 'white';
-                
-                // Try the simplest possible fix
-                firstLink.onclick = function() {
-                    alert('Link clicked!');
-                    return false;
-                };
-            }
-        }
-    }, 2000);
-});
+        return false;
+    };
+    
+    console.log('Submenu fix applied');
+}, 2000);
 </script>
 
 <!-- Force CSS -->
