@@ -30,68 +30,18 @@
 <!-- Main menu fix -->
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
-<!-- NUCLEAR FORCE SUBMENU WITH ALERT -->
+<!-- Simple inline submenu fix -->
 <script>
-setTimeout(function() {
-    var servicesItem = document.querySelector('.menu-item-has-children');
-    if (!servicesItem) return;
-    
-    var servicesLink = servicesItem.querySelector('> a');
-    var submenu = servicesItem.querySelector('.sub-menu');
-    
-    if (!submenu) {
-        alert('No submenu found!');
-        return;
-    }
-    
-    // REMOVE ALL STYLES from submenu and its children
-    submenu.removeAttribute('style');
-    submenu.className = ''; // Remove all classes
-    
-    var allChildren = submenu.querySelectorAll('*');
-    allChildren.forEach(function(child) {
-        child.removeAttribute('style');
-        child.style.display = 'block';
-        child.style.visibility = 'visible';
-        child.style.opacity = '1';
-    });
-    
-    // Create a completely new container
-    var newSubmenu = document.createElement('div');
-    newSubmenu.innerHTML = submenu.innerHTML;
-    newSubmenu.style.cssText = 'display: none; background: yellow !important; border: 3px solid red !important; padding: 20px !important; margin: 10px !important;';
-    
-    // Insert the new container
-    servicesItem.appendChild(newSubmenu);
-    
-    // Toggle the NEW container
-    servicesLink.onclick = function(e) {
-        e.preventDefault();
-        
-        if (newSubmenu.style.display === 'none') {
-            newSubmenu.style.display = 'block';
-            alert('Submenu should be visible now - look for yellow box with red border');
-        } else {
-            newSubmenu.style.display = 'none';
-        }
-        return false;
-    };
-    
-}, 2000);
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        var items = document.querySelectorAll('.menu-item-has-children > a');
+        items.forEach(function(item) {
+            item.href = '#';
+            item.style.cursor = 'pointer';
+        });
+    }, 3000);
+});
 </script>
-
-<!-- Force CSS -->
-<style>
-@media (max-width: 768px) {
-    .main-navigation.toggled .menu-item-has-children > ul {
-        display: none !important;
-    }
-    .main-navigation.toggled .menu-item-has-children.open > ul {
-        display: block !important;
-        padding-left: 20px !important;
-    }
-}
-</style>
 
 </body>
 </html>
