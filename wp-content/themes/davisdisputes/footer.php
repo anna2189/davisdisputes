@@ -30,68 +30,48 @@
 <!-- Main menu fix -->
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
-<!-- iOS Safari Submenu Fix -->
+<!-- Submenu fix -->
 <script>
-// Detect iOS Safari
-var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-if (isIOS) {
-    document.addEventListener('touchstart', function() {}, true);
+setTimeout(function() {
+    var servicesItem = document.querySelector('.menu-item-has-children');
+    if (!servicesItem) return;
     
-    window.addEventListener('load', function() {
-        var checkCount = 0;
-        var checker = setInterval(function() {
-            checkCount++;
-            
-            var parents = document.querySelectorAll('.menu-item-has-children');
-            if (parents.length > 0) {
-                clearInterval(checker);
-                
-                parents.forEach(function(parent) {
-                    var link = parent.querySelector('> a');
-                    var submenu = parent.querySelector('.sub-menu');
-                    
-                    if (link && submenu) {
-                        // Remove href completely on iOS
-                        link.removeAttribute('href');
-                        link.style.cursor = 'pointer';
-                        
-                        // Hide submenu initially
-                        submenu.style.display = 'none';
-                        
-                        // Use touchend instead of click for iOS
-                        link.addEventListener('touchend', function(e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            
-                            if (submenu.style.display === 'none') {
-                                submenu.style.display = 'block';
-                                parent.classList.add('open');
-                            } else {
-                                submenu.style.display = 'none';
-                                parent.classList.remove('open');
-                            }
-                        }, false);
-                    }
-                });
-            }
-            
-            if (checkCount > 10) clearInterval(checker);
-        }, 500);
-    });
-}
+    var servicesLink = servicesItem.querySelector('> a');
+    var submenu = servicesItem.querySelector('.sub-menu');
+    
+    if (!submenu) return;
+    
+    // Create NEW visible element
+    var newSubmenu = document.createElement('div');
+    newSubmenu.innerHTML = submenu.innerHTML;
+    newSubmenu.style.cssText = 'display: none; background: yellow !important; border: 3px solid red !important; padding: 20px !important; margin: 10px !important; position: relative !important; z-index: 99999 !important;';
+    
+    servicesItem.appendChild(newSubmenu);
+    
+    servicesLink.onclick = function(e) {
+        e.preventDefault();
+        
+        if (newSubmenu.style.display === 'none') {
+            newSubmenu.style.display = 'block';
+            alert('Yellow box should be visible now!');
+        } else {
+            newSubmenu.style.display = 'none';
+        }
+        return false;
+    };
+    
+}, 2000);
 </script>
 
-<!-- iOS-specific CSS -->
+<!-- Force CSS -->
 <style>
-@supports (-webkit-touch-callout: none) {
-    /* iOS only styles */
-    .menu-item-has-children > a {
-        cursor: pointer !important;
-        -webkit-touch-callout: none !important;
+@media (max-width: 768px) {
+    .main-navigation.toggled .menu-item-has-children > ul {
+        display: none !important;
     }
-    .menu-item-has-children .sub-menu {
-        -webkit-transform: translate3d(0,0,0);
+    .main-navigation.toggled .menu-item-has-children.open > ul {
+        display: block !important;
+        padding-left: 20px !important;
     }
 }
 </style>
