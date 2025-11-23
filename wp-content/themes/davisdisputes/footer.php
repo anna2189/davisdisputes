@@ -31,36 +31,51 @@
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
 <!-- Submenu fix -->
+<!-- Submenu Debug -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
+        // First, check if we can find the menu items
         var parents = document.querySelectorAll('.menu-item-has-children');
+        alert('Step 1: Found ' + parents.length + ' parent items');
         
-        parents.forEach(function(parent) {
-            var link = parent.querySelector('> a');
-            if (!link) return;
-            
-            link.setAttribute('href', '#');
-            
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                if (parent.classList.contains('open')) {
-                    parent.classList.remove('open');
-                } else {
-                    parents.forEach(function(p) {
-                        p.classList.remove('open');
-                    });
-                    parent.classList.add('open');
-                }
-                
-                return false;
-            });
-        });
+        if (parents.length === 0) {
+            // Try alternative selectors
+            parents = document.querySelectorAll('.page_item_has_children');
+            alert('Step 2: Trying alternative selector, found ' + parents.length);
+        }
         
-        console.log('Submenu fix applied to ' + parents.length + ' items');
-    }, 1000);
+        // If still nothing, check menu structure
+        if (parents.length === 0) {
+            var anyMenu = document.querySelector('.main-navigation');
+            alert('Step 3: Menu exists? ' + (anyMenu ? 'Yes' : 'No'));
+            
+            if (anyMenu) {
+                var html = anyMenu.innerHTML.substring(0, 200);
+                alert('Menu HTML preview: ' + html);
+            }
+        }
+        
+        // If we found parents, try to fix them
+        if (parents.length > 0) {
+            var firstParent = parents[0];
+            var firstLink = firstParent.querySelector('> a');
+            
+            if (firstLink) {
+                alert('Step 4: First parent link text: ' + firstLink.textContent);
+                
+                // Make it red so we can see it
+                firstLink.style.background = 'red';
+                firstLink.style.color = 'white';
+                
+                // Try the simplest possible fix
+                firstLink.onclick = function() {
+                    alert('Link clicked!');
+                    return false;
+                };
+            }
+        }
+    }, 2000);
 });
 </script>
 
