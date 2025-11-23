@@ -30,7 +30,7 @@
 <!-- Main menu fix -->
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
-<!-- Working submenu fix (the nuclear version that works) -->
+<!-- NUCLEAR FORCE SUBMENU (the one that worked) -->
 <script>
 setTimeout(function() {
     var servicesItem = document.querySelector('.menu-item-has-children');
@@ -39,11 +39,13 @@ setTimeout(function() {
     var servicesLink = servicesItem.querySelector('> a');
     var submenu = servicesItem.querySelector('.sub-menu');
     
-    if (!submenu) return;
+    if (!submenu) {
+        return;
+    }
     
-    // Remove all styles from original submenu
+    // REMOVE ALL STYLES from submenu and its children
     submenu.removeAttribute('style');
-    submenu.className = '';
+    submenu.className = ''; // Remove all classes
     
     var allChildren = submenu.querySelectorAll('*');
     allChildren.forEach(function(child) {
@@ -53,23 +55,22 @@ setTimeout(function() {
         child.style.opacity = '1';
     });
     
-    // Create new container with submenu content
+    // Create a completely new container
     var newSubmenu = document.createElement('div');
     newSubmenu.innerHTML = submenu.innerHTML;
-    newSubmenu.style.cssText = 'display: none; padding: 10px 0 10px 20px;';
+    newSubmenu.style.cssText = 'display: none; background: yellow !important; border: 3px solid red !important; padding: 20px !important; margin: 10px !important;';
     
+    // Insert the new container
     servicesItem.appendChild(newSubmenu);
     
-    // Toggle handler
+    // Toggle the NEW container
     servicesLink.onclick = function(e) {
         e.preventDefault();
         
         if (newSubmenu.style.display === 'none') {
             newSubmenu.style.display = 'block';
-            servicesItem.classList.add('open');
         } else {
             newSubmenu.style.display = 'none';
-            servicesItem.classList.remove('open');
         }
         return false;
     };
@@ -77,11 +78,15 @@ setTimeout(function() {
 }, 2000);
 </script>
 
-<!-- Submenu styles -->
+<!-- Force CSS -->
 <style>
 @media (max-width: 768px) {
-    .main-navigation.toggled .menu-item-has-children.open > a::after {
-        transform: rotate(90deg);
+    .main-navigation.toggled .menu-item-has-children > ul {
+        display: none !important;
+    }
+    .main-navigation.toggled .menu-item-has-children.open > ul {
+        display: block !important;
+        padding-left: 20px !important;
     }
 }
 </style>
