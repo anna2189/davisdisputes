@@ -30,73 +30,65 @@
 <!-- Main menu fix -->
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
-<!-- iOS-Specific Submenu Fix -->
+<!-- iOS Submenu Fix - Final Version -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Detect iOS (works for all iOS browsers)
-    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+(function() {
+    'use strict';
     
-    setTimeout(function() {
-        var parents = document.querySelectorAll('.menu-item-has-children');
-        
-        parents.forEach(function(parent) {
-            var link = parent.querySelector('> a');
-            var submenu = parent.querySelector('.sub-menu');
+    // Wait for everything to load
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            var parents = document.querySelectorAll('.menu-item-has-children');
             
-            if (!link || !submenu) return;
-            
-            // Prevent navigation
-            link.href = '#';
-            link.style.cursor = 'pointer';
-            
-            // For iOS, use both touchstart AND click
-            if (isIOS) {
-                // iOS touch handler
-                link.addEventListener('touchstart', function(e) {
+            parents.forEach(function(parent) {
+                var link = parent.querySelector('> a');
+                var submenu = parent.querySelector('.sub-menu');
+                
+                if (!link || !submenu) return;
+                
+                // Make link non-navigable
+                link.setAttribute('href', 'javascript:void(0)');
+                link.style.cursor = 'pointer';
+                
+                // For iOS, we need to use a click event with special handling
+                link.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    // Toggle submenu directly with inline styles
-                    if (submenu.style.display === 'block') {
-                        submenu.style.display = 'none';
+                    // Toggle the submenu
+                    if (parent.classList.contains('open')) {
                         parent.classList.remove('open');
+                        submenu.style.display = 'none';
                     } else {
-                        // Hide all other submenus
-                        document.querySelectorAll('.sub-menu').forEach(function(s) {
-                            s.style.display = 'none';
-                        });
-                        document.querySelectorAll('.menu-item-has-children').forEach(function(p) {
+                        // Close all other submenus
+                        parents.forEach(function(p) {
                             p.classList.remove('open');
+                            var sub = p.querySelector('.sub-menu');
+                            if (sub) sub.style.display = 'none';
                         });
                         
-                        // Show this submenu
-                        submenu.style.display = 'block';
+                        // Open this submenu
                         parent.classList.add('open');
+                        submenu.style.display = 'block';
+                        submenu.style.visibility = 'visible';
+                        submenu.style.opacity = '1';
+                        submenu.style.position = 'relative';
+                        submenu.style.paddingLeft = '20px';
                     }
-                }, {passive: false});
-            } else {
-                // Android/Desktop click handler
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    parent.classList.toggle('open');
-                });
-            }
-        });
-    }, 1500);
-});
+                    
+                    return false;
+                }, false);
+                
+                // iOS needs this to make elements clickable
+                link.style.webkitTapHighlightColor = 'transparent';
+                link.style.webkitTouchCallout = 'none';
+            });
+            
+            console.log('Submenu fix applied to', parents.length, 'items');
+        }, 2000);
+    });
+})();
 </script>
-
-<!-- Simple CSS without blocking rules -->
-<style>
-@media (max-width: 768px) {
-    .menu-item-has-children .sub-menu {
-        padding-left: 20px;
-    }
-    .menu-item-has-children.open > a::after {
-        transform: rotate(180deg);
-    }
-}
-</style>
 
 </body>
 </html>
