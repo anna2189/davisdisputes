@@ -30,55 +30,56 @@
 <!-- Main menu fix -->
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
-<!-- Submenu toggle fix -->
+<!-- Working submenu fix (the nuclear version that works) -->
 <script>
 setTimeout(function() {
-    var parents = document.querySelectorAll('.menu-item-has-children');
+    var servicesItem = document.querySelector('.menu-item-has-children');
+    if (!servicesItem) return;
     
-    parents.forEach(function(parent) {
-        var link = parent.querySelector('> a');
-        var submenu = parent.querySelector('.sub-menu');
-        
-        if (!link || !submenu) return;
-        
-        // Prevent navigation
-        link.href = 'javascript:void(0)';
-        
-        // Toggle submenu on click
-        link.onclick = function(e) {
-            e.preventDefault();
-            
-            // Close other submenus
-            parents.forEach(function(p) {
-                if (p !== parent) {
-                    p.classList.remove('open');
-                    var otherSub = p.querySelector('.sub-menu');
-                    if (otherSub) otherSub.style.display = 'none';
-                }
-            });
-            
-            // Toggle this submenu
-            if (parent.classList.contains('open')) {
-                parent.classList.remove('open');
-                submenu.style.display = 'none';
-            } else {
-                parent.classList.add('open');
-                submenu.style.display = 'block';
-            }
-            
-            return false;
-        };
+    var servicesLink = servicesItem.querySelector('> a');
+    var submenu = servicesItem.querySelector('.sub-menu');
+    
+    if (!submenu) return;
+    
+    // Remove all styles from original submenu
+    submenu.removeAttribute('style');
+    submenu.className = '';
+    
+    var allChildren = submenu.querySelectorAll('*');
+    allChildren.forEach(function(child) {
+        child.removeAttribute('style');
+        child.style.display = 'block';
+        child.style.visibility = 'visible';
+        child.style.opacity = '1';
     });
-}, 1000);
+    
+    // Create new container with submenu content
+    var newSubmenu = document.createElement('div');
+    newSubmenu.innerHTML = submenu.innerHTML;
+    newSubmenu.style.cssText = 'display: none; padding: 10px 0 10px 20px;';
+    
+    servicesItem.appendChild(newSubmenu);
+    
+    // Toggle handler
+    servicesLink.onclick = function(e) {
+        e.preventDefault();
+        
+        if (newSubmenu.style.display === 'none') {
+            newSubmenu.style.display = 'block';
+            servicesItem.classList.add('open');
+        } else {
+            newSubmenu.style.display = 'none';
+            servicesItem.classList.remove('open');
+        }
+        return false;
+    };
+    
+}, 2000);
 </script>
 
 <!-- Submenu styles -->
 <style>
 @media (max-width: 768px) {
-    .main-navigation.toggled .sub-menu {
-        padding-left: 20px !important;
-        background: rgba(248, 249, 250, 0.5);
-    }
     .main-navigation.toggled .menu-item-has-children.open > a::after {
         transform: rotate(90deg);
     }
