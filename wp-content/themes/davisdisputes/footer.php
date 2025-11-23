@@ -30,48 +30,57 @@
 <!-- Main menu fix -->
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
-<!-- Submenu fix -->
+<!-- Submenu toggle fix -->
 <script>
 setTimeout(function() {
-    var servicesItem = document.querySelector('.menu-item-has-children');
-    if (!servicesItem) return;
+    var parents = document.querySelectorAll('.menu-item-has-children');
     
-    var servicesLink = servicesItem.querySelector('> a');
-    var submenu = servicesItem.querySelector('.sub-menu');
-    
-    if (!submenu) return;
-    
-    // Create NEW visible element
-    var newSubmenu = document.createElement('div');
-    newSubmenu.innerHTML = submenu.innerHTML;
-    newSubmenu.style.cssText = 'display: none; background: yellow !important; border: 3px solid red !important; padding: 20px !important; margin: 10px !important; position: relative !important; z-index: 99999 !important;';
-    
-    servicesItem.appendChild(newSubmenu);
-    
-    servicesLink.onclick = function(e) {
-        e.preventDefault();
+    parents.forEach(function(parent) {
+        var link = parent.querySelector('> a');
+        var submenu = parent.querySelector('.sub-menu');
         
-        if (newSubmenu.style.display === 'none') {
-            newSubmenu.style.display = 'block';
-            alert('Yellow box should be visible now!');
-        } else {
-            newSubmenu.style.display = 'none';
-        }
-        return false;
-    };
-    
-}, 2000);
+        if (!link || !submenu) return;
+        
+        // Prevent navigation
+        link.href = 'javascript:void(0)';
+        
+        // Toggle submenu on click
+        link.onclick = function(e) {
+            e.preventDefault();
+            
+            // Close other submenus
+            parents.forEach(function(p) {
+                if (p !== parent) {
+                    p.classList.remove('open');
+                    var otherSub = p.querySelector('.sub-menu');
+                    if (otherSub) otherSub.style.display = 'none';
+                }
+            });
+            
+            // Toggle this submenu
+            if (parent.classList.contains('open')) {
+                parent.classList.remove('open');
+                submenu.style.display = 'none';
+            } else {
+                parent.classList.add('open');
+                submenu.style.display = 'block';
+            }
+            
+            return false;
+        };
+    });
+}, 1000);
 </script>
 
-<!-- Force CSS -->
+<!-- Submenu styles -->
 <style>
 @media (max-width: 768px) {
-    .main-navigation.toggled .menu-item-has-children > ul {
-        display: none !important;
-    }
-    .main-navigation.toggled .menu-item-has-children.open > ul {
-        display: block !important;
+    .main-navigation.toggled .sub-menu {
         padding-left: 20px !important;
+        background: rgba(248, 249, 250, 0.5);
+    }
+    .main-navigation.toggled .menu-item-has-children.open > a::after {
+        transform: rotate(90deg);
     }
 }
 </style>
