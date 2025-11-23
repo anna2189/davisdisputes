@@ -30,9 +30,12 @@
 <!-- Main menu fix -->
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
-<!-- Submenu Toggle Fix -->
+<!-- iOS-Specific Submenu Fix -->
 <script>
-window.addEventListener('load', function() {
+document.addEventListener('DOMContentLoaded', function() {
+    // Detect iOS (works for all iOS browsers)
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    
     setTimeout(function() {
         var parents = document.querySelectorAll('.menu-item-has-children');
         
@@ -42,38 +45,58 @@ window.addEventListener('load', function() {
             
             if (!link || !submenu) return;
             
-            // Remove link navigation
-            link.href = 'javascript:void(0)';
+            // Prevent navigation
+            link.href = '#';
             link.style.cursor = 'pointer';
             
-            // Click handler for all devices including iOS
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // Toggle open class
-                if (parent.classList.contains('open')) {
-                    parent.classList.remove('open');
-                    submenu.style.removeProperty('display');
-                } else {
-                    // Close others
-                    parents.forEach(function(p) {
-                        p.classList.remove('open');
-                        var otherSub = p.querySelector('.sub-menu');
-                        if (otherSub) otherSub.style.removeProperty('display');
-                    });
+            // For iOS, use both touchstart AND click
+            if (isIOS) {
+                // iOS touch handler
+                link.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
                     
-                    // Open this one
-                    parent.classList.add('open');
-                    submenu.style.setProperty('display', 'block', 'important');
-                }
-                
-                return false;
-            });
+                    // Toggle submenu directly with inline styles
+                    if (submenu.style.display === 'block') {
+                        submenu.style.display = 'none';
+                        parent.classList.remove('open');
+                    } else {
+                        // Hide all other submenus
+                        document.querySelectorAll('.sub-menu').forEach(function(s) {
+                            s.style.display = 'none';
+                        });
+                        document.querySelectorAll('.menu-item-has-children').forEach(function(p) {
+                            p.classList.remove('open');
+                        });
+                        
+                        // Show this submenu
+                        submenu.style.display = 'block';
+                        parent.classList.add('open');
+                    }
+                }, {passive: false});
+            } else {
+                // Android/Desktop click handler
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    parent.classList.toggle('open');
+                });
+            }
         });
     }, 1500);
 });
 </script>
+
+<!-- Simple CSS without blocking rules -->
+<style>
+@media (max-width: 768px) {
+    .menu-item-has-children .sub-menu {
+        padding-left: 20px;
+    }
+    .menu-item-has-children.open > a::after {
+        transform: rotate(180deg);
+    }
+}
+</style>
 
 </body>
 </html>
