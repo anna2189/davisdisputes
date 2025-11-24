@@ -1036,3 +1036,5 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
 .site-header .text-logo { 
   display: none;     /* default: hide wordmark/logo */
 }
+
+
