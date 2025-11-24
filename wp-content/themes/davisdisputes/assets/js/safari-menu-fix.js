@@ -1,76 +1,88 @@
-console.log('safari-menu-fix.js LOADED');
-
 /**
- * SIMPLE MOBILE SUBMENU TOGGLE
- * Works on iOS, Android, desktop.
+ * SIMPLE MOBILE SUBMENU TOGGLE (iOS-safe)
+ * - No arrow functions
+ * - No optional chaining
+ * - No reliance on nav-open/toggled classes
+ * - Only cares about screen width and clicks inside .main-navigation
  */
 (function () {
     'use strict';
   
-    // Find a parent <a> whose <li> has .menu-item-has-children
-    function findParentMenuLink(target, nav) {
-      var el = target;
+    console.log('SAFARI MENU FIX: LOADED (simple version)');
   
-      while (el && el !== nav && el !== document.body) {
-        // If it's an element
-        if (el.nodeType === 1 && el.tagName.toLowerCase() === 'a') {
-          var parentLi = el.parentNode;
-          if (
-            parentLi &&
-            parentLi.nodeType === 1 &&
-            parentLi.classList.contains('menu-item-has-children')
-          ) {
-            return el;
-          }
-        }
-        el = el.parentNode;
-      }
-      return null;
-    }
-  
-    function handleClick(event) {
+    // Wait until DOM is ready enough (we're in the footer, but be safe)
+    function init() {
       var nav = document.querySelector('.main-navigation');
-      if (!nav) return;
-  
-      // Only act on small screens
-      var isMobile = window.innerWidth <= 768;
-      if (!isMobile) return;
-  
-      // Only act when mobile menu is open
-      var menuOpen =
-        nav.classList.contains('toggled') ||
-        document.body.classList.contains('nav-open');
-      if (!menuOpen) return;
-  
-      // Find the relevant parent menu link, safely (works even if target is text)
-      var link = findParentMenuLink(event.target, nav);
-      if (!link) return;
-  
-      event.preventDefault();
-      event.stopPropagation();
-  
-      var li = link.parentNode;
-      if (!li) return;
-  
-      var isOpen = li.classList.contains('open');
-  
-      // Close all other open submenus
-      var openItems = nav.querySelectorAll('.menu-item-has-children.open');
-      for (var i = 0; i < openItems.length; i++) {
-        if (openItems[i] !== li) {
-          openItems[i].classList.remove('open');
-        }
+      if (!nav) {
+        console.log('SAFARI MENU FIX: .main-navigation not found');
+        return;
       }
   
-      // Toggle this one
-      if (isOpen) {
-        li.classList.remove('open');
-      } else {
-        li.classList.add('open');
-      }
+      // Attach a single delegated click handler to the nav
+      nav.addEventListener(
+        'click',
+        function (event) {
+          // Only care about small screens
+          if (window.innerWidth > 960) {
+            return;
+          }
+  
+          var target = event.target;
+          var link = null;
+  
+          // Walk up DOM to find an <a> whose parent <li> has .menu-item-has-children
+          while (target && target !== nav && target !== document.body) {
+            if (
+              target.nodeType === 1 &&
+              target.tagName.toLowerCase() === 'a' &&
+              target.parentNode &&
+              target.parentNode.nodeType === 1 &&
+              target.parentNode.classList &&
+              target.parentNode.classList.contains('menu-item-has-children')
+            ) {
+              link = target;
+              break;
+            }
+            target = target.parentNode;
+          }
+  
+          if (!link) {
+            return; // click on something else, ignore
+          }
+  
+          event.preventDefault();
+          event.stopPropagation();
+  
+          var li = link.parentNode;
+          if (!li) return;
+  
+          var isOpen = li.classList.contains('open');
+  
+          // Close any other open siblings
+          var openItems = nav.querySelectorAll('.menu-item-has-children.open');
+          for (var i = 0; i < openItems.length; i++) {
+            if (openItems[i] !== li) {
+              openItems[i].classList.remove('open');
+            }
+          }
+  
+          // Toggle this one
+          if (isOpen) {
+            li.classList.remove('open');
+            console.log('SAFARI MENU FIX: closed submenu for', link.textContent);
+          } else {
+            li.classList.add('open');
+            console.log('SAFARI MENU FIX: opened submenu for', link.textContent);
+          }
+        },
+        false
+      );
     }
   
-    // Script is loaded in footer, DOM is ready
-    document.addEventListener('click', handleClick, false);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
   })();
   

@@ -924,6 +924,16 @@ body.nav-open .tagline.scroll-hidden {
   }
 }
 
+@media (max-width: 960px) {
+  .main-navigation .menu-item-has-children > .sub-menu {
+    display: none;
+  }
+  .main-navigation .menu-item-has-children.open > .sub-menu {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
 /* =====================================================================
    HERO IMAGE: Full width and mobile responsive on all templates EXCEPT Home
    ===================================================================== */
