@@ -420,3 +420,9 @@ function davisdisputes_block_editor_assets() {
     );
 }
 add_action( 'enqueue_block_editor_assets', 'davisdisputes_block_editor_assets' );
+
+function dd_remove_wp_navigation_script() {
+    wp_deregister_script( 'wp-navigation' );   // WP 6.1–6.4
+    wp_deregister_script( 'navigation' );      // fallback
+}
+add_action( 'wp_enqueue_scripts', 'dd_remove_wp_navigation_script', 100 );
