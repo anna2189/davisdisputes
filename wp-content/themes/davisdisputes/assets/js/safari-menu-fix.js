@@ -1,37 +1,43 @@
 /**
  * Simple mobile submenu toggle
- * Works the same on iOS, Android and desktop.
+ * Works on iOS, Android, desktop.
  */
-
 (function () {
     'use strict';
   
-    function handleToggle(event) {
-      const nav = document.querySelector('.main-navigation');
+    function handleTap(event) {
+      var nav = document.querySelector('.main-navigation');
       if (!nav) return;
   
-      // Only act when mobile menu is open and on small screens
-      if (window.innerWidth > 768 || !nav.classList.contains('toggled')) {
+      // Only act on mobile when the hamburger menu is open
+      var isMobile = window.innerWidth <= 768;
+      var menuOpen =
+        nav.classList.contains('toggled') ||
+        document.body.classList.contains('nav-open');
+  
+      if (!isMobile || !menuOpen) {
         return;
       }
   
-      const link = event.target.closest('.main-navigation .menu-item-has-children > a');
-      if (!link) return;
+      // Did we tap a parent link that has children?
+      var link = event.target.closest('.menu-item-has-children > a');
+      if (!link || !nav.contains(link)) return;
   
       event.preventDefault();
       event.stopPropagation();
   
-      const li = link.parentElement;
+      var li = link.parentElement;
       if (!li) return;
   
-      const isOpen = li.classList.contains('open');
+      var isOpen = li.classList.contains('open');
   
-      // Close other open submenus
-      document
-        .querySelectorAll('.main-navigation .menu-item-has-children.open')
-        .forEach(function (item) {
-          if (item !== li) item.classList.remove('open');
-        });
+      // Close all other open submenus
+      var openParents = nav.querySelectorAll('.menu-item-has-children.open');
+      for (var i = 0; i < openParents.length; i++) {
+        if (openParents[i] !== li) {
+          openParents[i].classList.remove('open');
+        }
+      }
   
       // Toggle this one
       if (isOpen) {
@@ -41,8 +47,8 @@
       }
     }
   
-    // Attach listeners (script is in footer, so DOM is ready)
-    document.addEventListener('click', handleToggle, { passive: false });
-    document.addEventListener('touchstart', handleToggle, { passive: false });
+    // Script is loaded in footer, DOM is ready
+    document.addEventListener('click', handleTap, false);
+    document.addEventListener('touchend', handleTap, false);
   })();
   
