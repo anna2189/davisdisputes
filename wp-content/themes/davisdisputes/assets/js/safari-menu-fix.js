@@ -1,3 +1,5 @@
+console.log('safari-menu-fix.js LOADED');
+
 /**
  * SIMPLE MOBILE SUBMENU TOGGLE
  * Works on iOS, Android, desktop.
