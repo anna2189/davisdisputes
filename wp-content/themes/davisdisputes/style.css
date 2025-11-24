@@ -1048,3 +1048,330 @@ body:not(.home) [style*="background-size: cover"] { /* Catch inline styles */
 }
 
 
+/* Force ADA Contact color + spacing */
+.ada-contact { --ac-color:#0a0466 !important; --ac-heading:#0a0466 !important; }
+
+.ada-contact__title {
+  color:#0a0466 !important;
+  margin-bottom:1.25rem !important; /* extra space after title */
+}
+
+/* Links (normal + visited) */
+.ada-contact__link,
+.ada-contact__link:visited,
+.ada-contact__link--soft {
+  color:#0a0466 !important;
+  text-decoration: underline;
+}
+
+/* Icons (SVGs) */
+.ada-contact__icon { color:#0a0466 !important; }
+.ada-contact__icon svg { fill:#0a0466 !important; }
+
+/* Extra space between lines */
+.ada-contact__list { gap:1rem !important; }
+
+/* More vertical space in ADA Contact block */
+.ada-contact-form .ada-grid { 
+  gap: 1.2rem !important;                /* name/email rows */
+}
+
+.ada-contact-form .ada-field { 
+  margin-bottom: 1rem !important;        /* phone + message blocks */
+}
+
+.ada-contact-form .ada-consent { 
+  margin-top: 1.25rem !important;        /* space above checkbox */
+  margin-bottom: 1rem !important;        /* space below checkbox */
+}
+
+.ada-contact-form .ada-btn { 
+  margin-top: 1rem !important;           /* space above the Send button */
+  padding-top: 0.8rem;                   /* slightly taller button */
+  padding-bottom: 0.8rem;
+}
+
+/* Optional: add space between any top-level form elements */
+.ada-contact-form .ada-contact-form__form > * + * {
+  margin-top: 1rem !important;
+}
+
+/* 1) More space between posts in the Query Loop */
+.wp-block-query .wp-block-post-template {
+  row-gap: 2.25rem !important;          /* space between items */
+}
+.wp-block-query .wp-block-post {
+  padding-bottom: 3.25rem !important;   /* optional: add a little padding inside each item */
+	padding-top: 3.25rem !important;   
+  border-bottom: 1px solid #e5e7eb;     /* optional divider */
+}
+.wp-block-query .wp-block-post:last-child {
+  border-bottom: 0 !important;
+}
+
+/* Extra breathing room under each title */
+.wp-block-query .wp-block-post-title {
+  margin-bottom: 0.6rem !important;
+}
+
+/* Change title color */
+.wp-block-query .wp-block-post-title,
+.wp-block-query .wp-block-post-title a {
+  color: #0a0466 !important;
+  text-decoration: none !important;
+}
+
+/* Optional hover */
+.wp-block-query .wp-block-post-title a:hover {
+  color: #06024a !important; /* darker shade */
+  text-decoration: underline;
+}
+
+/* Extra margin below title */
+.wp-block-query .wp-block-post-title {
+  margin-bottom: 0.6rem !important;
+}
+
+
+/* Mobile Padding for Intro Section */
+@media (max-width: 768px) {
+  .intro-section .hero-description {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+
+/* Service Cards Visibility Fix - CORRECTED */
+
+/* Make service cards visible */
+.offer-grid .service-card,
+.services-grid .service-card {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+/* Ensure grid is visible */
+.offer-grid,
+.services-grid {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* IMPORTANT: Keep title visible */
+.services-section .section-title,
+.services-section .section-header,
+.services-section h2 {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+/* Optional hover effect */
+.service-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.wp-block-list li {
+    margin-bottom: 1em;
+}
+
+/*TABS*/
+/* =========================================================
+   FULL-WIDTH ROUNDED TABS (with seamless right alignment)
+   ========================================================= */
+:root {
+  --ada-tabs-primary:#0A0466;
+  --ada-tabs-border:#ccc;
+  --ada-tabs-radius:10px;
+}
+
+/* Row: left-aligned, one line, no scrollbar */
+.ada-tabs.skin-cards .ada-tabs__list {
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content:flex-start;
+  gap:0;
+  margin-bottom:0;
+  border-bottom:none;
+  overflow-x:hidden;          /* ⬅ disable scroll completely */
+  scrollbar-width:none;       /* Firefox scrollbar hidden */
+}
+.ada-tabs.skin-cards .ada-tabs__list::-webkit-scrollbar {
+  display:none;               /* Chrome/Safari scrollbar hidden */
+}
+
+/* Tabs */
+.ada-tabs.skin-cards .ada-tabs__tab {
+  flex:1 1 auto;
+  min-width:120px;
+  max-width:none;
+  box-sizing:border-box;
+
+  background:#fff;
+  color:var(--ada-tabs-primary);
+  border:1px solid var(--ada-tabs-border);
+  border-bottom:none;
+  border-radius:var(--ada-tabs-radius) var(--ada-tabs-radius) 0 0;
+
+  height:clamp(54px, 8vw, 70px);
+  padding:0 clamp(10px, 2.2vw, 18px);
+  font-size:clamp(1rem, 2.2vw, 1.1rem);
+  font-weight:600;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.2s;
+  margin-bottom:-1px; /* keeps panel attached cleanly */
+}
+
+/* Slightly narrower on desktop */
+@media (min-width:1024px) {
+  .ada-tabs.skin-cards .ada-tabs__tab {
+    max-width:220px;
+  }
+}
+
+/* Active tab */
+.ada-tabs.skin-cards .ada-tabs__tab[aria-selected="true"] {
+  background:var(--ada-tabs-primary);
+  color:#fff;
+  border-color:var(--ada-tabs-primary);
+  border-bottom:none;
+  z-index:2;
+}
+
+/* Hover */
+.ada-tabs.skin-cards .ada-tabs__tab:not([aria-selected="true"]):hover {
+  background:#f7f8ff;
+}
+
+/* Panel */
+.ada-tabs.skin-cards .ada-tabs__panel {
+  border:1px solid var(--ada-tabs-border);
+  border-radius:0 var(--ada-tabs-radius) var(--ada-tabs-radius) var(--ada-tabs-radius);
+  background:#fff;
+  padding:clamp(1rem, 2.5vw, 2rem);
+  position:relative;
+  top:0;
+}
+
+.tablepress tbody td {
+    padding-top: 1em;   /* top padding */
+    padding-bottom: 0.5em; /* bottom padding */
+    padding-left: 1px;  /* optional */
+    padding-right: 2em; /* optional */
+}
+
+
+
+/* press table inside accordion*/
+/* TablePress inside Easy Accordion: full width, left aligned */
+.sp-easy-accordion .ea-body .tablepress,
+.sp-collapse .ea-body .tablepress {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;   /* kills centering via auto margins */
+}
+
+/* If TablePress is wrapped (common) */
+.sp-easy-accordion .ea-body .tablepress-table-container,
+.sp-easy-accordion .ea-body .dataTables_wrapper {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: left !important;
+}
+
+/* Keep content left and add comfortable cell padding */
+.sp-easy-accordion .ea-body .tablepress th,
+.sp-easy-accordion .ea-body .tablepress td {
+  text-align: left !important;
+  padding: .6rem .8rem !important;
+}
+
+/* In case some ancestor centers text */
+.sp-easy-accordion .ea-body {
+  text-align: left !important;
+}
+
+
+/* TablePress inside Easy Accordion: first column 30% */
+.sp-easy-accordion .ea-body .tablepress tbody td:first-child,
+.sp-easy-accordion .ea-body .tablepress thead th:first-child {
+  width: 80% !important;
+  white-space: normal !important;
+  text-align: left !important;
+}
+
+/* Make second column fill the rest */
+.sp-easy-accordion .ea-body .tablepress tbody td:nth-child(2),
+.sp-easy-accordion .ea-body .tablepress thead th:nth-child(2) {
+  width: 70% !important;
+  text-align: left !important;
+}
+
+/* Ensure table uses full container width */
+.sp-easy-accordion .ea-body .tablepress {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  table-layout: fixed !important; /* helps columns respect width % */
+}
+
+/* more responsive tabs */
+/* Two-tab layout: scale down on small screens */
+@media (max-width: 600px) {
+  .ada-tabs.skin-cards .ada-tabs__tab {
+    font-size: clamp(0.75rem, 3.2vw, 0.9rem) !important;
+    padding: 0.5rem 0.8rem !important;
+    height: clamp(38px, 8vw, 48px) !important;
+    min-width: 100px !important;
+  }
+
+  .ada-tabs.skin-cards .ada-tabs__list {
+    gap: 6px !important;
+    justify-content: center !important; /* centers the two tabs */
+  }
+
+  .ada-tabs.skin-cards .ada-tabs__panel {
+    padding: 1rem !important;
+  }
+}
+
+/* Add left padding for lists inside tabs on mobile */
+@media (max-width: 768px) {
+  .ada-tabs.skin-cards .ada-tabs__panel ul,
+  .ada-tabs.skin-cards .ada-tabs__panel ol {
+    padding-left: 1.25rem !important;  /* about 20px */
+    margin-left: 0 !important;
+  }
+
+  .ada-tabs.skin-cards .ada-tabs__panel li {
+    line-height: 1.5;
+  }
+}
+/* Force CV button to a 42×42 circle and kill core padding */
+body .wp-block-button.cv-icon > a.wp-block-button__link.wp-element-button,
+body .wp-block-button.cv-icon > a.wp-block-button__link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;             /* overrides calc() padding */
+  border-radius: 50% !important;
+
+  font-size: 0.7rem !important;       /* tweak as you like */
+  line-height: 1 !important;
+  font-weight: 600 !important;
+
+  background-color: #0a0466 !important;
+  color: #fff !important;
+}
