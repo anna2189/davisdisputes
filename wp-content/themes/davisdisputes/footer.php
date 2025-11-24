@@ -31,6 +31,5 @@
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/safari-menu-fix.js"></script>
 
 
-
 </body>
 </html>

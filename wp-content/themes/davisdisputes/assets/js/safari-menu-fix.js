@@ -1,41 +1,62 @@
 /**
- * Simple mobile submenu toggle
+ * SIMPLE MOBILE SUBMENU TOGGLE
  * Works on iOS, Android, desktop.
  */
 (function () {
     'use strict';
   
-    function handleTap(event) {
+    // Find a parent <a> whose <li> has .menu-item-has-children
+    function findParentMenuLink(target, nav) {
+      var el = target;
+  
+      while (el && el !== nav && el !== document.body) {
+        // If it's an element
+        if (el.nodeType === 1 && el.tagName.toLowerCase() === 'a') {
+          var parentLi = el.parentNode;
+          if (
+            parentLi &&
+            parentLi.nodeType === 1 &&
+            parentLi.classList.contains('menu-item-has-children')
+          ) {
+            return el;
+          }
+        }
+        el = el.parentNode;
+      }
+      return null;
+    }
+  
+    function handleClick(event) {
       var nav = document.querySelector('.main-navigation');
       if (!nav) return;
   
-      // Only act on mobile when the hamburger menu is open
+      // Only act on small screens
       var isMobile = window.innerWidth <= 768;
+      if (!isMobile) return;
+  
+      // Only act when mobile menu is open
       var menuOpen =
         nav.classList.contains('toggled') ||
         document.body.classList.contains('nav-open');
+      if (!menuOpen) return;
   
-      if (!isMobile || !menuOpen) {
-        return;
-      }
-  
-      // Did we tap a parent link that has children?
-      var link = event.target.closest('.menu-item-has-children > a');
-      if (!link || !nav.contains(link)) return;
+      // Find the relevant parent menu link, safely (works even if target is text)
+      var link = findParentMenuLink(event.target, nav);
+      if (!link) return;
   
       event.preventDefault();
       event.stopPropagation();
   
-      var li = link.parentElement;
+      var li = link.parentNode;
       if (!li) return;
   
       var isOpen = li.classList.contains('open');
   
       // Close all other open submenus
-      var openParents = nav.querySelectorAll('.menu-item-has-children.open');
-      for (var i = 0; i < openParents.length; i++) {
-        if (openParents[i] !== li) {
-          openParents[i].classList.remove('open');
+      var openItems = nav.querySelectorAll('.menu-item-has-children.open');
+      for (var i = 0; i < openItems.length; i++) {
+        if (openItems[i] !== li) {
+          openItems[i].classList.remove('open');
         }
       }
   
@@ -48,7 +69,6 @@
     }
   
     // Script is loaded in footer, DOM is ready
-    document.addEventListener('click', handleTap, false);
-    document.addEventListener('touchend', handleTap, false);
+    document.addEventListener('click', handleClick, false);
   })();
   
